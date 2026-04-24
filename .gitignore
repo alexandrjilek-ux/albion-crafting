@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+reports/
+.env
+upload_to_github.ps1
+spust_upload.bat
+files.zip
+záloha/
+
+*.env
+
+zaloha/

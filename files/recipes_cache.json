@@ -1,0 +1,1063 @@
+{
+  "T2_ARMOR_PLATE_SET1": {
+    "item_id": "T2_ARMOR_PLATE_SET1",
+    "focus_cost": 280,
+    "silver_fee": 0.0,
+    "time_seconds": 0.333,
+    "resources": [
+      {
+        "id": "T2_METALBAR",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T3_ARMOR_PLATE_SET1": {
+    "item_id": "T3_ARMOR_PLATE_SET1",
+    "focus_cost": 490,
+    "silver_fee": 0.0,
+    "time_seconds": 0.5,
+    "resources": [
+      {
+        "id": "T3_METALBAR",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_ARMOR_PLATE_SET1": {
+    "item_id": "T4_ARMOR_PLATE_SET1",
+    "focus_cost": 858,
+    "silver_fee": 0.0,
+    "time_seconds": 0.667,
+    "resources": [
+      {
+        "id": "T4_METALBAR",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T2_HEAD_PLATE_SET1": {
+    "item_id": "T2_HEAD_PLATE_SET1",
+    "focus_cost": 140,
+    "silver_fee": 0.0,
+    "time_seconds": 0.167,
+    "resources": [
+      {
+        "id": "T2_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T3_HEAD_PLATE_SET1": {
+    "item_id": "T3_HEAD_PLATE_SET1",
+    "focus_cost": 245,
+    "silver_fee": 0.0,
+    "time_seconds": 0.25,
+    "resources": [
+      {
+        "id": "T3_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_HEAD_PLATE_SET1": {
+    "item_id": "T4_HEAD_PLATE_SET1",
+    "focus_cost": 429,
+    "silver_fee": 0.0,
+    "time_seconds": 0.333,
+    "resources": [
+      {
+        "id": "T4_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T2_SHOES_PLATE_SET1": {
+    "item_id": "T2_SHOES_PLATE_SET1",
+    "focus_cost": 140,
+    "silver_fee": 0.0,
+    "time_seconds": 0.167,
+    "resources": [
+      {
+        "id": "T2_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T3_SHOES_PLATE_SET1": {
+    "item_id": "T3_SHOES_PLATE_SET1",
+    "focus_cost": 245,
+    "silver_fee": 0.0,
+    "time_seconds": 0.25,
+    "resources": [
+      {
+        "id": "T3_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_SHOES_PLATE_SET1": {
+    "item_id": "T4_SHOES_PLATE_SET1",
+    "focus_cost": 429,
+    "silver_fee": 0.0,
+    "time_seconds": 0.333,
+    "resources": [
+      {
+        "id": "T4_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T2_MAIN_HAMMER": null,
+  "T3_MAIN_HAMMER": {
+    "item_id": "T3_MAIN_HAMMER",
+    "focus_cost": 735,
+    "silver_fee": 0.0,
+    "time_seconds": 0.75,
+    "resources": [
+      {
+        "id": "T3_METALBAR",
+        "count": 24
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_MAIN_HAMMER": {
+    "item_id": "T4_MAIN_HAMMER",
+    "focus_cost": 1286,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T4_METALBAR",
+        "count": 24
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T2_MAIN_DAGGER": null,
+  "T3_MAIN_DAGGER": {
+    "item_id": "T3_MAIN_DAGGER",
+    "focus_cost": 735,
+    "silver_fee": 0.0,
+    "time_seconds": 0.75,
+    "resources": [
+      {
+        "id": "T3_METALBAR",
+        "count": 12
+      },
+      {
+        "id": "T3_LEATHER",
+        "count": 12
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_MAIN_DAGGER": {
+    "item_id": "T4_MAIN_DAGGER",
+    "focus_cost": 1286,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T4_METALBAR",
+        "count": 12
+      },
+      {
+        "id": "T4_LEATHER",
+        "count": 12
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T2_2H_CROSSBOW": null,
+  "T3_2H_CROSSBOW": {
+    "item_id": "T3_2H_CROSSBOW",
+    "focus_cost": 980,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T3_PLANKS",
+        "count": 20
+      },
+      {
+        "id": "T3_METALBAR",
+        "count": 12
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_2H_CROSSBOW": {
+    "item_id": "T4_2H_CROSSBOW",
+    "focus_cost": 1715,
+    "silver_fee": 0.0,
+    "time_seconds": 1.333,
+    "resources": [
+      {
+        "id": "T4_PLANKS",
+        "count": 20
+      },
+      {
+        "id": "T4_METALBAR",
+        "count": 12
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T2_SHOES_CLOTH_SET1": {
+    "item_id": "T2_SHOES_CLOTH_SET1",
+    "focus_cost": 140,
+    "silver_fee": 0.0,
+    "time_seconds": 0.167,
+    "resources": [
+      {
+        "id": "T2_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T3_SHOES_CLOTH_SET1": {
+    "item_id": "T3_SHOES_CLOTH_SET1",
+    "focus_cost": 245,
+    "silver_fee": 0.0,
+    "time_seconds": 0.25,
+    "resources": [
+      {
+        "id": "T3_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_SHOES_CLOTH_SET1": {
+    "item_id": "T4_SHOES_CLOTH_SET1",
+    "focus_cost": 429,
+    "silver_fee": 0.0,
+    "time_seconds": 0.333,
+    "resources": [
+      {
+        "id": "T4_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T2_MAIN_SWORD": {
+    "item_id": "T2_MAIN_SWORD",
+    "focus_cost": 420,
+    "silver_fee": 0.0,
+    "time_seconds": 0.5,
+    "resources": [
+      {
+        "id": "T2_METALBAR",
+        "count": 16
+      },
+      {
+        "id": "T2_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T3_MAIN_SWORD": {
+    "item_id": "T3_MAIN_SWORD",
+    "focus_cost": 735,
+    "silver_fee": 0.0,
+    "time_seconds": 0.75,
+    "resources": [
+      {
+        "id": "T3_METALBAR",
+        "count": 16
+      },
+      {
+        "id": "T3_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_MAIN_SWORD": {
+    "item_id": "T4_MAIN_SWORD",
+    "focus_cost": 1286,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T4_METALBAR",
+        "count": 16
+      },
+      {
+        "id": "T4_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T2_ARMOR_LEATHER_SET1": {
+    "item_id": "T2_ARMOR_LEATHER_SET1",
+    "focus_cost": 280,
+    "silver_fee": 0.0,
+    "time_seconds": 0.333,
+    "resources": [
+      {
+        "id": "T2_LEATHER",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T3_ARMOR_LEATHER_SET1": {
+    "item_id": "T3_ARMOR_LEATHER_SET1",
+    "focus_cost": 490,
+    "silver_fee": 0.0,
+    "time_seconds": 0.5,
+    "resources": [
+      {
+        "id": "T3_LEATHER",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_ARMOR_LEATHER_SET1": {
+    "item_id": "T4_ARMOR_LEATHER_SET1",
+    "focus_cost": 858,
+    "silver_fee": 0.0,
+    "time_seconds": 0.667,
+    "resources": [
+      {
+        "id": "T4_LEATHER",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_HEAD_LEATHER_SET1": {
+    "item_id": "T4_HEAD_LEATHER_SET1",
+    "focus_cost": 429,
+    "silver_fee": 0.0,
+    "time_seconds": 0.333,
+    "resources": [
+      {
+        "id": "T4_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_SHOES_LEATHER_SET1": {
+    "item_id": "T4_SHOES_LEATHER_SET1",
+    "focus_cost": 429,
+    "silver_fee": 0.0,
+    "time_seconds": 0.333,
+    "resources": [
+      {
+        "id": "T4_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_HEAD_CLOTH_SET1": {
+    "item_id": "T4_HEAD_CLOTH_SET1",
+    "focus_cost": 429,
+    "silver_fee": 0.0,
+    "time_seconds": 0.333,
+    "resources": [
+      {
+        "id": "T4_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_ARMOR_CLOTH_SET1": {
+    "item_id": "T4_ARMOR_CLOTH_SET1",
+    "focus_cost": 858,
+    "silver_fee": 0.0,
+    "time_seconds": 0.667,
+    "resources": [
+      {
+        "id": "T4_CLOTH",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_MAIN_AXE": {
+    "item_id": "T4_MAIN_AXE",
+    "focus_cost": 1286,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T4_PLANKS",
+        "count": 8
+      },
+      {
+        "id": "T4_METALBAR",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_2H_QUARTERSTAFF": {
+    "item_id": "T4_2H_QUARTERSTAFF",
+    "focus_cost": 1715,
+    "silver_fee": 0.0,
+    "time_seconds": 1.333,
+    "resources": [
+      {
+        "id": "T4_METALBAR",
+        "count": 12
+      },
+      {
+        "id": "T4_LEATHER",
+        "count": 20
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_2H_BOW": {
+    "item_id": "T4_2H_BOW",
+    "focus_cost": 1715,
+    "silver_fee": 0.0,
+    "time_seconds": 1.333,
+    "resources": [
+      {
+        "id": "T4_PLANKS",
+        "count": 32
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_MAIN_FIRESTAFF": {
+    "item_id": "T4_MAIN_FIRESTAFF",
+    "focus_cost": 1286,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T4_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T4_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_MAIN_CURSEDSTAFF": {
+    "item_id": "T4_MAIN_CURSEDSTAFF",
+    "focus_cost": 1286,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T4_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T4_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_MAIN_ARCANESTAFF": {
+    "item_id": "T4_MAIN_ARCANESTAFF",
+    "focus_cost": 1286,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T4_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T4_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_HEAD_PLATE_SET1": {
+    "item_id": "T5_HEAD_PLATE_SET1",
+    "focus_cost": 750,
+    "silver_fee": 0.0,
+    "time_seconds": 0.5,
+    "resources": [
+      {
+        "id": "T5_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_ARMOR_PLATE_SET1": {
+    "item_id": "T5_ARMOR_PLATE_SET1",
+    "focus_cost": 1501,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T5_METALBAR",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_SHOES_PLATE_SET1": {
+    "item_id": "T5_SHOES_PLATE_SET1",
+    "focus_cost": 750,
+    "silver_fee": 0.0,
+    "time_seconds": 0.5,
+    "resources": [
+      {
+        "id": "T5_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_HEAD_LEATHER_SET1": {
+    "item_id": "T5_HEAD_LEATHER_SET1",
+    "focus_cost": 750,
+    "silver_fee": 0.0,
+    "time_seconds": 0.5,
+    "resources": [
+      {
+        "id": "T5_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_ARMOR_LEATHER_SET1": {
+    "item_id": "T5_ARMOR_LEATHER_SET1",
+    "focus_cost": 1501,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T5_LEATHER",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_SHOES_LEATHER_SET1": {
+    "item_id": "T5_SHOES_LEATHER_SET1",
+    "focus_cost": 750,
+    "silver_fee": 0.0,
+    "time_seconds": 0.5,
+    "resources": [
+      {
+        "id": "T5_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_HEAD_CLOTH_SET1": {
+    "item_id": "T5_HEAD_CLOTH_SET1",
+    "focus_cost": 750,
+    "silver_fee": 0.0,
+    "time_seconds": 0.5,
+    "resources": [
+      {
+        "id": "T5_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_ARMOR_CLOTH_SET1": {
+    "item_id": "T5_ARMOR_CLOTH_SET1",
+    "focus_cost": 1501,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T5_CLOTH",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_SHOES_CLOTH_SET1": {
+    "item_id": "T5_SHOES_CLOTH_SET1",
+    "focus_cost": 750,
+    "silver_fee": 0.0,
+    "time_seconds": 0.5,
+    "resources": [
+      {
+        "id": "T5_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_MAIN_SWORD": {
+    "item_id": "T5_MAIN_SWORD",
+    "focus_cost": 2251,
+    "silver_fee": 0.0,
+    "time_seconds": 1.5,
+    "resources": [
+      {
+        "id": "T5_METALBAR",
+        "count": 16
+      },
+      {
+        "id": "T5_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_MAIN_AXE": {
+    "item_id": "T5_MAIN_AXE",
+    "focus_cost": 2251,
+    "silver_fee": 0.0,
+    "time_seconds": 1.5,
+    "resources": [
+      {
+        "id": "T5_PLANKS",
+        "count": 8
+      },
+      {
+        "id": "T5_METALBAR",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_MAIN_HAMMER": null,
+  "T5_MAIN_DAGGER": null,
+  "T5_2H_QUARTERSTAFF": {
+    "item_id": "T5_2H_QUARTERSTAFF",
+    "focus_cost": 3001,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T5_METALBAR",
+        "count": 12
+      },
+      {
+        "id": "T5_LEATHER",
+        "count": 20
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_2H_BOW": {
+    "item_id": "T5_2H_BOW",
+    "focus_cost": 3001,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T5_PLANKS",
+        "count": 32
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_2H_CROSSBOW": {
+    "item_id": "T5_2H_CROSSBOW",
+    "focus_cost": 3001,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T5_PLANKS",
+        "count": 20
+      },
+      {
+        "id": "T5_METALBAR",
+        "count": 12
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_MAIN_FIRESTAFF": {
+    "item_id": "T5_MAIN_FIRESTAFF",
+    "focus_cost": 2251,
+    "silver_fee": 0.0,
+    "time_seconds": 1.5,
+    "resources": [
+      {
+        "id": "T5_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T5_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_MAIN_CURSEDSTAFF": {
+    "item_id": "T5_MAIN_CURSEDSTAFF",
+    "focus_cost": 2251,
+    "silver_fee": 0.0,
+    "time_seconds": 1.5,
+    "resources": [
+      {
+        "id": "T5_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T5_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_MAIN_ARCANESTAFF": {
+    "item_id": "T5_MAIN_ARCANESTAFF",
+    "focus_cost": 2251,
+    "silver_fee": 0.0,
+    "time_seconds": 1.5,
+    "resources": [
+      {
+        "id": "T5_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T5_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_HEAD_PLATE_SET1": {
+    "item_id": "T6_HEAD_PLATE_SET1",
+    "focus_cost": 1313,
+    "silver_fee": 0.0,
+    "time_seconds": 0.667,
+    "resources": [
+      {
+        "id": "T6_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_ARMOR_PLATE_SET1": {
+    "item_id": "T6_ARMOR_PLATE_SET1",
+    "focus_cost": 2626,
+    "silver_fee": 0.0,
+    "time_seconds": 1.333,
+    "resources": [
+      {
+        "id": "T6_METALBAR",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_SHOES_PLATE_SET1": {
+    "item_id": "T6_SHOES_PLATE_SET1",
+    "focus_cost": 1313,
+    "silver_fee": 0.0,
+    "time_seconds": 0.667,
+    "resources": [
+      {
+        "id": "T6_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_HEAD_LEATHER_SET1": {
+    "item_id": "T6_HEAD_LEATHER_SET1",
+    "focus_cost": 1313,
+    "silver_fee": 0.0,
+    "time_seconds": 0.667,
+    "resources": [
+      {
+        "id": "T6_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_ARMOR_LEATHER_SET1": {
+    "item_id": "T6_ARMOR_LEATHER_SET1",
+    "focus_cost": 2626,
+    "silver_fee": 0.0,
+    "time_seconds": 1.333,
+    "resources": [
+      {
+        "id": "T6_LEATHER",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_SHOES_LEATHER_SET1": {
+    "item_id": "T6_SHOES_LEATHER_SET1",
+    "focus_cost": 1313,
+    "silver_fee": 0.0,
+    "time_seconds": 0.667,
+    "resources": [
+      {
+        "id": "T6_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_HEAD_CLOTH_SET1": {
+    "item_id": "T6_HEAD_CLOTH_SET1",
+    "focus_cost": 1313,
+    "silver_fee": 0.0,
+    "time_seconds": 0.667,
+    "resources": [
+      {
+        "id": "T6_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_ARMOR_CLOTH_SET1": {
+    "item_id": "T6_ARMOR_CLOTH_SET1",
+    "focus_cost": 2626,
+    "silver_fee": 0.0,
+    "time_seconds": 1.333,
+    "resources": [
+      {
+        "id": "T6_CLOTH",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_SHOES_CLOTH_SET1": {
+    "item_id": "T6_SHOES_CLOTH_SET1",
+    "focus_cost": 1313,
+    "silver_fee": 0.0,
+    "time_seconds": 0.667,
+    "resources": [
+      {
+        "id": "T6_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_MAIN_SWORD": {
+    "item_id": "T6_MAIN_SWORD",
+    "focus_cost": 3939,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T6_METALBAR",
+        "count": 16
+      },
+      {
+        "id": "T6_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_MAIN_AXE": {
+    "item_id": "T6_MAIN_AXE",
+    "focus_cost": 3939,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T6_PLANKS",
+        "count": 8
+      },
+      {
+        "id": "T6_METALBAR",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_MAIN_HAMMER": {
+    "item_id": "T6_MAIN_HAMMER",
+    "focus_cost": 3939,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T6_METALBAR",
+        "count": 24
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_MAIN_DAGGER": {
+    "item_id": "T6_MAIN_DAGGER",
+    "focus_cost": 3939,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T6_METALBAR",
+        "count": 12
+      },
+      {
+        "id": "T6_LEATHER",
+        "count": 12
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_2H_QUARTERSTAFF": {
+    "item_id": "T6_2H_QUARTERSTAFF",
+    "focus_cost": 5252,
+    "silver_fee": 0.0,
+    "time_seconds": 2.667,
+    "resources": [
+      {
+        "id": "T6_METALBAR",
+        "count": 12
+      },
+      {
+        "id": "T6_LEATHER",
+        "count": 20
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_2H_BOW": {
+    "item_id": "T6_2H_BOW",
+    "focus_cost": 5252,
+    "silver_fee": 0.0,
+    "time_seconds": 2.667,
+    "resources": [
+      {
+        "id": "T6_PLANKS",
+        "count": 32
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_2H_CROSSBOW": {
+    "item_id": "T6_2H_CROSSBOW",
+    "focus_cost": 5252,
+    "silver_fee": 0.0,
+    "time_seconds": 2.667,
+    "resources": [
+      {
+        "id": "T6_PLANKS",
+        "count": 20
+      },
+      {
+        "id": "T6_METALBAR",
+        "count": 12
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_MAIN_FIRESTAFF": {
+    "item_id": "T6_MAIN_FIRESTAFF",
+    "focus_cost": 3939,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T6_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T6_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_MAIN_CURSEDSTAFF": {
+    "item_id": "T6_MAIN_CURSEDSTAFF",
+    "focus_cost": 3939,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T6_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T6_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_MAIN_ARCANESTAFF": {
+    "item_id": "T6_MAIN_ARCANESTAFF",
+    "focus_cost": 3939,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T6_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T6_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_HEAD_PLATE_SET1": null,
+  "T7_ARMOR_PLATE_SET1": null,
+  "T7_SHOES_PLATE_SET1": null,
+  "T7_HEAD_LEATHER_SET1": null,
+  "T7_ARMOR_LEATHER_SET1": null,
+  "T7_SHOES_LEATHER_SET1": null,
+  "T7_HEAD_CLOTH_SET1": null,
+  "T7_ARMOR_CLOTH_SET1": null,
+  "T7_SHOES_CLOTH_SET1": null,
+  "T7_MAIN_SWORD": null,
+  "T7_MAIN_AXE": null,
+  "T7_MAIN_HAMMER": null,
+  "T7_MAIN_DAGGER": null,
+  "T7_2H_QUARTERSTAFF": null,
+  "T7_2H_BOW": null,
+  "T7_2H_CROSSBOW": null,
+  "T7_MAIN_FIRESTAFF": null,
+  "T7_MAIN_CURSEDSTAFF": null,
+  "T7_MAIN_ARCANESTAFF": null,
+  "T8_HEAD_PLATE_SET1": null,
+  "T8_ARMOR_PLATE_SET1": null,
+  "T8_SHOES_PLATE_SET1": null,
+  "T8_HEAD_LEATHER_SET1": null,
+  "T8_ARMOR_LEATHER_SET1": null,
+  "T8_SHOES_LEATHER_SET1": null,
+  "T8_HEAD_CLOTH_SET1": null,
+  "T8_ARMOR_CLOTH_SET1": null,
+  "T8_SHOES_CLOTH_SET1": null,
+  "T8_MAIN_SWORD": null,
+  "T8_MAIN_AXE": null,
+  "T8_MAIN_HAMMER": null,
+  "T8_MAIN_DAGGER": null,
+  "T8_2H_QUARTERSTAFF": null,
+  "T8_2H_BOW": null,
+  "T8_2H_CROSSBOW": null,
+  "T8_MAIN_FIRESTAFF": null,
+  "T8_MAIN_CURSEDSTAFF": null,
+  "T8_MAIN_ARCANESTAFF": null
+}
