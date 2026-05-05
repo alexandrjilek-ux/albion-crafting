@@ -1,0 +1,64 @@
+{
+  "expo": {
+    "name": "Albion Crafting",
+    "slug": "albion-crafting",
+    "version": "0.1.0",
+    "orientation": "default",
+    "scheme": "albion-crafting",
+    "userInterfaceStyle": "automatic",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0A0820"
+    },
+    "primaryColor": "#A78BFA",
+    "backgroundColor": "#0A0820",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.alex.albioncrafting",
+      "requireFullScreen": false,
+      "buildNumber": "1",
+      "infoPlist": {
+        "UIRequiresFullScreen": false,
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.alex.albioncrafting",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0A0820"
+      },
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash.png",
+          "backgroundColor": "#0A0820",
+          "resizeMode": "contain"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "REPLACE_WITH_EAS_PROJECT_ID"
+      }
+    }
+  }
+}

@@ -8,5 +8,48 @@ files.zip
 záloha/
 
 *.env
+.env.local
+.env.*.local
 
 zaloha/
+
+# ─── Node / Expo / RN ────────────────────────────────────────────────────
+node_modules/
+.expo/
+.expo-shared/
+dist/
+build/
+web-build/
+*.tsbuildinfo
+
+# ─── Python ──────────────────────────────────────────────────────────────
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+*.egg-info/
+
+# ─── EAS / iOS / Android (až budeme prebuildit) ──────────────────────────
+ios/
+android/
+*.ipa
+*.apk
+*.aab
+
+# ─── OS junk ─────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── Editor / IDE ────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ─── Logy ────────────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

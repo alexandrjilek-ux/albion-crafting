@@ -1,0 +1,3121 @@
+{
+  "T4_2H_BOW": {
+    "item_id": "T4_2H_BOW",
+    "focus_cost": 1715,
+    "silver_fee": 0,
+    "time_seconds": 1.333,
+    "resources": [
+      {
+        "id": "T4_PLANKS",
+        "count": 32
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T4_2H_CROSSBOW": {
+    "item_id": "T4_2H_CROSSBOW",
+    "name_en": "Adept's Crossbow",
+    "name_cs": "",
+    "focus_cost": 1715,
+    "silver_fee": 0.0,
+    "time_seconds": 1.333,
+    "resources": [
+      {
+        "id": "T4_PLANKS",
+        "count": 20
+      },
+      {
+        "id": "T4_METALBAR",
+        "count": 12
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_2H_QUARTERSTAFF": {
+    "item_id": "T4_2H_QUARTERSTAFF",
+    "name_en": "Adept's Quarterstaff",
+    "name_cs": "",
+    "focus_cost": 1715,
+    "silver_fee": 0.0,
+    "time_seconds": 1.333,
+    "resources": [
+      {
+        "id": "T4_METALBAR",
+        "count": 12
+      },
+      {
+        "id": "T4_LEATHER",
+        "count": 20
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_ARMOR_CLOTH_SET1": {
+    "item_id": "T4_ARMOR_CLOTH_SET1",
+    "name_en": "Adept's Scholar Robe",
+    "name_cs": "",
+    "focus_cost": 858,
+    "silver_fee": 0.0,
+    "time_seconds": 0.667,
+    "resources": [
+      {
+        "id": "T4_CLOTH",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_ARMOR_LEATHER_SET1": {
+    "item_id": "T4_ARMOR_LEATHER_SET1",
+    "name_en": "Adept's Mercenary Jacket",
+    "name_cs": "",
+    "focus_cost": 858,
+    "silver_fee": 0.0,
+    "time_seconds": 0.667,
+    "resources": [
+      {
+        "id": "T4_LEATHER",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_ARMOR_PLATE_SET1": {
+    "item_id": "T4_ARMOR_PLATE_SET1",
+    "name_en": "Adept's Soldier Armor",
+    "name_cs": "",
+    "focus_cost": 858,
+    "silver_fee": 0.0,
+    "time_seconds": 0.667,
+    "resources": [
+      {
+        "id": "T4_METALBAR",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_HEAD_CLOTH_SET1": {
+    "item_id": "T4_HEAD_CLOTH_SET1",
+    "name_en": "Adept's Scholar Cowl",
+    "name_cs": "",
+    "focus_cost": 429,
+    "silver_fee": 0.0,
+    "time_seconds": 0.333,
+    "resources": [
+      {
+        "id": "T4_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_HEAD_LEATHER_SET1": {
+    "item_id": "T4_HEAD_LEATHER_SET1",
+    "name_en": "Adept's Mercenary Hood",
+    "name_cs": "",
+    "focus_cost": 429,
+    "silver_fee": 0.0,
+    "time_seconds": 0.333,
+    "resources": [
+      {
+        "id": "T4_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_HEAD_PLATE_SET1": {
+    "item_id": "T4_HEAD_PLATE_SET1",
+    "name_en": "Adept's Soldier Helmet",
+    "name_cs": "",
+    "focus_cost": 429,
+    "silver_fee": 0.0,
+    "time_seconds": 0.333,
+    "resources": [
+      {
+        "id": "T4_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_MAIN_ARCANESTAFF": {
+    "item_id": "T4_MAIN_ARCANESTAFF",
+    "name_en": "Adept's Arcane Staff",
+    "name_cs": "",
+    "focus_cost": 1286,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T4_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T4_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_MAIN_AXE": {
+    "item_id": "T4_MAIN_AXE",
+    "name_en": "Adept's Battleaxe",
+    "name_cs": "",
+    "focus_cost": 1286,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T4_PLANKS",
+        "count": 8
+      },
+      {
+        "id": "T4_METALBAR",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_MAIN_CURSEDSTAFF": {
+    "item_id": "T4_MAIN_CURSEDSTAFF",
+    "name_en": "Adept's Cursed Staff",
+    "name_cs": "",
+    "focus_cost": 1286,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T4_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T4_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_MAIN_DAGGER": {
+    "item_id": "T4_MAIN_DAGGER",
+    "name_en": "Adept's Dagger",
+    "name_cs": "",
+    "focus_cost": 1286,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T4_METALBAR",
+        "count": 12
+      },
+      {
+        "id": "T4_LEATHER",
+        "count": 12
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_MAIN_FIRESTAFF": {
+    "item_id": "T4_MAIN_FIRESTAFF",
+    "name_en": "Adept's Fire Staff",
+    "name_cs": "",
+    "focus_cost": 1286,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T4_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T4_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_MAIN_HAMMER": {
+    "item_id": "T4_MAIN_HAMMER",
+    "name_en": "Adept's Hammer",
+    "name_cs": "",
+    "focus_cost": 1286,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T4_METALBAR",
+        "count": 24
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_MAIN_SWORD": {
+    "item_id": "T4_MAIN_SWORD",
+    "name_en": "Adept's Broadsword",
+    "name_cs": "",
+    "focus_cost": 1286,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T4_METALBAR",
+        "count": 16
+      },
+      {
+        "id": "T4_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_SHOES_CLOTH_SET1": {
+    "item_id": "T4_SHOES_CLOTH_SET1",
+    "name_en": "Adept's Scholar Sandals",
+    "name_cs": "",
+    "focus_cost": 429,
+    "silver_fee": 0.0,
+    "time_seconds": 0.333,
+    "resources": [
+      {
+        "id": "T4_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_SHOES_LEATHER_SET1": {
+    "item_id": "T4_SHOES_LEATHER_SET1",
+    "name_en": "Adept's Mercenary Shoes",
+    "name_cs": "",
+    "focus_cost": 429,
+    "silver_fee": 0.0,
+    "time_seconds": 0.333,
+    "resources": [
+      {
+        "id": "T4_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_SHOES_PLATE_SET1": {
+    "item_id": "T4_SHOES_PLATE_SET1",
+    "name_en": "Adept's Soldier Boots",
+    "name_cs": "",
+    "focus_cost": 429,
+    "silver_fee": 0.0,
+    "time_seconds": 0.333,
+    "resources": [
+      {
+        "id": "T4_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_2H_BOW": {
+    "item_id": "T5_2H_BOW",
+    "name_en": "Expert's Bow",
+    "name_cs": "",
+    "focus_cost": 3001,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T5_PLANKS",
+        "count": 32
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_2H_CROSSBOW": {
+    "item_id": "T5_2H_CROSSBOW",
+    "name_en": "Expert's Crossbow",
+    "name_cs": "",
+    "focus_cost": 3001,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T5_PLANKS",
+        "count": 20
+      },
+      {
+        "id": "T5_METALBAR",
+        "count": 12
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_2H_QUARTERSTAFF": {
+    "item_id": "T5_2H_QUARTERSTAFF",
+    "name_en": "Expert's Quarterstaff",
+    "name_cs": "",
+    "focus_cost": 3001,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T5_METALBAR",
+        "count": 12
+      },
+      {
+        "id": "T5_LEATHER",
+        "count": 20
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_ARMOR_CLOTH_SET1": {
+    "item_id": "T5_ARMOR_CLOTH_SET1",
+    "name_en": "Expert's Scholar Robe",
+    "name_cs": "",
+    "focus_cost": 1501,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T5_CLOTH",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_ARMOR_LEATHER_SET1": {
+    "item_id": "T5_ARMOR_LEATHER_SET1",
+    "name_en": "Expert's Mercenary Jacket",
+    "name_cs": "",
+    "focus_cost": 1501,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T5_LEATHER",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_ARMOR_PLATE_SET1": {
+    "item_id": "T5_ARMOR_PLATE_SET1",
+    "name_en": "Expert's Soldier Armor",
+    "name_cs": "",
+    "focus_cost": 1501,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T5_METALBAR",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_HEAD_CLOTH_SET1": {
+    "item_id": "T5_HEAD_CLOTH_SET1",
+    "name_en": "Expert's Scholar Cowl",
+    "name_cs": "",
+    "focus_cost": 750,
+    "silver_fee": 0.0,
+    "time_seconds": 0.5,
+    "resources": [
+      {
+        "id": "T5_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_HEAD_LEATHER_SET1": {
+    "item_id": "T5_HEAD_LEATHER_SET1",
+    "name_en": "Expert's Mercenary Hood",
+    "name_cs": "",
+    "focus_cost": 750,
+    "silver_fee": 0.0,
+    "time_seconds": 0.5,
+    "resources": [
+      {
+        "id": "T5_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_HEAD_PLATE_SET1": {
+    "item_id": "T5_HEAD_PLATE_SET1",
+    "name_en": "Expert's Soldier Helmet",
+    "name_cs": "",
+    "focus_cost": 750,
+    "silver_fee": 0.0,
+    "time_seconds": 0.5,
+    "resources": [
+      {
+        "id": "T5_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_MAIN_ARCANESTAFF": {
+    "item_id": "T5_MAIN_ARCANESTAFF",
+    "name_en": "Expert's Arcane Staff",
+    "name_cs": "",
+    "focus_cost": 2251,
+    "silver_fee": 0.0,
+    "time_seconds": 1.5,
+    "resources": [
+      {
+        "id": "T5_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T5_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_MAIN_AXE": {
+    "item_id": "T5_MAIN_AXE",
+    "name_en": "Expert's Battleaxe",
+    "name_cs": "",
+    "focus_cost": 2251,
+    "silver_fee": 0.0,
+    "time_seconds": 1.5,
+    "resources": [
+      {
+        "id": "T5_PLANKS",
+        "count": 8
+      },
+      {
+        "id": "T5_METALBAR",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_MAIN_CURSEDSTAFF": {
+    "item_id": "T5_MAIN_CURSEDSTAFF",
+    "name_en": "Expert's Cursed Staff",
+    "name_cs": "",
+    "focus_cost": 2251,
+    "silver_fee": 0.0,
+    "time_seconds": 1.5,
+    "resources": [
+      {
+        "id": "T5_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T5_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_MAIN_DAGGER": {
+    "item_id": "T5_MAIN_DAGGER",
+    "name_en": "Expert's Dagger",
+    "name_cs": "",
+    "focus_cost": 2251,
+    "silver_fee": 0.0,
+    "time_seconds": 1.5,
+    "resources": [
+      {
+        "id": "T5_METALBAR",
+        "count": 12
+      },
+      {
+        "id": "T5_LEATHER",
+        "count": 12
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_MAIN_FIRESTAFF": {
+    "item_id": "T5_MAIN_FIRESTAFF",
+    "name_en": "Expert's Fire Staff",
+    "name_cs": "",
+    "focus_cost": 2251,
+    "silver_fee": 0.0,
+    "time_seconds": 1.5,
+    "resources": [
+      {
+        "id": "T5_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T5_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_MAIN_HAMMER": {
+    "item_id": "T5_MAIN_HAMMER",
+    "name_en": "Expert's Hammer",
+    "name_cs": "",
+    "focus_cost": 2251,
+    "silver_fee": 0.0,
+    "time_seconds": 1.5,
+    "resources": [
+      {
+        "id": "T5_METALBAR",
+        "count": 24
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_MAIN_SWORD": {
+    "item_id": "T5_MAIN_SWORD",
+    "name_en": "Expert's Broadsword",
+    "name_cs": "",
+    "focus_cost": 2251,
+    "silver_fee": 0.0,
+    "time_seconds": 1.5,
+    "resources": [
+      {
+        "id": "T5_METALBAR",
+        "count": 16
+      },
+      {
+        "id": "T5_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_SHOES_CLOTH_SET1": {
+    "item_id": "T5_SHOES_CLOTH_SET1",
+    "name_en": "Expert's Scholar Sandals",
+    "name_cs": "",
+    "focus_cost": 750,
+    "silver_fee": 0.0,
+    "time_seconds": 0.5,
+    "resources": [
+      {
+        "id": "T5_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_SHOES_LEATHER_SET1": {
+    "item_id": "T5_SHOES_LEATHER_SET1",
+    "name_en": "Expert's Mercenary Shoes",
+    "name_cs": "",
+    "focus_cost": 750,
+    "silver_fee": 0.0,
+    "time_seconds": 0.5,
+    "resources": [
+      {
+        "id": "T5_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_SHOES_PLATE_SET1": {
+    "item_id": "T5_SHOES_PLATE_SET1",
+    "name_en": "Expert's Soldier Boots",
+    "name_cs": "",
+    "focus_cost": 750,
+    "silver_fee": 0.0,
+    "time_seconds": 0.5,
+    "resources": [
+      {
+        "id": "T5_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_2H_BOW": {
+    "item_id": "T6_2H_BOW",
+    "name_en": "Master's Bow",
+    "name_cs": "",
+    "focus_cost": 5252,
+    "silver_fee": 0.0,
+    "time_seconds": 2.667,
+    "resources": [
+      {
+        "id": "T6_PLANKS",
+        "count": 32
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_2H_CROSSBOW": {
+    "item_id": "T6_2H_CROSSBOW",
+    "name_en": "Master's Crossbow",
+    "name_cs": "",
+    "focus_cost": 5252,
+    "silver_fee": 0.0,
+    "time_seconds": 2.667,
+    "resources": [
+      {
+        "id": "T6_PLANKS",
+        "count": 20
+      },
+      {
+        "id": "T6_METALBAR",
+        "count": 12
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_2H_QUARTERSTAFF": {
+    "item_id": "T6_2H_QUARTERSTAFF",
+    "name_en": "Master's Quarterstaff",
+    "name_cs": "",
+    "focus_cost": 5252,
+    "silver_fee": 0.0,
+    "time_seconds": 2.667,
+    "resources": [
+      {
+        "id": "T6_METALBAR",
+        "count": 12
+      },
+      {
+        "id": "T6_LEATHER",
+        "count": 20
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_ARMOR_CLOTH_SET1": {
+    "item_id": "T6_ARMOR_CLOTH_SET1",
+    "name_en": "Master's Scholar Robe",
+    "name_cs": "",
+    "focus_cost": 2626,
+    "silver_fee": 0.0,
+    "time_seconds": 1.333,
+    "resources": [
+      {
+        "id": "T6_CLOTH",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_ARMOR_LEATHER_SET1": {
+    "item_id": "T6_ARMOR_LEATHER_SET1",
+    "name_en": "Master's Mercenary Jacket",
+    "name_cs": "",
+    "focus_cost": 2626,
+    "silver_fee": 0.0,
+    "time_seconds": 1.333,
+    "resources": [
+      {
+        "id": "T6_LEATHER",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_ARMOR_PLATE_SET1": {
+    "item_id": "T6_ARMOR_PLATE_SET1",
+    "name_en": "Master's Soldier Armor",
+    "name_cs": "",
+    "focus_cost": 2626,
+    "silver_fee": 0.0,
+    "time_seconds": 1.333,
+    "resources": [
+      {
+        "id": "T6_METALBAR",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_HEAD_CLOTH_SET1": {
+    "item_id": "T6_HEAD_CLOTH_SET1",
+    "name_en": "Master's Scholar Cowl",
+    "name_cs": "",
+    "focus_cost": 1313,
+    "silver_fee": 0.0,
+    "time_seconds": 0.667,
+    "resources": [
+      {
+        "id": "T6_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_HEAD_LEATHER_SET1": {
+    "item_id": "T6_HEAD_LEATHER_SET1",
+    "name_en": "Master's Mercenary Hood",
+    "name_cs": "",
+    "focus_cost": 1313,
+    "silver_fee": 0.0,
+    "time_seconds": 0.667,
+    "resources": [
+      {
+        "id": "T6_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_HEAD_PLATE_SET1": {
+    "item_id": "T6_HEAD_PLATE_SET1",
+    "name_en": "Master's Soldier Helmet",
+    "name_cs": "",
+    "focus_cost": 1313,
+    "silver_fee": 0.0,
+    "time_seconds": 0.667,
+    "resources": [
+      {
+        "id": "T6_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_MAIN_ARCANESTAFF": {
+    "item_id": "T6_MAIN_ARCANESTAFF",
+    "name_en": "Master's Arcane Staff",
+    "name_cs": "",
+    "focus_cost": 3939,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T6_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T6_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_MAIN_AXE": {
+    "item_id": "T6_MAIN_AXE",
+    "name_en": "Master's Battleaxe",
+    "name_cs": "",
+    "focus_cost": 3939,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T6_PLANKS",
+        "count": 8
+      },
+      {
+        "id": "T6_METALBAR",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_MAIN_CURSEDSTAFF": {
+    "item_id": "T6_MAIN_CURSEDSTAFF",
+    "name_en": "Master's Cursed Staff",
+    "name_cs": "",
+    "focus_cost": 3939,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T6_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T6_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_MAIN_DAGGER": {
+    "item_id": "T6_MAIN_DAGGER",
+    "name_en": "Master's Dagger",
+    "name_cs": "",
+    "focus_cost": 3939,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T6_METALBAR",
+        "count": 12
+      },
+      {
+        "id": "T6_LEATHER",
+        "count": 12
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_MAIN_FIRESTAFF": {
+    "item_id": "T6_MAIN_FIRESTAFF",
+    "name_en": "Master's Fire Staff",
+    "name_cs": "",
+    "focus_cost": 3939,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T6_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T6_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_MAIN_HAMMER": {
+    "item_id": "T6_MAIN_HAMMER",
+    "name_en": "Master's Hammer",
+    "name_cs": "",
+    "focus_cost": 3939,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T6_METALBAR",
+        "count": 24
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_MAIN_SWORD": {
+    "item_id": "T6_MAIN_SWORD",
+    "name_en": "Master's Broadsword",
+    "name_cs": "",
+    "focus_cost": 3939,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T6_METALBAR",
+        "count": 16
+      },
+      {
+        "id": "T6_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_SHOES_CLOTH_SET1": {
+    "item_id": "T6_SHOES_CLOTH_SET1",
+    "name_en": "Master's Scholar Sandals",
+    "name_cs": "",
+    "focus_cost": 1313,
+    "silver_fee": 0.0,
+    "time_seconds": 0.667,
+    "resources": [
+      {
+        "id": "T6_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_SHOES_LEATHER_SET1": {
+    "item_id": "T6_SHOES_LEATHER_SET1",
+    "name_en": "Master's Mercenary Shoes",
+    "name_cs": "",
+    "focus_cost": 1313,
+    "silver_fee": 0.0,
+    "time_seconds": 0.667,
+    "resources": [
+      {
+        "id": "T6_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_SHOES_PLATE_SET1": {
+    "item_id": "T6_SHOES_PLATE_SET1",
+    "name_en": "Master's Soldier Boots",
+    "name_cs": "",
+    "focus_cost": 1313,
+    "silver_fee": 0.0,
+    "time_seconds": 0.667,
+    "resources": [
+      {
+        "id": "T6_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T3_MEAL_OMELETTE": {
+    "item_id": "T3_MEAL_OMELETTE",
+    "focus_cost": 52,
+    "silver_fee": 0,
+    "time_seconds": 0.257,
+    "resources": [
+      {
+        "id": "T3_WHEAT",
+        "count": 4
+      },
+      {
+        "id": "T3_MEAT",
+        "count": 8
+      },
+      {
+        "id": "T3_EGG",
+        "count": 2
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T3_MEAL_OMELETTE_AVALON": {
+    "item_id": "T3_MEAL_OMELETTE_AVALON",
+    "focus_cost": 52,
+    "silver_fee": 0,
+    "time_seconds": 0.28,
+    "resources": [
+      {
+        "id": "T4_MILK",
+        "count": 4
+      },
+      {
+        "id": "T3_MEAT",
+        "count": 8
+      },
+      {
+        "id": "T3_EGG",
+        "count": 2
+      },
+      {
+        "id": "QUESTITEM_TOKEN_AVALON",
+        "count": 10
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T3_MEAL_OMELETTE_FISH": {
+    "item_id": "T3_MEAL_OMELETTE_FISH",
+    "focus_cost": 77,
+    "silver_fee": 0,
+    "time_seconds": 0.0387,
+    "resources": [
+      {
+        "id": "T3_FISH_FRESHWATER_STEPPE_RARE",
+        "count": 1
+      },
+      {
+        "id": "T3_COMFREY",
+        "count": 1
+      },
+      {
+        "id": "T3_EGG",
+        "count": 1
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T3_MEAL_PIE": {
+    "item_id": "T3_MEAL_PIE",
+    "focus_cost": 53,
+    "silver_fee": 0,
+    "time_seconds": 0.26,
+    "resources": [
+      {
+        "id": "T3_WHEAT",
+        "count": 2
+      },
+      {
+        "id": "T3_FLOUR",
+        "count": 4
+      },
+      {
+        "id": "T3_MEAT",
+        "count": 8
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T3_MEAL_PIE_FISH": {
+    "item_id": "T3_MEAL_PIE_FISH",
+    "focus_cost": 81,
+    "silver_fee": 0,
+    "time_seconds": 0.04,
+    "resources": [
+      {
+        "id": "T3_FISH_FRESHWATER_MOUNTAIN_RARE",
+        "count": 1
+      },
+      {
+        "id": "T3_FLOUR",
+        "count": 1
+      },
+      {
+        "id": "T3_EGG",
+        "count": 1
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T3_MEAL_ROAST": {
+    "item_id": "T3_MEAL_ROAST",
+    "focus_cost": 58,
+    "silver_fee": 0,
+    "time_seconds": 0.29,
+    "resources": [
+      {
+        "id": "T3_MEAT",
+        "count": 8
+      },
+      {
+        "id": "T2_BEAN",
+        "count": 4
+      },
+      {
+        "id": "T4_MILK",
+        "count": 4
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T3_MEAL_ROAST_FISH": {
+    "item_id": "T3_MEAL_ROAST_FISH",
+    "focus_cost": 77,
+    "silver_fee": 0,
+    "time_seconds": 0.0387,
+    "resources": [
+      {
+        "id": "T3_FISH_FRESHWATER_AVALON_RARE",
+        "count": 1
+      },
+      {
+        "id": "T3_COMFREY",
+        "count": 1
+      },
+      {
+        "id": "T4_MILK",
+        "count": 1
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T3_MEAL_SOUP": {
+    "item_id": "T3_MEAL_SOUP",
+    "focus_cost": 168,
+    "silver_fee": 0,
+    "time_seconds": 0.84,
+    "resources": [
+      {
+        "id": "T3_WHEAT",
+        "count": 48
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T3_MEAL_SOUP_FISH": {
+    "item_id": "T3_MEAL_SOUP_FISH",
+    "focus_cost": 231,
+    "silver_fee": 0,
+    "time_seconds": 0.115,
+    "resources": [
+      {
+        "id": "T5_FISH_FRESHWATER_SWAMP_RARE",
+        "count": 1
+      },
+      {
+        "id": "T3_WHEAT",
+        "count": 2
+      },
+      {
+        "id": "T3_COMFREY",
+        "count": 2
+      },
+      {
+        "id": "T3_MEAT",
+        "count": 2
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T4_MEAL_SALAD": {
+    "item_id": "T4_MEAL_SALAD",
+    "focus_cost": 168,
+    "silver_fee": 0,
+    "time_seconds": 0.84,
+    "resources": [
+      {
+        "id": "T4_TURNIP",
+        "count": 24
+      },
+      {
+        "id": "T3_WHEAT",
+        "count": 24
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T4_MEAL_SALAD_FISH": {
+    "item_id": "T4_MEAL_SALAD_FISH",
+    "focus_cost": 231,
+    "silver_fee": 0,
+    "time_seconds": 0.115,
+    "resources": [
+      {
+        "id": "T5_FISH_SALTWATER_ALL_RARE",
+        "count": 1
+      },
+      {
+        "id": "T4_TURNIP",
+        "count": 2
+      },
+      {
+        "id": "T4_BURDOCK",
+        "count": 2
+      },
+      {
+        "id": "T4_MEAT",
+        "count": 2
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T4_MEAL_SANDWICH": {
+    "item_id": "T4_MEAL_SANDWICH",
+    "focus_cost": 55,
+    "silver_fee": 0,
+    "time_seconds": 0.27,
+    "resources": [
+      {
+        "id": "T4_BREAD",
+        "count": 4
+      },
+      {
+        "id": "T4_MEAT",
+        "count": 8
+      },
+      {
+        "id": "T4_BUTTER",
+        "count": 2
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T4_MEAL_SANDWICH_AVALON": {
+    "item_id": "T4_MEAL_SANDWICH_AVALON",
+    "focus_cost": 55,
+    "silver_fee": 0,
+    "time_seconds": 0.293,
+    "resources": [
+      {
+        "id": "T4_BREAD",
+        "count": 4
+      },
+      {
+        "id": "T4_MEAT",
+        "count": 8
+      },
+      {
+        "id": "T4_BUTTER",
+        "count": 2
+      },
+      {
+        "id": "QUESTITEM_TOKEN_AVALON",
+        "count": 10
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T4_MEAL_SANDWICH_FISH": {
+    "item_id": "T4_MEAL_SANDWICH_FISH",
+    "focus_cost": 81,
+    "silver_fee": 0,
+    "time_seconds": 0.04,
+    "resources": [
+      {
+        "id": "T3_FISH_FRESHWATER_HIGHLANDS_RARE",
+        "count": 1
+      },
+      {
+        "id": "T4_TURNIP",
+        "count": 1
+      },
+      {
+        "id": "T4_BUTTER",
+        "count": 1
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T4_MEAL_STEW": {
+    "item_id": "T4_MEAL_STEW",
+    "focus_cost": 61,
+    "silver_fee": 0,
+    "time_seconds": 0.303,
+    "resources": [
+      {
+        "id": "T4_TURNIP",
+        "count": 4
+      },
+      {
+        "id": "T4_BREAD",
+        "count": 4
+      },
+      {
+        "id": "T4_MEAT",
+        "count": 8
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T4_MEAL_STEW_AVALON": {
+    "item_id": "T4_MEAL_STEW_AVALON",
+    "focus_cost": 58,
+    "silver_fee": 0,
+    "time_seconds": 0.313,
+    "resources": [
+      {
+        "id": "T1_CARROT",
+        "count": 4
+      },
+      {
+        "id": "T4_TURNIP",
+        "count": 4
+      },
+      {
+        "id": "T4_MEAT",
+        "count": 8
+      },
+      {
+        "id": "QUESTITEM_TOKEN_AVALON",
+        "count": 10
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T4_MEAL_STEW_FISH": {
+    "item_id": "T4_MEAL_STEW_FISH",
+    "focus_cost": 77,
+    "silver_fee": 0,
+    "time_seconds": 0.0387,
+    "resources": [
+      {
+        "id": "T3_FISH_FRESHWATER_FOREST_RARE",
+        "count": 1
+      },
+      {
+        "id": "T4_TURNIP",
+        "count": 1
+      },
+      {
+        "id": "T4_BURDOCK",
+        "count": 1
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T5_MEAL_OMELETTE": {
+    "item_id": "T5_MEAL_OMELETTE",
+    "focus_cost": 155,
+    "silver_fee": 0,
+    "time_seconds": 0.767,
+    "resources": [
+      {
+        "id": "T5_CABBAGE",
+        "count": 12
+      },
+      {
+        "id": "T5_MEAT",
+        "count": 24
+      },
+      {
+        "id": "T5_EGG",
+        "count": 6
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T5_MEAL_OMELETTE_AVALON": {
+    "item_id": "T5_MEAL_OMELETTE_AVALON",
+    "focus_cost": 155,
+    "silver_fee": 0,
+    "time_seconds": 0.84,
+    "resources": [
+      {
+        "id": "T6_MILK",
+        "count": 12
+      },
+      {
+        "id": "T5_MEAT",
+        "count": 24
+      },
+      {
+        "id": "T5_EGG",
+        "count": 6
+      },
+      {
+        "id": "QUESTITEM_TOKEN_AVALON",
+        "count": 30
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T5_MEAL_OMELETTE_FISH": {
+    "item_id": "T5_MEAL_OMELETTE_FISH",
+    "focus_cost": 225,
+    "silver_fee": 0,
+    "time_seconds": 0.1123,
+    "resources": [
+      {
+        "id": "T5_FISH_FRESHWATER_STEPPE_RARE",
+        "count": 1
+      },
+      {
+        "id": "T5_CABBAGE",
+        "count": 2
+      },
+      {
+        "id": "T5_TEASEL",
+        "count": 2
+      },
+      {
+        "id": "T5_EGG",
+        "count": 2
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T5_MEAL_PIE": {
+    "item_id": "T5_MEAL_PIE",
+    "focus_cost": 180,
+    "silver_fee": 0,
+    "time_seconds": 0.887,
+    "resources": [
+      {
+        "id": "T5_CABBAGE",
+        "count": 6
+      },
+      {
+        "id": "T3_FLOUR",
+        "count": 12
+      },
+      {
+        "id": "T5_MEAT",
+        "count": 24
+      },
+      {
+        "id": "T4_MILK",
+        "count": 6
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T5_MEAL_PIE_FISH": {
+    "item_id": "T5_MEAL_PIE_FISH",
+    "focus_cost": 225,
+    "silver_fee": 0,
+    "time_seconds": 0.1123,
+    "resources": [
+      {
+        "id": "T5_FISH_FRESHWATER_MOUNTAIN_RARE",
+        "count": 1
+      },
+      {
+        "id": "T5_CABBAGE",
+        "count": 2
+      },
+      {
+        "id": "T5_TEASEL",
+        "count": 2
+      },
+      {
+        "id": "T5_EGG",
+        "count": 2
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T5_MEAL_ROAST": {
+    "item_id": "T5_MEAL_ROAST",
+    "focus_cost": 176,
+    "silver_fee": 0,
+    "time_seconds": 0.873,
+    "resources": [
+      {
+        "id": "T5_MEAT",
+        "count": 24
+      },
+      {
+        "id": "T5_CABBAGE",
+        "count": 12
+      },
+      {
+        "id": "T6_MILK",
+        "count": 12
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T5_MEAL_ROAST_FISH": {
+    "item_id": "T5_MEAL_ROAST_FISH",
+    "focus_cost": 225,
+    "silver_fee": 0,
+    "time_seconds": 0.1123,
+    "resources": [
+      {
+        "id": "T5_FISH_FRESHWATER_AVALON_RARE",
+        "count": 1
+      },
+      {
+        "id": "T5_CABBAGE",
+        "count": 2
+      },
+      {
+        "id": "T5_TEASEL",
+        "count": 2
+      },
+      {
+        "id": "T6_MILK",
+        "count": 2
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T5_MEAL_SOUP": {
+    "item_id": "T5_MEAL_SOUP",
+    "focus_cost": 504,
+    "silver_fee": 0,
+    "time_seconds": 2.52,
+    "resources": [
+      {
+        "id": "T5_CABBAGE",
+        "count": 144
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T5_MEAL_SOUP_FISH": {
+    "item_id": "T5_MEAL_SOUP_FISH",
+    "focus_cost": 672,
+    "silver_fee": 0,
+    "time_seconds": 0.334,
+    "resources": [
+      {
+        "id": "T7_FISH_FRESHWATER_SWAMP_RARE",
+        "count": 1
+      },
+      {
+        "id": "T5_CABBAGE",
+        "count": 6
+      },
+      {
+        "id": "T5_TEASEL",
+        "count": 6
+      },
+      {
+        "id": "T5_MEAT",
+        "count": 6
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T6_MEAL_SALAD": {
+    "item_id": "T6_MEAL_SALAD",
+    "focus_cost": 504,
+    "silver_fee": 0,
+    "time_seconds": 2.52,
+    "resources": [
+      {
+        "id": "T6_POTATO",
+        "count": 72
+      },
+      {
+        "id": "T5_CABBAGE",
+        "count": 72
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T6_MEAL_SALAD_FISH": {
+    "item_id": "T6_MEAL_SALAD_FISH",
+    "focus_cost": 672,
+    "silver_fee": 0,
+    "time_seconds": 0.334,
+    "resources": [
+      {
+        "id": "T7_FISH_SALTWATER_ALL_RARE",
+        "count": 1
+      },
+      {
+        "id": "T6_POTATO",
+        "count": 6
+      },
+      {
+        "id": "T6_FOXGLOVE",
+        "count": 6
+      },
+      {
+        "id": "T6_MEAT",
+        "count": 6
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T6_MEAL_SANDWICH": {
+    "item_id": "T6_MEAL_SANDWICH",
+    "focus_cost": 165,
+    "silver_fee": 0,
+    "time_seconds": 0.81,
+    "resources": [
+      {
+        "id": "T4_BREAD",
+        "count": 12
+      },
+      {
+        "id": "T6_MEAT",
+        "count": 24
+      },
+      {
+        "id": "T6_BUTTER",
+        "count": 6
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T6_MEAL_SANDWICH_AVALON": {
+    "item_id": "T6_MEAL_SANDWICH_AVALON",
+    "focus_cost": 165,
+    "silver_fee": 0,
+    "time_seconds": 0.883,
+    "resources": [
+      {
+        "id": "T4_BREAD",
+        "count": 12
+      },
+      {
+        "id": "T6_MEAT",
+        "count": 24
+      },
+      {
+        "id": "T6_BUTTER",
+        "count": 6
+      },
+      {
+        "id": "QUESTITEM_TOKEN_AVALON",
+        "count": 30
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T6_MEAL_SANDWICH_FISH": {
+    "item_id": "T6_MEAL_SANDWICH_FISH",
+    "focus_cost": 231,
+    "silver_fee": 0,
+    "time_seconds": 0.115,
+    "resources": [
+      {
+        "id": "T5_FISH_FRESHWATER_HIGHLANDS_RARE",
+        "count": 1
+      },
+      {
+        "id": "T6_POTATO",
+        "count": 2
+      },
+      {
+        "id": "T6_FOXGLOVE",
+        "count": 2
+      },
+      {
+        "id": "T6_BUTTER",
+        "count": 2
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T6_MEAL_STEW": {
+    "item_id": "T6_MEAL_STEW",
+    "focus_cost": 184,
+    "silver_fee": 0,
+    "time_seconds": 0.907,
+    "resources": [
+      {
+        "id": "T6_POTATO",
+        "count": 12
+      },
+      {
+        "id": "T4_BREAD",
+        "count": 12
+      },
+      {
+        "id": "T6_MEAT",
+        "count": 24
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T6_MEAL_STEW_AVALON": {
+    "item_id": "T6_MEAL_STEW_AVALON",
+    "focus_cost": 176,
+    "silver_fee": 0,
+    "time_seconds": 0.943,
+    "resources": [
+      {
+        "id": "T5_CABBAGE",
+        "count": 12
+      },
+      {
+        "id": "T6_POTATO",
+        "count": 12
+      },
+      {
+        "id": "T6_MEAT",
+        "count": 24
+      },
+      {
+        "id": "QUESTITEM_TOKEN_AVALON",
+        "count": 30
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T6_MEAL_STEW_FISH": {
+    "item_id": "T6_MEAL_STEW_FISH",
+    "focus_cost": 225,
+    "silver_fee": 0,
+    "time_seconds": 0.1123,
+    "resources": [
+      {
+        "id": "T5_FISH_FRESHWATER_FOREST_RARE",
+        "count": 1
+      },
+      {
+        "id": "T6_POTATO",
+        "count": 2
+      },
+      {
+        "id": "T6_FOXGLOVE",
+        "count": 2
+      },
+      {
+        "id": "T6_MILK",
+        "count": 2
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T7_2H_BOW": {
+    "item_id": "T7_2H_BOW",
+    "name_en": "Grandmaster's Bow",
+    "name_cs": "",
+    "focus_cost": 9191,
+    "silver_fee": 0.0,
+    "time_seconds": 3.333,
+    "resources": [
+      {
+        "id": "T7_PLANKS",
+        "count": 32
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_2H_CROSSBOW": {
+    "item_id": "T7_2H_CROSSBOW",
+    "name_en": "Grandmaster's Crossbow",
+    "name_cs": "",
+    "focus_cost": 9191,
+    "silver_fee": 0.0,
+    "time_seconds": 3.333,
+    "resources": [
+      {
+        "id": "T7_PLANKS",
+        "count": 20
+      },
+      {
+        "id": "T7_METALBAR",
+        "count": 12
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_2H_QUARTERSTAFF": {
+    "item_id": "T7_2H_QUARTERSTAFF",
+    "name_en": "Grandmaster's Quarterstaff",
+    "name_cs": "",
+    "focus_cost": 9191,
+    "silver_fee": 0.0,
+    "time_seconds": 3.333,
+    "resources": [
+      {
+        "id": "T7_METALBAR",
+        "count": 12
+      },
+      {
+        "id": "T7_LEATHER",
+        "count": 20
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_ARMOR_CLOTH_SET1": {
+    "item_id": "T7_ARMOR_CLOTH_SET1",
+    "name_en": "Grandmaster's Scholar Robe",
+    "name_cs": "",
+    "focus_cost": 4596,
+    "silver_fee": 0.0,
+    "time_seconds": 1.667,
+    "resources": [
+      {
+        "id": "T7_CLOTH",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_ARMOR_LEATHER_SET1": {
+    "item_id": "T7_ARMOR_LEATHER_SET1",
+    "name_en": "Grandmaster's Mercenary Jacket",
+    "name_cs": "",
+    "focus_cost": 4596,
+    "silver_fee": 0.0,
+    "time_seconds": 1.667,
+    "resources": [
+      {
+        "id": "T7_LEATHER",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_ARMOR_PLATE_SET1": {
+    "item_id": "T7_ARMOR_PLATE_SET1",
+    "name_en": "Grandmaster's Soldier Armor",
+    "name_cs": "",
+    "focus_cost": 4596,
+    "silver_fee": 0.0,
+    "time_seconds": 1.667,
+    "resources": [
+      {
+        "id": "T7_METALBAR",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_HEAD_CLOTH_SET1": {
+    "item_id": "T7_HEAD_CLOTH_SET1",
+    "name_en": "Grandmaster's Scholar Cowl",
+    "name_cs": "",
+    "focus_cost": 2298,
+    "silver_fee": 0.0,
+    "time_seconds": 0.833,
+    "resources": [
+      {
+        "id": "T7_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_HEAD_LEATHER_SET1": {
+    "item_id": "T7_HEAD_LEATHER_SET1",
+    "name_en": "Grandmaster's Mercenary Hood",
+    "name_cs": "",
+    "focus_cost": 2298,
+    "silver_fee": 0.0,
+    "time_seconds": 0.833,
+    "resources": [
+      {
+        "id": "T7_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_HEAD_PLATE_SET1": {
+    "item_id": "T7_HEAD_PLATE_SET1",
+    "name_en": "Grandmaster's Soldier Helmet",
+    "name_cs": "",
+    "focus_cost": 2298,
+    "silver_fee": 0.0,
+    "time_seconds": 0.833,
+    "resources": [
+      {
+        "id": "T7_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_MAIN_ARCANESTAFF": {
+    "item_id": "T7_MAIN_ARCANESTAFF",
+    "name_en": "Grandmaster's Arcane Staff",
+    "name_cs": "",
+    "focus_cost": 6893,
+    "silver_fee": 0.0,
+    "time_seconds": 2.5,
+    "resources": [
+      {
+        "id": "T7_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T7_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_MAIN_AXE": {
+    "item_id": "T7_MAIN_AXE",
+    "name_en": "Grandmaster's Battleaxe",
+    "name_cs": "",
+    "focus_cost": 6893,
+    "silver_fee": 0.0,
+    "time_seconds": 2.5,
+    "resources": [
+      {
+        "id": "T7_PLANKS",
+        "count": 8
+      },
+      {
+        "id": "T7_METALBAR",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_MAIN_CURSEDSTAFF": {
+    "item_id": "T7_MAIN_CURSEDSTAFF",
+    "name_en": "Grandmaster's Cursed Staff",
+    "name_cs": "",
+    "focus_cost": 6893,
+    "silver_fee": 0.0,
+    "time_seconds": 2.5,
+    "resources": [
+      {
+        "id": "T7_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T7_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_MAIN_DAGGER": {
+    "item_id": "T7_MAIN_DAGGER",
+    "name_en": "Grandmaster's Dagger",
+    "name_cs": "",
+    "focus_cost": 6893,
+    "silver_fee": 0.0,
+    "time_seconds": 2.5,
+    "resources": [
+      {
+        "id": "T7_METALBAR",
+        "count": 12
+      },
+      {
+        "id": "T7_LEATHER",
+        "count": 12
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_MAIN_FIRESTAFF": {
+    "item_id": "T7_MAIN_FIRESTAFF",
+    "name_en": "Grandmaster's Fire Staff",
+    "name_cs": "",
+    "focus_cost": 6893,
+    "silver_fee": 0.0,
+    "time_seconds": 2.5,
+    "resources": [
+      {
+        "id": "T7_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T7_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_MAIN_HAMMER": {
+    "item_id": "T7_MAIN_HAMMER",
+    "name_en": "Grandmaster's Hammer",
+    "name_cs": "",
+    "focus_cost": 6893,
+    "silver_fee": 0.0,
+    "time_seconds": 2.5,
+    "resources": [
+      {
+        "id": "T7_METALBAR",
+        "count": 24
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_MAIN_SWORD": {
+    "item_id": "T7_MAIN_SWORD",
+    "name_en": "Grandmaster's Broadsword",
+    "name_cs": "",
+    "focus_cost": 6893,
+    "silver_fee": 0.0,
+    "time_seconds": 2.5,
+    "resources": [
+      {
+        "id": "T7_METALBAR",
+        "count": 16
+      },
+      {
+        "id": "T7_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_SHOES_CLOTH_SET1": {
+    "item_id": "T7_SHOES_CLOTH_SET1",
+    "name_en": "Grandmaster's Scholar Sandals",
+    "name_cs": "",
+    "focus_cost": 2298,
+    "silver_fee": 0.0,
+    "time_seconds": 0.833,
+    "resources": [
+      {
+        "id": "T7_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_SHOES_LEATHER_SET1": {
+    "item_id": "T7_SHOES_LEATHER_SET1",
+    "name_en": "Grandmaster's Mercenary Shoes",
+    "name_cs": "",
+    "focus_cost": 2298,
+    "silver_fee": 0.0,
+    "time_seconds": 0.833,
+    "resources": [
+      {
+        "id": "T7_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_SHOES_PLATE_SET1": {
+    "item_id": "T7_SHOES_PLATE_SET1",
+    "name_en": "Grandmaster's Soldier Boots",
+    "name_cs": "",
+    "focus_cost": 2298,
+    "silver_fee": 0.0,
+    "time_seconds": 0.833,
+    "resources": [
+      {
+        "id": "T7_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_2H_BOW": {
+    "item_id": "T8_2H_BOW",
+    "name_en": "Elder's Bow",
+    "name_cs": "",
+    "focus_cost": 16085,
+    "silver_fee": 0.0,
+    "time_seconds": 5.0,
+    "resources": [
+      {
+        "id": "T8_PLANKS",
+        "count": 32
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_2H_CROSSBOW": {
+    "item_id": "T8_2H_CROSSBOW",
+    "name_en": "Elder's Crossbow",
+    "name_cs": "",
+    "focus_cost": 16085,
+    "silver_fee": 0.0,
+    "time_seconds": 5.0,
+    "resources": [
+      {
+        "id": "T8_PLANKS",
+        "count": 20
+      },
+      {
+        "id": "T8_METALBAR",
+        "count": 12
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_2H_QUARTERSTAFF": {
+    "item_id": "T8_2H_QUARTERSTAFF",
+    "name_en": "Elder's Quarterstaff",
+    "name_cs": "",
+    "focus_cost": 16085,
+    "silver_fee": 0.0,
+    "time_seconds": 5.0,
+    "resources": [
+      {
+        "id": "T8_METALBAR",
+        "count": 12
+      },
+      {
+        "id": "T8_LEATHER",
+        "count": 20
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_ARMOR_CLOTH_SET1": {
+    "item_id": "T8_ARMOR_CLOTH_SET1",
+    "name_en": "Elder's Scholar Robe",
+    "name_cs": "",
+    "focus_cost": 8042,
+    "silver_fee": 0.0,
+    "time_seconds": 2.5,
+    "resources": [
+      {
+        "id": "T8_CLOTH",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_ARMOR_LEATHER_SET1": {
+    "item_id": "T8_ARMOR_LEATHER_SET1",
+    "name_en": "Elder's Mercenary Jacket",
+    "name_cs": "",
+    "focus_cost": 8042,
+    "silver_fee": 0.0,
+    "time_seconds": 2.5,
+    "resources": [
+      {
+        "id": "T8_LEATHER",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_ARMOR_PLATE_SET1": {
+    "item_id": "T8_ARMOR_PLATE_SET1",
+    "name_en": "Elder's Soldier Armor",
+    "name_cs": "",
+    "focus_cost": 8042,
+    "silver_fee": 0.0,
+    "time_seconds": 2.5,
+    "resources": [
+      {
+        "id": "T8_METALBAR",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_HEAD_CLOTH_SET1": {
+    "item_id": "T8_HEAD_CLOTH_SET1",
+    "name_en": "Elder's Scholar Cowl",
+    "name_cs": "",
+    "focus_cost": 4021,
+    "silver_fee": 0.0,
+    "time_seconds": 1.25,
+    "resources": [
+      {
+        "id": "T8_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_HEAD_LEATHER_SET1": {
+    "item_id": "T8_HEAD_LEATHER_SET1",
+    "name_en": "Elder's Mercenary Hood",
+    "name_cs": "",
+    "focus_cost": 4021,
+    "silver_fee": 0.0,
+    "time_seconds": 1.25,
+    "resources": [
+      {
+        "id": "T8_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_HEAD_PLATE_SET1": {
+    "item_id": "T8_HEAD_PLATE_SET1",
+    "name_en": "Elder's Soldier Helmet",
+    "name_cs": "",
+    "focus_cost": 4021,
+    "silver_fee": 0.0,
+    "time_seconds": 1.25,
+    "resources": [
+      {
+        "id": "T8_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_MAIN_ARCANESTAFF": {
+    "item_id": "T8_MAIN_ARCANESTAFF",
+    "name_en": "Elder's Arcane Staff",
+    "name_cs": "",
+    "focus_cost": 12064,
+    "silver_fee": 0.0,
+    "time_seconds": 3.75,
+    "resources": [
+      {
+        "id": "T8_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T8_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_MAIN_AXE": {
+    "item_id": "T8_MAIN_AXE",
+    "name_en": "Elder's Battleaxe",
+    "name_cs": "",
+    "focus_cost": 12064,
+    "silver_fee": 0.0,
+    "time_seconds": 3.75,
+    "resources": [
+      {
+        "id": "T8_PLANKS",
+        "count": 8
+      },
+      {
+        "id": "T8_METALBAR",
+        "count": 16
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_MAIN_CURSEDSTAFF": {
+    "item_id": "T8_MAIN_CURSEDSTAFF",
+    "name_en": "Elder's Cursed Staff",
+    "name_cs": "",
+    "focus_cost": 12064,
+    "silver_fee": 0.0,
+    "time_seconds": 3.75,
+    "resources": [
+      {
+        "id": "T8_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T8_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_MAIN_DAGGER": {
+    "item_id": "T8_MAIN_DAGGER",
+    "name_en": "Elder's Dagger",
+    "name_cs": "",
+    "focus_cost": 12064,
+    "silver_fee": 0.0,
+    "time_seconds": 3.75,
+    "resources": [
+      {
+        "id": "T8_METALBAR",
+        "count": 12
+      },
+      {
+        "id": "T8_LEATHER",
+        "count": 12
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_MAIN_FIRESTAFF": {
+    "item_id": "T8_MAIN_FIRESTAFF",
+    "name_en": "Elder's Fire Staff",
+    "name_cs": "",
+    "focus_cost": 12064,
+    "silver_fee": 0.0,
+    "time_seconds": 3.75,
+    "resources": [
+      {
+        "id": "T8_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T8_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_MAIN_HAMMER": {
+    "item_id": "T8_MAIN_HAMMER",
+    "name_en": "Elder's Hammer",
+    "name_cs": "",
+    "focus_cost": 12064,
+    "silver_fee": 0.0,
+    "time_seconds": 3.75,
+    "resources": [
+      {
+        "id": "T8_METALBAR",
+        "count": 24
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_MAIN_SWORD": {
+    "item_id": "T8_MAIN_SWORD",
+    "name_en": "Elder's Broadsword",
+    "name_cs": "",
+    "focus_cost": 12064,
+    "silver_fee": 0.0,
+    "time_seconds": 3.75,
+    "resources": [
+      {
+        "id": "T8_METALBAR",
+        "count": 16
+      },
+      {
+        "id": "T8_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_SHOES_CLOTH_SET1": {
+    "item_id": "T8_SHOES_CLOTH_SET1",
+    "name_en": "Elder's Scholar Sandals",
+    "name_cs": "",
+    "focus_cost": 4021,
+    "silver_fee": 0.0,
+    "time_seconds": 1.25,
+    "resources": [
+      {
+        "id": "T8_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_SHOES_LEATHER_SET1": {
+    "item_id": "T8_SHOES_LEATHER_SET1",
+    "name_en": "Elder's Mercenary Shoes",
+    "name_cs": "",
+    "focus_cost": 4021,
+    "silver_fee": 0.0,
+    "time_seconds": 1.25,
+    "resources": [
+      {
+        "id": "T8_LEATHER",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_SHOES_PLATE_SET1": {
+    "item_id": "T8_SHOES_PLATE_SET1",
+    "name_en": "Elder's Soldier Boots",
+    "name_cs": "",
+    "focus_cost": 4021,
+    "silver_fee": 0.0,
+    "time_seconds": 1.25,
+    "resources": [
+      {
+        "id": "T8_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_MEAL_OMELETTE": {
+    "item_id": "T7_MEAL_OMELETTE",
+    "focus_cost": 464,
+    "silver_fee": 0,
+    "time_seconds": 2.3,
+    "resources": [
+      {
+        "id": "T7_CORN",
+        "count": 36
+      },
+      {
+        "id": "T7_MEAT",
+        "count": 72
+      },
+      {
+        "id": "T5_EGG",
+        "count": 18
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T7_MEAL_OMELETTE_AVALON": {
+    "item_id": "T7_MEAL_OMELETTE_AVALON",
+    "focus_cost": 464,
+    "silver_fee": 0,
+    "time_seconds": 2.517,
+    "resources": [
+      {
+        "id": "T8_MILK",
+        "count": 36
+      },
+      {
+        "id": "T7_MEAT",
+        "count": 72
+      },
+      {
+        "id": "T5_EGG",
+        "count": 18
+      },
+      {
+        "id": "QUESTITEM_TOKEN_AVALON",
+        "count": 90
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T7_MEAL_OMELETTE_FISH": {
+    "item_id": "T7_MEAL_OMELETTE_FISH",
+    "focus_cost": 672,
+    "silver_fee": 0,
+    "time_seconds": 0.334,
+    "resources": [
+      {
+        "id": "T7_FISH_FRESHWATER_STEPPE_RARE",
+        "count": 1
+      },
+      {
+        "id": "T7_CORN",
+        "count": 6
+      },
+      {
+        "id": "T7_MULLEIN",
+        "count": 6
+      },
+      {
+        "id": "T7_MEAT",
+        "count": 6
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T7_MEAL_PIE": {
+    "item_id": "T7_MEAL_PIE",
+    "focus_cost": 540,
+    "silver_fee": 0,
+    "time_seconds": 2.663,
+    "resources": [
+      {
+        "id": "T7_CORN",
+        "count": 18
+      },
+      {
+        "id": "T3_FLOUR",
+        "count": 36
+      },
+      {
+        "id": "T7_MEAT",
+        "count": 72
+      },
+      {
+        "id": "T6_MILK",
+        "count": 18
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T7_MEAL_PIE_FISH": {
+    "item_id": "T7_MEAL_PIE_FISH",
+    "focus_cost": 672,
+    "silver_fee": 0,
+    "time_seconds": 0.334,
+    "resources": [
+      {
+        "id": "T7_FISH_FRESHWATER_MOUNTAIN_RARE",
+        "count": 1
+      },
+      {
+        "id": "T7_CORN",
+        "count": 6
+      },
+      {
+        "id": "T7_MULLEIN",
+        "count": 6
+      },
+      {
+        "id": "T7_MEAT",
+        "count": 6
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T7_MEAL_ROAST": {
+    "item_id": "T7_MEAL_ROAST",
+    "focus_cost": 528,
+    "silver_fee": 0,
+    "time_seconds": 2.617,
+    "resources": [
+      {
+        "id": "T7_MEAT",
+        "count": 72
+      },
+      {
+        "id": "T7_CORN",
+        "count": 36
+      },
+      {
+        "id": "T8_MILK",
+        "count": 36
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T7_MEAL_ROAST_FISH": {
+    "item_id": "T7_MEAL_ROAST_FISH",
+    "focus_cost": 652,
+    "silver_fee": 0,
+    "time_seconds": 0.326,
+    "resources": [
+      {
+        "id": "T7_FISH_FRESHWATER_AVALON_RARE",
+        "count": 1
+      },
+      {
+        "id": "T7_CORN",
+        "count": 6
+      },
+      {
+        "id": "T7_MULLEIN",
+        "count": 6
+      },
+      {
+        "id": "T8_MILK",
+        "count": 6
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T8_MEAL_SANDWICH": {
+    "item_id": "T8_MEAL_SANDWICH",
+    "focus_cost": 494,
+    "silver_fee": 0,
+    "time_seconds": 2.433,
+    "resources": [
+      {
+        "id": "T4_BREAD",
+        "count": 36
+      },
+      {
+        "id": "T8_MEAT",
+        "count": 72
+      },
+      {
+        "id": "T8_BUTTER",
+        "count": 18
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T8_MEAL_SANDWICH_AVALON": {
+    "item_id": "T8_MEAL_SANDWICH_AVALON",
+    "focus_cost": 494,
+    "silver_fee": 0,
+    "time_seconds": 2.65,
+    "resources": [
+      {
+        "id": "T4_BREAD",
+        "count": 36
+      },
+      {
+        "id": "T8_MEAT",
+        "count": 72
+      },
+      {
+        "id": "T8_BUTTER",
+        "count": 18
+      },
+      {
+        "id": "QUESTITEM_TOKEN_AVALON",
+        "count": 90
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T8_MEAL_SANDWICH_FISH": {
+    "item_id": "T8_MEAL_SANDWICH_FISH",
+    "focus_cost": 672,
+    "silver_fee": 0,
+    "time_seconds": 0.334,
+    "resources": [
+      {
+        "id": "T7_FISH_FRESHWATER_HIGHLANDS_RARE",
+        "count": 1
+      },
+      {
+        "id": "T8_PUMPKIN",
+        "count": 6
+      },
+      {
+        "id": "T8_YARROW",
+        "count": 6
+      },
+      {
+        "id": "T8_BUTTER",
+        "count": 6
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T8_MEAL_STEW": {
+    "item_id": "T8_MEAL_STEW",
+    "focus_cost": 551,
+    "silver_fee": 0,
+    "time_seconds": 2.723,
+    "resources": [
+      {
+        "id": "T8_PUMPKIN",
+        "count": 36
+      },
+      {
+        "id": "T4_BREAD",
+        "count": 36
+      },
+      {
+        "id": "T8_MEAT",
+        "count": 72
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T8_MEAL_STEW_AVALON": {
+    "item_id": "T8_MEAL_STEW_AVALON",
+    "focus_cost": 528,
+    "silver_fee": 0,
+    "time_seconds": 2.833,
+    "resources": [
+      {
+        "id": "T7_CORN",
+        "count": 36
+      },
+      {
+        "id": "T8_PUMPKIN",
+        "count": 36
+      },
+      {
+        "id": "T8_MEAT",
+        "count": 72
+      },
+      {
+        "id": "QUESTITEM_TOKEN_AVALON",
+        "count": 90
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T8_MEAL_STEW_FISH": {
+    "item_id": "T8_MEAL_STEW_FISH",
+    "focus_cost": 652,
+    "silver_fee": 0,
+    "time_seconds": 0.326,
+    "resources": [
+      {
+        "id": "T7_FISH_FRESHWATER_FOREST_RARE",
+        "count": 1
+      },
+      {
+        "id": "T8_PUMPKIN",
+        "count": 6
+      },
+      {
+        "id": "T8_YARROW",
+        "count": 6
+      },
+      {
+        "id": "T8_MILK",
+        "count": 6
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T4_MAIN_FROSTSTAFF": {
+    "item_id": "T4_MAIN_FROSTSTAFF",
+    "name_en": "Adept's Frost Staff",
+    "name_cs": "",
+    "focus_cost": 1286,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T4_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T4_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_MAIN_HOLYSTAFF": {
+    "item_id": "T4_MAIN_HOLYSTAFF",
+    "name_en": "Adept's Holy Staff",
+    "name_cs": "",
+    "focus_cost": 1286,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T4_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T4_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_MAIN_MACE": {
+    "item_id": "T4_MAIN_MACE",
+    "name_en": "Adept's Mace",
+    "name_cs": "",
+    "focus_cost": 1286,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T4_METALBAR",
+        "count": 16
+      },
+      {
+        "id": "T4_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_MAIN_NATURESTAFF": {
+    "item_id": "T4_MAIN_NATURESTAFF",
+    "name_en": "Adept's Nature Staff",
+    "name_cs": "",
+    "focus_cost": 1286,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T4_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T4_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T4_MAIN_SPEAR": {
+    "item_id": "T4_MAIN_SPEAR",
+    "name_en": "Adept's Spear",
+    "name_cs": "",
+    "focus_cost": 1286,
+    "silver_fee": 0.0,
+    "time_seconds": 1.0,
+    "resources": [
+      {
+        "id": "T4_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T4_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_MAIN_FROSTSTAFF": {
+    "item_id": "T5_MAIN_FROSTSTAFF",
+    "name_en": "Expert's Frost Staff",
+    "name_cs": "",
+    "focus_cost": 2251,
+    "silver_fee": 0.0,
+    "time_seconds": 1.5,
+    "resources": [
+      {
+        "id": "T5_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T5_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_MAIN_HOLYSTAFF": {
+    "item_id": "T5_MAIN_HOLYSTAFF",
+    "focus_cost": 2251,
+    "silver_fee": 0,
+    "time_seconds": 1.5,
+    "resources": [
+      {
+        "id": "T5_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T5_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "ao_bin_dumps"
+  },
+  "T5_MAIN_MACE": {
+    "item_id": "T5_MAIN_MACE",
+    "name_en": "Expert's Mace",
+    "name_cs": "",
+    "focus_cost": 2251,
+    "silver_fee": 0.0,
+    "time_seconds": 1.5,
+    "resources": [
+      {
+        "id": "T5_METALBAR",
+        "count": 16
+      },
+      {
+        "id": "T5_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_MAIN_NATURESTAFF": {
+    "item_id": "T5_MAIN_NATURESTAFF",
+    "name_en": "Expert's Nature Staff",
+    "name_cs": "",
+    "focus_cost": 2251,
+    "silver_fee": 0.0,
+    "time_seconds": 1.5,
+    "resources": [
+      {
+        "id": "T5_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T5_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T5_MAIN_SPEAR": {
+    "item_id": "T5_MAIN_SPEAR",
+    "name_en": "Expert's Spear",
+    "name_cs": "",
+    "focus_cost": 2251,
+    "silver_fee": 0.0,
+    "time_seconds": 1.5,
+    "resources": [
+      {
+        "id": "T5_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T5_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_MAIN_FROSTSTAFF": {
+    "item_id": "T6_MAIN_FROSTSTAFF",
+    "name_en": "Master's Frost Staff",
+    "name_cs": "",
+    "focus_cost": 3939,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T6_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T6_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_MAIN_HOLYSTAFF": {
+    "item_id": "T6_MAIN_HOLYSTAFF",
+    "name_en": "Master's Holy Staff",
+    "name_cs": "",
+    "focus_cost": 3939,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T6_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T6_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_MAIN_MACE": {
+    "item_id": "T6_MAIN_MACE",
+    "name_en": "Master's Mace",
+    "name_cs": "",
+    "focus_cost": 3939,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T6_METALBAR",
+        "count": 16
+      },
+      {
+        "id": "T6_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_MAIN_NATURESTAFF": {
+    "item_id": "T6_MAIN_NATURESTAFF",
+    "name_en": "Master's Nature Staff",
+    "name_cs": "",
+    "focus_cost": 3939,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T6_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T6_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T6_MAIN_SPEAR": {
+    "item_id": "T6_MAIN_SPEAR",
+    "name_en": "Master's Spear",
+    "name_cs": "",
+    "focus_cost": 3939,
+    "silver_fee": 0.0,
+    "time_seconds": 2.0,
+    "resources": [
+      {
+        "id": "T6_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T6_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_MAIN_FROSTSTAFF": {
+    "item_id": "T7_MAIN_FROSTSTAFF",
+    "name_en": "Grandmaster's Frost Staff",
+    "name_cs": "",
+    "focus_cost": 6893,
+    "silver_fee": 0.0,
+    "time_seconds": 2.5,
+    "resources": [
+      {
+        "id": "T7_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T7_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_MAIN_HOLYSTAFF": {
+    "item_id": "T7_MAIN_HOLYSTAFF",
+    "name_en": "Grandmaster's Holy Staff",
+    "name_cs": "",
+    "focus_cost": 6893,
+    "silver_fee": 0.0,
+    "time_seconds": 2.5,
+    "resources": [
+      {
+        "id": "T7_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T7_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_MAIN_MACE": {
+    "item_id": "T7_MAIN_MACE",
+    "name_en": "Grandmaster's Mace",
+    "name_cs": "",
+    "focus_cost": 6893,
+    "silver_fee": 0.0,
+    "time_seconds": 2.5,
+    "resources": [
+      {
+        "id": "T7_METALBAR",
+        "count": 16
+      },
+      {
+        "id": "T7_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_MAIN_NATURESTAFF": {
+    "item_id": "T7_MAIN_NATURESTAFF",
+    "name_en": "Grandmaster's Nature Staff",
+    "name_cs": "",
+    "focus_cost": 6893,
+    "silver_fee": 0.0,
+    "time_seconds": 2.5,
+    "resources": [
+      {
+        "id": "T7_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T7_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T7_MAIN_SPEAR": {
+    "item_id": "T7_MAIN_SPEAR",
+    "name_en": "Grandmaster's Spear",
+    "name_cs": "",
+    "focus_cost": 6893,
+    "silver_fee": 0.0,
+    "time_seconds": 2.5,
+    "resources": [
+      {
+        "id": "T7_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T7_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_MAIN_FROSTSTAFF": {
+    "item_id": "T8_MAIN_FROSTSTAFF",
+    "name_en": "Elder's Frost Staff",
+    "name_cs": "",
+    "focus_cost": 12064,
+    "silver_fee": 0.0,
+    "time_seconds": 3.75,
+    "resources": [
+      {
+        "id": "T8_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T8_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_MAIN_HOLYSTAFF": {
+    "item_id": "T8_MAIN_HOLYSTAFF",
+    "name_en": "Elder's Holy Staff",
+    "name_cs": "",
+    "focus_cost": 12064,
+    "silver_fee": 0.0,
+    "time_seconds": 3.75,
+    "resources": [
+      {
+        "id": "T8_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T8_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_MAIN_MACE": {
+    "item_id": "T8_MAIN_MACE",
+    "name_en": "Elder's Mace",
+    "name_cs": "",
+    "focus_cost": 12064,
+    "silver_fee": 0.0,
+    "time_seconds": 3.75,
+    "resources": [
+      {
+        "id": "T8_METALBAR",
+        "count": 16
+      },
+      {
+        "id": "T8_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_MAIN_NATURESTAFF": {
+    "item_id": "T8_MAIN_NATURESTAFF",
+    "name_en": "Elder's Nature Staff",
+    "name_cs": "",
+    "focus_cost": 12064,
+    "silver_fee": 0.0,
+    "time_seconds": 3.75,
+    "resources": [
+      {
+        "id": "T8_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T8_CLOTH",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  },
+  "T8_MAIN_SPEAR": {
+    "item_id": "T8_MAIN_SPEAR",
+    "name_en": "Elder's Spear",
+    "name_cs": "",
+    "focus_cost": 12064,
+    "silver_fee": 0.0,
+    "time_seconds": 3.75,
+    "resources": [
+      {
+        "id": "T8_PLANKS",
+        "count": 16
+      },
+      {
+        "id": "T8_METALBAR",
+        "count": 8
+      }
+    ],
+    "source": "gameinfo_api"
+  }
+}

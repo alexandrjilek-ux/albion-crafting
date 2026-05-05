@@ -1,0 +1,59 @@
+# .codexignore — AI agent context filter
+#
+# Codex CLI a kompatibilní agenti (Cursor, Aider) tenhle soubor čtou navíc
+# k .gitignore. Cílem je nepustit do AI contextu velké, nízkohodnotné soubory,
+# které by jen utopily token budget bez užitku.
+#
+# Tohle NENÍ git-ignore — committuj normálně, jen AI agent to neuvidí.
+
+# ─── Lockfiles (vždy obrovské, neditovatelné rukou, AI je nepotřebuje číst) ──
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+poetry.lock
+Pipfile.lock
+
+# ─── Bundlované game data / cache (tisíce řádků JSONu) ───────────────────
+backend/app/core/data/recipes_cache.json
+backend/app/core/data/item_names_cache.json
+backend/app/core/data/items.json
+backend/app/core/data/*.json
+
+# ─── Mockupy (velké HTML/CSS designové podklady) ─────────────────────────
+# AGENTS.md odkazuje na konkrétní mockup, agent ho čte na vyžádání, ne automaticky.
+mockups/
+
+# ─── Legacy zálohy (duplicitní s .gitignore — pojistka) ──────────────────
+files/
+záloha/
+zaloha/
+backup_streamlit_*/
+files.zip
+
+# ─── Build / cache outputs ───────────────────────────────────────────────
+node_modules/
+.expo/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+__pycache__/
+dist/
+build/
+web-build/
+.venv/
+venv/
+
+# ─── Reporty, logy ───────────────────────────────────────────────────────
+reports/
+*.log
+
+# ─── Binárky ─────────────────────────────────────────────────────────────
+*.png
+*.jpg
+*.jpeg
+*.ico
+*.zip
+*.ipa
+*.apk
+*.aab
+*.tsbuildinfo
