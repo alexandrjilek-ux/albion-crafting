@@ -72,10 +72,10 @@ curl -X POST http://localhost:8000/items/top \
   -H "Content-Type: application/json" \
   -d '{"city":"auto","tiers":[5,6],"mode":"food","top":15}'
 
-# Refining T4–T6
+# Refining T4–T6, compare buy cities and size profit for 1m silver budget
 curl -X POST http://localhost:8000/refining \
   -H "Content-Type: application/json" \
-  -d '{"tiers":[4,5,6]}'
+  -d '{"material":"METALBAR","tiers":[4,5,6],"investment_budget":1000000,"buy_city":"auto","refine_city":"auto","sell_city":"auto"}'
 
 # Leveling cost in Bridgewatch with journal
 curl -X POST http://localhost:8000/leveling-cost \

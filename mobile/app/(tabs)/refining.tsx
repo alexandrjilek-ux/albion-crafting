@@ -20,7 +20,7 @@ import { colors, type AppColors } from '../../src/theme/colors';
 import { useTheme } from '../../src/theme/ThemeProvider';
 import { radius, spacing } from '../../src/theme/spacing';
 import { typography } from '../../src/theme/typography';
-import { formatPercent, formatProfit, formatRoute, formatSilver, formatSilverCompact } from '../../src/utils/format';
+import { formatPercent, formatProfit, formatRoute, formatSilver, formatSilverCompact, shortCity } from '../../src/utils/format';
 
 type MaterialFilter = 'ALL' | 'METALBAR' | 'PLANKS' | 'LEATHER' | 'CLOTH' | 'STONEBLOCK';
 
@@ -31,10 +31,10 @@ const TIER_FILTERS: ReadonlyArray<{ value: number; label: string }> = [4, 5, 6, 
 
 const MATERIAL_FILTERS: ReadonlyArray<{ value: MaterialFilter; label: string }> = [
   { value: 'ALL', label: 'All' },
-  { value: 'METALBAR', label: 'Bars' },
-  { value: 'PLANKS', label: 'Planks' },
-  { value: 'LEATHER', label: 'Leather' },
-  { value: 'CLOTH', label: 'Cloth' },
+  { value: 'METALBAR', label: 'Ore' },
+  { value: 'PLANKS', label: 'Wood' },
+  { value: 'LEATHER', label: 'Hide' },
+  { value: 'CLOTH', label: 'Fiber' },
   { value: 'STONEBLOCK', label: 'Stone' },
 ];
 
@@ -44,12 +44,19 @@ const FOCUS_PRESETS: ReadonlyArray<{ value: number; label: string }> = [
   { value: 30_000, label: '30k' },
 ];
 
+const INVESTMENT_PRESETS: ReadonlyArray<{ value: number; label: string }> = [
+  { value: 250_000, label: '250k' },
+  { value: 1_000_000, label: '1m' },
+  { value: 5_000_000, label: '5m' },
+];
+
 const COPY: Record<LanguageCode, {
   title: string;
   subtitle: string;
   material: string;
   tiers: string;
   focusBudget: string;
+  investmentBudget: string;
   useFocus: string;
   noFocus: string;
   bestItems: string;
@@ -66,6 +73,9 @@ const COPY: Record<LanguageCode, {
   sell: string;
   cost: string;
   profitPiece: string;
+  route: string;
+  investment: string;
+  roi: string;
   volumeDay: string;
   pieces: string;
   confidence: string;
@@ -82,6 +92,7 @@ const COPY: Record<LanguageCode, {
     material: 'Materiál',
     tiers: 'Tiery',
     focusBudget: 'Focus budget',
+    investmentBudget: 'Silver budget',
     useFocus: 'Používat focus',
     noFocus: 'Bez focusu',
     bestItems: 'Nejlepší kusy k refine',
@@ -98,6 +109,9 @@ const COPY: Record<LanguageCode, {
     sell: 'prodej',
     cost: 'náklad',
     profitPiece: 'profit/ks',
+    route: 'trasa',
+    investment: 'investice',
+    roi: 'ROI',
     volumeDay: 'vol',
     pieces: 'ks',
     confidence: 'jistota',
@@ -114,6 +128,7 @@ const COPY: Record<LanguageCode, {
     material: 'Material',
     tiers: 'Tiers',
     focusBudget: 'Focus budget',
+    investmentBudget: 'Silver budget',
     useFocus: 'Use focus',
     noFocus: 'No focus',
     bestItems: 'Best pieces to refine',
@@ -130,6 +145,9 @@ const COPY: Record<LanguageCode, {
     sell: 'sell',
     cost: 'cost',
     profitPiece: 'profit/pc',
+    route: 'route',
+    investment: 'investment',
+    roi: 'ROI',
     volumeDay: 'vol',
     pieces: 'pcs',
     confidence: 'confidence',
@@ -152,6 +170,7 @@ export default function RefiningScreen() {
   const [tiers, setTiers] = useState<number[]>([4, 5, 6]);
   const [useFocus, setUseFocus] = useState<boolean>(true);
   const [focusBudget, setFocusBudget] = useState<number>(10_000);
+  const [investmentBudget, setInvestmentBudget] = useState<number>(1_000_000);
   const [material, setMaterial] = useState<MaterialFilter>('ALL');
   const [data, setData] = useState<RefiningResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -166,6 +185,11 @@ export default function RefiningScreen() {
     fetchRefining({
       tiers: [...tiers].sort((a, b) => a - b),
       focus_budget: useFocus ? focusBudget : 0,
+      investment_budget: investmentBudget,
+      material: material === 'ALL' ? null : material,
+      buy_city: 'auto',
+      refine_city: 'auto',
+      sell_city: 'auto',
       history_days: 7,
       min_volume: 0,
       bonus_only: true,
@@ -184,7 +208,7 @@ export default function RefiningScreen() {
     return () => {
       cancelled = true;
     };
-  }, [tiers, useFocus, focusBudget, selectedCategories]);
+  }, [tiers, useFocus, focusBudget, investmentBudget, material, selectedCategories]);
 
   const toggleTier = (tier: number) => {
     setTiers((prev) =>
@@ -233,6 +257,17 @@ export default function RefiningScreen() {
           active={tiers}
           onToggle={toggleTier}
           activeTone="arcane"
+        />
+
+        <Text style={styles.label}>{copy.investmentBudget}</Text>
+        <NumberPickerWithCustom
+          value={investmentBudget}
+          onChange={setInvestmentBudget}
+          presets={INVESTMENT_PRESETS}
+          unit="silver"
+          placeholder="1000000"
+          minValue={1}
+          maxValue={1_000_000_000}
         />
 
         <Text style={styles.label}>{copy.focusBudget}</Text>
@@ -329,7 +364,7 @@ function BestRefineCard({
   const { language } = useLanguage();
   const styles = useMemo(() => makeRefiningStyles(themeColors), [themeColors]);
   const expectedProfit = budgetProfit(row, focusBudget);
-  const route = formatRoute(row.refine_city, row.sell_city, language);
+  const route = formatTradeRoute(row.buy_city, row.refine_city, row.sell_city, language);
   const confidence = row.confidence_score ?? 0;
   const crafts = craftsForBudget(row, focusBudget);
   const daily = row.risk_adjusted_daily_profit ?? 0;
@@ -354,6 +389,9 @@ function BestRefineCard({
         {row.use_focus
           ? copy.piecesWithFocus(crafts)
           : `${copy.perPieceEstimate} - ${formatSilverCompact(daily)} ${copy.dailyIfSold}`} - {route} - RR {formatPercent(row.rr_pct, 1)}
+      </Text>
+      <Text style={styles.heroMeta}>
+        {copy.investment} {formatSilver(row.investment_required)} - {copy.roi} {formatPercent(row.roi_pct, 1)}
       </Text>
     </GlowCard>
   );
@@ -389,7 +427,7 @@ function MaterialSummaryCard({
       <Text style={styles.materialEmoji}>{row.mat_emoji ?? materialFallbackIcon(row.mat_type)}</Text>
       <View style={styles.materialBody}>
         <Text style={styles.materialName} numberOfLines={1}>{row.mat_label ?? copy.materialFallback}</Text>
-        <Text style={styles.materialMeta}>{copy.bestTier(row.tier)} - {formatRoute(row.refine_city, row.sell_city, language)}</Text>
+        <Text style={styles.materialMeta}>{copy.bestTier(row.tier)} - {formatTradeRoute(row.buy_city, row.refine_city, row.sell_city, language)}</Text>
       </View>
       <Text style={styles.materialProfit}>{formatProfit(profit)}</Text>
     </Pressable>
@@ -450,10 +488,16 @@ function RefiningRowView({
             ) : null}
           </View>
           <Text style={styles.rowMeta}>
-            {copy.refinedIn} {row.refine_city ?? '-'} - {copy.sell} {formatSilver(row.sell_price_conservative ?? row.sell_price)}
+            {copy.route} {formatTradeRoute(row.buy_city, row.refine_city, row.sell_city, language)}
           </Text>
           <Text style={styles.rowMeta}>
-            {copy.cost} {formatSilver(row.total_cost_conservative ?? row.total_cost ?? row.eff_cost_conservative ?? row.eff_cost)} - {copy.profitPiece} {formatProfit(profit)} - {copy.volumeDay} {row.avg_daily_vol ?? 0}/day
+            {copy.sell} {formatSilver(row.sell_price_conservative ?? row.sell_price)} - {copy.cost} {formatSilver(row.total_cost_conservative ?? row.total_cost ?? row.eff_cost_conservative ?? row.eff_cost)}
+          </Text>
+          <Text style={styles.rowMeta}>
+            {copy.profitPiece} {formatProfit(profit)} - {copy.investment} {formatSilver(row.investment_required)} - {copy.roi} {formatPercent(row.roi_pct, 1)}
+          </Text>
+          <Text style={styles.rowMeta}>
+            {copy.volumeDay} {row.avg_daily_vol ?? 0}/day
           </Text>
           <Text style={styles.rowHint}>{copy.tapForSell}</Text>
         </View>
@@ -474,9 +518,9 @@ function RefiningRowView({
             <View key={`${option.sell_city}-${option.sell_price}-${index}`} style={styles.sellOption}>
               <Text style={styles.sellRank}>#{index + 1}</Text>
               <View style={styles.sellBody}>
-                <Text style={styles.sellCity}>{formatRoute(option.refine_city, option.sell_city, language)}</Text>
+                <Text style={styles.sellCity}>{formatTradeRoute(option.buy_city, option.refine_city, option.sell_city, language)}</Text>
                 <Text style={styles.sellMeta}>
-                  {copy.sell} {formatSilver(option.sell_price_conservative ?? option.sell_price)} - {copy.volumeDay} {option.avg_daily_vol ?? 0}/day
+                  {copy.sell} {formatSilver(option.sell_price_conservative ?? option.sell_price)} - {copy.investment} {formatSilver(option.investment_required)}
                 </Text>
               </View>
               <View style={styles.sellRight}>
@@ -532,7 +576,8 @@ function rowKey(row: RefiningRow): string {
 function scoreRow(row: RefiningRow): number {
   return (
     row.use_focus
-      ? row.profit_for_focus_budget ??
+      ? row.profit_for_investment_budget ??
+        row.profit_for_focus_budget ??
         row.risk_adjusted_daily_profit ??
         row.silver_per_focus_conservative ??
         row.profit_conservative ??
@@ -543,7 +588,8 @@ function scoreRow(row: RefiningRow): number {
 }
 
 function craftsForBudget(row: RefiningRow, focusBudget?: number): number {
-  if (!row.use_focus) return row.budget_crafts_estimate ?? 1;
+  if (row.budget_crafts_estimate !== undefined) return row.budget_crafts_estimate;
+  if (!row.use_focus) return 1;
   const budget = focusBudget ?? 10_000;
   const focusCost = row.focus_cost ?? 0;
   if (focusCost <= 0) return 0;
@@ -551,11 +597,20 @@ function craftsForBudget(row: RefiningRow, focusBudget?: number): number {
 }
 
 function budgetProfit(row: RefiningRow, focusBudget?: number): number {
+  if (row.profit_for_investment_budget !== undefined) return row.profit_for_investment_budget;
   const profit = row.profit_conservative ?? row.profit ?? 0;
   if (!row.use_focus) return profit;
   const crafts = craftsForBudget(row, focusBudget);
   if (crafts <= 0) return row.risk_adjusted_daily_profit ?? profit;
   return Math.round(profit * crafts);
+}
+
+function formatTradeRoute(buyCity: unknown, refineCity: unknown, sellCity: unknown, language: LanguageCode): string {
+  const buy = typeof buyCity === 'string' ? buyCity : '-';
+  const refine = typeof refineCity === 'string' ? refineCity : '-';
+  const sell = typeof sellCity === 'string' ? sellCity : '-';
+  if (buy === refine) return formatRoute(refine, sell, language);
+  return `${shortCity(buy)} → ${shortCity(refine)} → ${shortCity(sell)}`;
 }
 
 function materialOrder(row: RefiningRow): number {
@@ -661,7 +716,7 @@ function NumberPickerWithCustom({
           onBlur={commit}
           onSubmitEditing={commit}
           keyboardType="number-pad"
-          maxLength={7}
+          maxLength={10}
           placeholder={placeholder}
           placeholderTextColor={themeColors.textMuted}
           style={styles.focusCustomInput}

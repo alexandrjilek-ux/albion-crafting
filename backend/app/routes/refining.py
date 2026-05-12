@@ -26,6 +26,11 @@ def refining(req: RefiningRequest) -> RefiningResponse:
         result = get_refining_opportunities(
             tiers=req.tiers,
             focus_budget=req.focus_budget,
+            investment_budget=req.investment_budget,
+            material=req.material,
+            buy_city=req.buy_city,
+            refine_city=req.refine_city,
+            sell_city=req.sell_city,
             history_days=req.history_days,
             min_volume=req.min_volume,
             bonus_only=req.bonus_only,

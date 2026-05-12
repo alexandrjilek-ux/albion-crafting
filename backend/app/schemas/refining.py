@@ -2,9 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Literal
 
 from pydantic import BaseModel, Field, field_validator
+
+from app.schemas.common import CityName
+
+RefiningMaterial = Literal["METALBAR", "PLANKS", "LEATHER", "CLOTH", "STONEBLOCK"]
+CityOrAuto = CityName | Literal["auto"]
 
 
 class RefiningRequest(BaseModel):
@@ -19,6 +24,28 @@ class RefiningRequest(BaseModel):
         ge=0,
         le=30_000,
         description="Daily focus budget. Use 0 to analyze no-focus refining.",
+    )
+    investment_budget: int = Field(
+        default=1_000_000,
+        ge=0,
+        le=1_000_000_000,
+        description="Silver budget available for buying inputs and paying refining/transport costs.",
+    )
+    material: RefiningMaterial | None = Field(
+        default=None,
+        description="Optional refined material to analyze. Null scans all refining materials.",
+    )
+    buy_city: CityOrAuto = Field(
+        default="auto",
+        description="Input purchase city. Use auto to compare all royal cities and pick best routes.",
+    )
+    refine_city: CityOrAuto = Field(
+        default="auto",
+        description="Refining city. Use auto to select the material's dedicated bonus city.",
+    )
+    sell_city: CityOrAuto = Field(
+        default="auto",
+        description="Output sale city. Use auto to compare all royal cities.",
     )
     history_days: int = Field(
         default=7,
@@ -64,6 +91,11 @@ class RefiningResponse(BaseModel):
     count: int = Field(..., description="Number of rows returned after filters.")
     tiers: List[int] = Field(..., description="Tiers included in this analysis.")
     focus_budget: int = Field(..., description="Daily focus budget used for this analysis.")
+    investment_budget: int = Field(..., description="Silver budget used for route sizing.")
+    material: str | None = Field(..., description="Material filter used for this analysis, null if all.")
+    buy_city: str = Field(..., description="Input purchase city filter used for this analysis.")
+    refine_city: str = Field(..., description="Refining city filter used for this analysis.")
+    sell_city: str = Field(..., description="Output sale city filter used for this analysis.")
     bonus_only: bool = Field(..., description="Whether only dedicated refining-bonus city rows are included.")
     activity_bonus_categories: List[str] = Field(
         ..., description="Activity bonus category codes used for this analysis."

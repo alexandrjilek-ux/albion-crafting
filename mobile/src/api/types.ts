@@ -250,11 +250,18 @@ export interface ItemDetailResponse {
 export interface RefiningRequest {
   tiers?: number[];
   focus_budget?: number;
+  investment_budget?: number;
+  material?: RefiningMaterial | null;
+  buy_city?: CityOrAuto;
+  refine_city?: CityOrAuto;
+  sell_city?: CityOrAuto;
   history_days?: number;
   min_volume?: number;
   bonus_only?: boolean;
   activity_bonus_categories?: string[];
 }
+
+export type RefiningMaterial = 'METALBAR' | 'PLANKS' | 'LEATHER' | 'CLOTH' | 'STONEBLOCK';
 
 export interface RefiningRow {
   mat_type?: string;
@@ -262,6 +269,7 @@ export interface RefiningRow {
   mat_emoji?: string;
   refined_id?: string;
   tier?: number;
+  buy_city?: string;
   refine_city?: string;
   sell_city?: string;
   has_bonus?: boolean;
@@ -289,6 +297,8 @@ export interface RefiningRow {
   margin_pct?: number;
   margin_pct_conservative?: number;
   transport_fee?: number;
+  input_transport_fee?: number;
+  output_transport_fee?: number;
   transport_label?: string;
   avg_daily_vol?: number;
   confidence_score?: number;
@@ -297,9 +307,15 @@ export interface RefiningRow {
   sellable_crafts_estimate?: number;
   daily_crafts_estimate?: number;
   budget_crafts_estimate?: number;
+  silver_budget_crafts_estimate?: number;
+  focus_budget_crafts_estimate?: number;
   profit_per_run?: number;
   profit_per_run_conservative?: number;
   profit_for_focus_budget?: number;
+  profit_for_investment_budget?: number;
+  investment_required?: number;
+  net_revenue_for_budget?: number;
+  roi_pct?: number;
   raw_daily_profit?: number;
   risk_adjusted_daily_profit?: number;
   [extra: string]: unknown;
@@ -310,6 +326,11 @@ export interface RefiningResponse {
   count: number;
   tiers: number[];
   focus_budget: number;
+  investment_budget: number;
+  material: string | null;
+  buy_city: string;
+  refine_city: string;
+  sell_city: string;
   bonus_only: boolean;
   activity_bonus_categories: string[];
   generated_at: string;

@@ -23,7 +23,11 @@ def test_cities_bonus_payload_structure():
     assert isinstance(body["food_bonuses"], dict)
 
     martlock = next(c for c in body["cities"] if c["name"] == "Martlock")
+    lymhurst = next(c for c in body["cities"] if c["name"] == "Lymhurst")
+    fort_sterling = next(c for c in body["cities"] if c["name"] == "Fort Sterling")
     caerleon = next(c for c in body["cities"] if c["name"] == "Caerleon")
     # Food crafting bonus drzi Caerleon; Martlock zustava equipment bonus.
     assert "SHIELD" in martlock["equipment_categories"]
     assert "PIE" in caerleon["food_categories"]
+    assert lymhurst["refining_material"] == "METALBAR"
+    assert fort_sterling["refining_material"] == "CLOTH"
