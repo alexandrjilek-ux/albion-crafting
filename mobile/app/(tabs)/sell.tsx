@@ -9,6 +9,7 @@ import {
   Text,
   TextInput,
   View,
+  useWindowDimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -26,7 +27,7 @@ import { FilterChips, GlowCard, ThemeToggle } from '../../src/components';
 import { useLanguage, type LanguageCode } from '../../src/i18n/LanguageProvider';
 import { type AppColors } from '../../src/theme/colors';
 import { useTheme } from '../../src/theme/ThemeProvider';
-import { radius, spacing } from '../../src/theme/spacing';
+import { breakpoints, radius, spacing } from '../../src/theme/spacing';
 import { typography } from '../../src/theme/typography';
 import { formatProfit, formatSilver, formatSilverCompact, shortCity } from '../../src/utils/format';
 
@@ -61,6 +62,11 @@ const COPY: Record<LanguageCode, {
   subtitle: string;
   from: string;
   includeBlackMarket: string;
+  blackMarketTitle: string;
+  blackMarketBody: string;
+  blackMarketOn: string;
+  blackMarketOff: string;
+  blackMarketRoute: string;
   itemName: string;
   quantity: string;
   category: string;
@@ -80,12 +86,19 @@ const COPY: Record<LanguageCode, {
   empty: string;
   noSuggestions: string;
   backendUnavailable: string;
+  noResultsTitle: string;
+  noResultsBody: string;
 }> = {
   cs: {
     title: 'Sell',
     subtitle: 'Zadej itemy z batohu a appka vybere nejlepší royal city po tax a transportu.',
     from: 'Kde teď jsi',
     includeBlackMarket: 'Včetně Black Marketu',
+    blackMarketTitle: 'Caerleon Black Market',
+    blackMarketBody: 'Bere buy order cenu z Black Marketu a počítá ji jako prodej v Caerleonu.',
+    blackMarketOn: 'Zapnuto',
+    blackMarketOff: 'Vypnuto',
+    blackMarketRoute: 'Prodat přes Caerleon',
     itemName: 'Co máš v batohu',
     quantity: 'Kusy',
     category: 'Kategorie',
@@ -105,12 +118,19 @@ const COPY: Record<LanguageCode, {
     empty: 'Začni psát název itemu, třeba bag, planks nebo sword.',
     noSuggestions: 'Nic nenalezeno',
     backendUnavailable: 'Backend nedostupný',
+    noResultsTitle: 'Zatím žádné doporučení',
+    noResultsBody: 'Přidej itemy z batohu a spusť hledání. Pokud je Black Market zapnutý, výsledky ho porovnají s royal cities.',
   },
   en: {
     title: 'Sell',
     subtitle: 'Enter your inventory and the app picks the best royal city after tax and transport.',
     from: 'Where you are',
     includeBlackMarket: 'Include Black Market',
+    blackMarketTitle: 'Caerleon Black Market',
+    blackMarketBody: 'Uses Black Market buy order prices and treats them as a Caerleon sale.',
+    blackMarketOn: 'Enabled',
+    blackMarketOff: 'Disabled',
+    blackMarketRoute: 'Sell via Caerleon',
     itemName: 'What is in your inventory',
     quantity: 'Qty',
     category: 'Category',
@@ -130,6 +150,8 @@ const COPY: Record<LanguageCode, {
     empty: 'Start typing an item name, for example bag, planks, or sword.',
     noSuggestions: 'No matches',
     backendUnavailable: 'Backend unavailable',
+    noResultsTitle: 'No recommendation yet',
+    noResultsBody: 'Add inventory items and run the search. When Black Market is enabled, results compare it against royal cities.',
   },
 };
 
@@ -154,8 +176,10 @@ const firstDraft = (): DraftItem => ({
 export default function SellScreen() {
   const { colors: themeColors } = useTheme();
   const { language } = useLanguage();
+  const { width } = useWindowDimensions();
   const copy = COPY[language];
   const styles = useMemo(() => createStyles(themeColors), [themeColors]);
+  const isWide = width >= breakpoints.tablet;
 
   const [fromCity, setFromCity] = useState<CityName>('Bridgewatch');
   const [includeBlackMarket, setIncludeBlackMarket] = useState<boolean>(true);
@@ -278,137 +302,182 @@ export default function SellScreen() {
           <ThemeToggle />
         </View>
 
-        <Text style={styles.label}>{copy.from}</Text>
-        <FilterChips items={CITY_FILTERS} active={fromCity} onChange={setFromCity} activeTone="arcane" />
+        <View style={[styles.mainGrid, isWide && styles.mainGridWide]}>
+          <View style={[styles.controlsPane, isWide && styles.controlsPaneWide]}>
+            <Text style={styles.label}>{copy.from}</Text>
+            <FilterChips items={CITY_FILTERS} active={fromCity} onChange={setFromCity} activeTone="arcane" />
 
-        <Pressable
-          onPress={() => setIncludeBlackMarket((value) => !value)}
-          style={({ pressed }) => [
-            styles.blackMarketToggle,
-            includeBlackMarket && styles.blackMarketToggleOn,
-            pressed && styles.pressed,
-          ]}
-        >
-          <Ionicons
-            name={includeBlackMarket ? 'checkbox' : 'square-outline'}
-            size={18}
-            color={includeBlackMarket ? themeColors.arcane : themeColors.textMuted}
-          />
-          <Text style={[styles.blackMarketToggleText, includeBlackMarket && styles.blackMarketToggleTextOn]}>
-            {copy.includeBlackMarket}
-          </Text>
-        </Pressable>
+            <BlackMarketPanel
+              copy={copy}
+              enabled={includeBlackMarket}
+              onToggle={() => setIncludeBlackMarket((value) => !value)}
+              styles={styles}
+            />
 
-        <View style={styles.draftList}>
-          {drafts.map((draft, index) => (
-            <GlowCard key={draft.id} variant="neutral" style={styles.draftCard}>
-              <View style={styles.draftHeader}>
-                <Text style={styles.draftTitle}>#{index + 1}</Text>
-                {drafts.length > 1 ? (
-                  <Pressable onPress={() => removeDraft(draft.id)} style={styles.iconButton}>
-                    <Ionicons name="trash-outline" size={16} color={themeColors.rose} />
-                    <Text style={styles.removeText}>{copy.remove}</Text>
-                  </Pressable>
-                ) : null}
-              </View>
+            <View style={styles.draftList}>
+              {drafts.map((draft, index) => (
+                <GlowCard key={draft.id} variant="neutral" style={styles.draftCard}>
+                  <View style={styles.draftHeader}>
+                    <Text style={styles.draftTitle}>#{index + 1}</Text>
+                    {drafts.length > 1 ? (
+                      <Pressable onPress={() => removeDraft(draft.id)} style={styles.iconButton}>
+                        <Ionicons name="trash-outline" size={16} color={themeColors.rose} />
+                        <Text style={styles.removeText}>{copy.remove}</Text>
+                      </Pressable>
+                    ) : null}
+                  </View>
 
-              <Text style={styles.fieldLabel}>{copy.itemName}</Text>
-              <View style={styles.searchInputRow}>
-                <ItemThumb uniqueName={draft.uniqueName} styles={styles} />
-                <TextInput
-                  autoCapitalize="words"
-                  autoCorrect={false}
-                  onChangeText={(value) => {
-                    updateDraft(draft.id, {
-                      searchText: value,
-                      uniqueName: value.trim().toUpperCase(),
-                    });
-                    setActiveDraftId(draft.id);
-                  }}
-                  onFocus={() => setActiveDraftId(draft.id)}
-                  placeholder="Bag, Planks, Sword..."
-                  placeholderTextColor={themeColors.textMuted}
-                  style={styles.searchInput}
-                  value={draft.searchText}
-                />
-              </View>
-              {activeDraftId === draft.id ? (
-                <SuggestionList
-                  copy={copy}
-                  loading={suggestionsLoading}
-                  onSelect={(item) => selectSuggestion(draft.id, item)}
-                  styles={styles}
-                  suggestions={suggestions}
-                />
-              ) : null}
+                  <Text style={styles.fieldLabel}>{copy.itemName}</Text>
+                  <View style={styles.searchInputRow}>
+                    <ItemThumb uniqueName={draft.uniqueName} styles={styles} />
+                    <TextInput
+                      autoCapitalize="words"
+                      autoCorrect={false}
+                      onChangeText={(value) => {
+                        updateDraft(draft.id, {
+                          searchText: value,
+                          uniqueName: value.trim().toUpperCase(),
+                        });
+                        setActiveDraftId(draft.id);
+                      }}
+                      onFocus={() => setActiveDraftId(draft.id)}
+                      placeholder="Bag, Planks, Sword..."
+                      placeholderTextColor={themeColors.textMuted}
+                      style={styles.searchInput}
+                      value={draft.searchText}
+                    />
+                  </View>
+                  {activeDraftId === draft.id ? (
+                    <SuggestionList
+                      copy={copy}
+                      loading={suggestionsLoading}
+                      onSelect={(item) => selectSuggestion(draft.id, item)}
+                      styles={styles}
+                      suggestions={suggestions}
+                    />
+                  ) : null}
 
-              <View style={styles.inlineFields}>
-                <View style={styles.qtyField}>
-                  <Text style={styles.fieldLabel}>{copy.quantity}</Text>
-                  <TextInput
-                    keyboardType="number-pad"
-                    onChangeText={(value) => updateDraft(draft.id, { quantity: value.replace(/[^0-9]/g, '') })}
-                    placeholder="10"
-                    placeholderTextColor={themeColors.textMuted}
-                    style={styles.input}
-                    value={draft.quantity}
+                  <View style={styles.inlineFields}>
+                    <View style={styles.qtyField}>
+                      <Text style={styles.fieldLabel}>{copy.quantity}</Text>
+                      <TextInput
+                        keyboardType="number-pad"
+                        onChangeText={(value) => updateDraft(draft.id, { quantity: value.replace(/[^0-9]/g, '') })}
+                        placeholder="10"
+                        placeholderTextColor={themeColors.textMuted}
+                        style={styles.input}
+                        value={draft.quantity}
+                      />
+                    </View>
+                    <View style={styles.tierField}>
+                      <Text style={styles.fieldLabel}>{copy.tier}</Text>
+                      <TierSelect
+                        active={activeTierDraftId === draft.id}
+                        onChange={(value) => {
+                          updateDraft(draft.id, { tier: value });
+                          setActiveTierDraftId(null);
+                        }}
+                        onToggle={() => setActiveTierDraftId((current) => (current === draft.id ? null : draft.id))}
+                        styles={styles}
+                        value={draft.tier}
+                      />
+                    </View>
+                  </View>
+
+                  <Text style={styles.fieldLabel}>{copy.category}</Text>
+                  <FilterChips
+                    items={CATEGORY_FILTERS}
+                    active={draft.category}
+                    onChange={(value) => updateDraft(draft.id, { category: value })}
+                    activeTone="arcane"
                   />
-                </View>
-                <View style={styles.tierField}>
-                  <Text style={styles.fieldLabel}>{copy.tier}</Text>
-                  <TierSelect
-                    active={activeTierDraftId === draft.id}
-                    onChange={(value) => {
-                      updateDraft(draft.id, { tier: value });
-                      setActiveTierDraftId(null);
-                    }}
-                    onToggle={() => setActiveTierDraftId((current) => (current === draft.id ? null : draft.id))}
-                    styles={styles}
-                    value={draft.tier}
-                  />
-                </View>
-              </View>
+                </GlowCard>
+              ))}
+            </View>
 
-              <Text style={styles.fieldLabel}>{copy.category}</Text>
-              <FilterChips
-                items={CATEGORY_FILTERS}
-                active={draft.category}
-                onChange={(value) => updateDraft(draft.id, { category: value })}
-                activeTone="arcane"
-              />
-            </GlowCard>
-          ))}
-        </View>
-
-        <View style={styles.actions}>
-          <Pressable onPress={addDraft} style={({ pressed }) => [styles.secondaryButton, pressed && styles.pressed]}>
-            <Ionicons name="add" size={17} color={themeColors.frost} />
-            <Text style={styles.secondaryButtonText}>{copy.addItem}</Text>
-          </Pressable>
-          <Pressable onPress={runSearch} style={({ pressed }) => [styles.primaryButton, pressed && styles.pressed]}>
-            {loading ? (
-              <ActivityIndicator color={themeColors.bgCanvas} />
-            ) : (
-              <>
-                <Ionicons name="search" size={17} color={themeColors.bgCanvas} />
-                <Text style={styles.primaryButtonText}>{copy.findBest}</Text>
-              </>
-            )}
-          </Pressable>
-        </View>
-
-        {error ? <ErrorBlock error={error} copy={copy} styles={styles} /> : null}
-
-        {data ? (
-          <View style={styles.results}>
-            <Text style={styles.panelTitle}>{copy.results}</Text>
-            {data.rows.map((row) => (
-              <SellResultCard key={row.unique_name} row={row} copy={copy} styles={styles} />
-            ))}
+            <View style={styles.actions}>
+              <Pressable onPress={addDraft} style={({ pressed }) => [styles.secondaryButton, pressed && styles.pressed]}>
+                <Ionicons name="add" size={17} color={themeColors.frost} />
+                <Text style={styles.secondaryButtonText}>{copy.addItem}</Text>
+              </Pressable>
+              <Pressable onPress={runSearch} style={({ pressed }) => [styles.primaryButton, pressed && styles.pressed]}>
+                {loading ? (
+                  <ActivityIndicator color={themeColors.bgCanvas} />
+                ) : (
+                  <>
+                    <Ionicons name="search" size={17} color={themeColors.bgCanvas} />
+                    <Text style={styles.primaryButtonText}>{copy.findBest}</Text>
+                  </>
+                )}
+              </Pressable>
+            </View>
           </View>
-        ) : null}
+
+          <View style={[styles.resultsPane, isWide && styles.resultsPaneWide]}>
+            {error ? <ErrorBlock error={error} copy={copy} styles={styles} /> : null}
+
+            {data ? (
+              <View style={styles.results}>
+                <Text style={styles.panelTitle}>{copy.results}</Text>
+                {data.rows.map((row) => (
+                  <SellResultCard key={row.unique_name} row={row} copy={copy} styles={styles} />
+                ))}
+              </View>
+            ) : !error ? (
+              <EmptyResultsCard copy={copy} styles={styles} />
+            ) : null}
+          </View>
+        </View>
       </ScrollView>
     </SafeAreaView>
+  );
+}
+
+function BlackMarketPanel({
+  copy,
+  enabled,
+  onToggle,
+  styles,
+}: {
+  copy: (typeof COPY)[LanguageCode];
+  enabled: boolean;
+  onToggle: () => void;
+  styles: ReturnType<typeof createStyles>;
+}) {
+  return (
+    <Pressable
+      onPress={onToggle}
+      style={({ pressed }) => [
+        styles.blackMarketPanel,
+        enabled && styles.blackMarketPanelOn,
+        pressed && styles.pressed,
+      ]}
+    >
+      <View style={styles.blackMarketIcon}>
+        <Ionicons name="skull-outline" size={22} color={styles.activeIconColor.color} />
+      </View>
+      <View style={styles.blackMarketBody}>
+        <View style={styles.blackMarketHeader}>
+          <Text style={styles.blackMarketTitle}>{copy.blackMarketTitle}</Text>
+          <View style={[styles.blackMarketStatus, enabled && styles.blackMarketStatusOn]}>
+            <Ionicons
+              name={enabled ? 'checkmark-circle' : 'remove-circle-outline'}
+              size={14}
+              color={enabled ? styles.activeIconColor.color : styles.mutedIconColor.color}
+            />
+            <Text style={[styles.blackMarketStatusText, enabled && styles.blackMarketStatusTextOn]}>
+              {enabled ? copy.blackMarketOn : copy.blackMarketOff}
+            </Text>
+          </View>
+        </View>
+        <Text style={styles.blackMarketDescription}>{copy.blackMarketBody}</Text>
+        <View style={styles.blackMarketRouteRow}>
+          <Text style={styles.blackMarketRoute}>{copy.blackMarketRoute}</Text>
+          <Ionicons name="arrow-forward" size={14} color={styles.activeIconColor.color} />
+          <Text style={styles.blackMarketRoute}>Black Market</Text>
+        </View>
+      </View>
+    </Pressable>
   );
 }
 
@@ -422,8 +491,9 @@ function SellResultCard({
   styles: ReturnType<typeof createStyles>;
 }) {
   const best = row.options[0];
+  const isBlackMarket = best?.price_source === 'black_market_buy_max';
   return (
-    <GlowCard variant={best ? 'frost' : 'rose'} style={styles.resultCard}>
+    <GlowCard variant={isBlackMarket ? 'arcane' : best ? 'frost' : 'rose'} style={styles.resultCard}>
       <View style={styles.resultTop}>
         <ItemThumb uniqueName={row.unique_name} styles={styles} />
         <View style={styles.resultBody}>
@@ -431,7 +501,7 @@ function SellResultCard({
           <Text style={styles.resultMeta}>{row.quantity} ks</Text>
         </View>
         {best ? (
-          <View style={styles.bestCityPill}>
+          <View style={[styles.bestCityPill, isBlackMarket && styles.bestCityPillBlackMarket]}>
             <Text style={styles.bestCityLabel}>{copy.bestCity}</Text>
             <Text style={styles.bestCity}>{best.city}</Text>
           </View>
@@ -440,6 +510,12 @@ function SellResultCard({
 
       {best ? (
         <>
+          {isBlackMarket ? (
+            <View style={styles.blackMarketResultBadge}>
+              <Ionicons name="skull-outline" size={15} color={styles.activeIconColor.color} />
+              <Text style={styles.blackMarketResultBadgeText}>Black Market buy order</Text>
+            </View>
+          ) : null}
           <View style={styles.heroRevenueRow}>
             <Text style={styles.heroRevenue}>{formatProfit(row.best_net_revenue)}</Text>
             <Text style={styles.heroRevenueUnit}>{copy.netRevenue}</Text>
@@ -463,6 +539,24 @@ function SellResultCard({
       ) : (
         <Text style={styles.warning}>{row.warning}</Text>
       )}
+    </GlowCard>
+  );
+}
+
+function EmptyResultsCard({
+  copy,
+  styles,
+}: {
+  copy: (typeof COPY)[LanguageCode];
+  styles: ReturnType<typeof createStyles>;
+}) {
+  return (
+    <GlowCard variant="neutral" style={styles.emptyCard}>
+      <View style={styles.emptyIcon}>
+        <Ionicons name="analytics-outline" size={24} color={styles.activeIconColor.color} />
+      </View>
+      <Text style={styles.emptyTitle}>{copy.noResultsTitle}</Text>
+      <Text style={styles.emptyBody}>{copy.noResultsBody}</Text>
     </GlowCard>
   );
 }
@@ -629,25 +723,86 @@ function createStyles(colors: AppColors) {
       marginTop: spacing.lg,
       marginBottom: spacing.xs,
     },
-    blackMarketToggle: {
-      alignSelf: 'flex-start',
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: spacing.xs,
-      marginTop: spacing.sm,
-      paddingHorizontal: spacing.sm,
-      paddingVertical: spacing.xs,
-      borderRadius: radius.pill,
-      borderWidth: 1,
-      borderColor: colors.line,
-      backgroundColor: colors.tagBg,
+    mainGrid: {
+      gap: spacing.lg,
     },
-    blackMarketToggleOn: {
+    mainGridWide: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+    },
+    controlsPane: {
+      gap: 0,
+    },
+    controlsPaneWide: {
+      flexBasis: 440,
+      flexShrink: 0,
+    },
+    resultsPane: {
+      gap: spacing.md,
+    },
+    resultsPaneWide: {
+      flex: 1,
+      minWidth: 0,
+      paddingTop: spacing.lg,
+    },
+    blackMarketPanel: {
+      marginTop: spacing.md,
+      flexDirection: 'row',
+      gap: spacing.md,
+      padding: spacing.md,
+      borderRadius: radius.lg,
+      borderWidth: 1,
+      borderColor: colors.lineStrong,
+      backgroundColor: colors.surface1,
+    },
+    blackMarketPanelOn: {
       borderColor: colors.arcaneGlow,
       backgroundColor: colors.arcaneSoft,
     },
-    blackMarketToggleText: { ...typography.captionStrong, color: colors.textSecondary },
-    blackMarketToggleTextOn: { color: colors.arcane },
+    blackMarketIcon: {
+      width: 42,
+      height: 42,
+      borderRadius: radius.base,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: colors.surface2,
+      borderWidth: 1,
+      borderColor: colors.arcaneGlow,
+    },
+    blackMarketBody: { flex: 1, minWidth: 0, gap: spacing.xs },
+    blackMarketHeader: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: spacing.sm,
+    },
+    blackMarketTitle: { ...typography.bodyStrong, color: colors.textPrimary },
+    blackMarketDescription: { ...typography.caption, color: colors.textSecondary, lineHeight: 18 },
+    blackMarketStatus: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: spacing.xs,
+      paddingHorizontal: spacing.sm,
+      paddingVertical: spacing.xs,
+      borderRadius: radius.pill,
+      backgroundColor: colors.tagBg,
+      borderWidth: 1,
+      borderColor: colors.line,
+    },
+    blackMarketStatusOn: {
+      backgroundColor: colors.frostSoft,
+      borderColor: colors.frostGlow,
+    },
+    blackMarketStatusText: { ...typography.captionStrong, color: colors.textMuted },
+    blackMarketStatusTextOn: { color: colors.frost },
+    blackMarketRouteRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: spacing.xs,
+      flexWrap: 'wrap',
+      marginTop: spacing.xs,
+    },
+    blackMarketRoute: { ...typography.captionStrong, color: colors.arcane },
     draftList: { gap: spacing.md, marginTop: spacing.lg },
     draftCard: { gap: spacing.sm },
     draftHeader: {
@@ -798,6 +953,7 @@ function createStyles(colors: AppColors) {
       backgroundColor: colors.arcaneSoft,
     },
     activeIconColor: { color: colors.arcane },
+    mutedIconColor: { color: colors.textMuted },
     resultBody: { flex: 1, minWidth: 0 },
     resultTitle: { ...typography.bodyStrong, color: colors.textPrimary },
     resultMeta: { ...typography.caption, color: colors.textMuted, marginTop: 2 },
@@ -810,8 +966,25 @@ function createStyles(colors: AppColors) {
       borderWidth: 1,
       borderColor: colors.frostGlow,
     },
+    bestCityPillBlackMarket: {
+      backgroundColor: colors.arcaneSoft,
+      borderColor: colors.arcaneGlow,
+    },
     bestCityLabel: { ...typography.caption, color: colors.textMuted },
     bestCity: { ...typography.captionStrong, color: colors.frost },
+    blackMarketResultBadge: {
+      alignSelf: 'flex-start',
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: spacing.xs,
+      paddingHorizontal: spacing.sm,
+      paddingVertical: spacing.xs,
+      borderRadius: radius.pill,
+      borderWidth: 1,
+      borderColor: colors.arcaneGlow,
+      backgroundColor: colors.arcaneSoft,
+    },
+    blackMarketResultBadgeText: { ...typography.captionStrong, color: colors.arcane },
     heroRevenueRow: { flexDirection: 'row', alignItems: 'baseline', gap: spacing.sm },
     heroRevenue: { ...typography.heroNumber, color: colors.frost, fontSize: 32 },
     heroRevenueUnit: { ...typography.captionStrong, color: colors.textSecondary },
@@ -841,6 +1014,24 @@ function createStyles(colors: AppColors) {
     errorCard: { marginTop: spacing.lg },
     errorTitle: { ...typography.heroTitle, color: colors.rose, marginBottom: spacing.xs },
     errorBody: { ...typography.body, color: colors.textPrimary },
+    emptyCard: {
+      minHeight: 260,
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: spacing.sm,
+    },
+    emptyIcon: {
+      width: 54,
+      height: 54,
+      borderRadius: radius.xl,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 1,
+      borderColor: colors.arcaneGlow,
+      backgroundColor: colors.arcaneSoft,
+    },
+    emptyTitle: { ...typography.heroTitle, color: colors.textPrimary, textAlign: 'center' },
+    emptyBody: { ...typography.body, color: colors.textSecondary, textAlign: 'center', maxWidth: 420 },
     pressed: { opacity: 0.72 },
   });
 }
