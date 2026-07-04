@@ -9,15 +9,18 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { ActivitiesBonusProvider } from '../src/activities/ActivitiesBonusProvider';
 import { LanguageProvider } from '../src/i18n/LanguageProvider';
+import { PremiumGate, PremiumProvider } from '../src/premium';
 import { ThemeProvider, useTheme } from '../src/theme/ThemeProvider';
 
 export default function RootLayout() {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        <ActivitiesBonusProvider>
-          <RootLayoutInner />
-        </ActivitiesBonusProvider>
+        <PremiumProvider>
+          <ActivitiesBonusProvider>
+            <RootLayoutInner />
+          </ActivitiesBonusProvider>
+        </PremiumProvider>
       </LanguageProvider>
     </ThemeProvider>
   );
@@ -51,6 +54,7 @@ function RootLayoutInner() {
               }}
             />
           </Stack>
+          <PremiumGate />
         </View>
       </SafeAreaProvider>
     </GestureHandlerRootView>

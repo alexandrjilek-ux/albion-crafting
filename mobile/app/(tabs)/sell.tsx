@@ -60,6 +60,7 @@ const COPY: Record<LanguageCode, {
   title: string;
   subtitle: string;
   from: string;
+  includeBlackMarket: string;
   itemName: string;
   quantity: string;
   category: string;
@@ -71,6 +72,7 @@ const COPY: Record<LanguageCode, {
   bestCity: string;
   netRevenue: string;
   sellPrice: string;
+  priceSource: string;
   transport: string;
   volume: string;
   confidence: string;
@@ -83,6 +85,7 @@ const COPY: Record<LanguageCode, {
     title: 'Sell',
     subtitle: 'Zadej itemy z batohu a appka vybere nejlepší royal city po tax a transportu.',
     from: 'Kde teď jsi',
+    includeBlackMarket: 'Včetně Black Marketu',
     itemName: 'Co máš v batohu',
     quantity: 'Kusy',
     category: 'Kategorie',
@@ -94,6 +97,7 @@ const COPY: Record<LanguageCode, {
     bestCity: 'Nejlepší město',
     netRevenue: 'Čistý výnos',
     sellPrice: 'Cena / kus',
+    priceSource: 'Zdroj ceny',
     transport: 'Transport',
     volume: 'Volume',
     confidence: 'jistota',
@@ -106,6 +110,7 @@ const COPY: Record<LanguageCode, {
     title: 'Sell',
     subtitle: 'Enter your inventory and the app picks the best royal city after tax and transport.',
     from: 'Where you are',
+    includeBlackMarket: 'Include Black Market',
     itemName: 'What is in your inventory',
     quantity: 'Qty',
     category: 'Category',
@@ -117,6 +122,7 @@ const COPY: Record<LanguageCode, {
     bestCity: 'Best city',
     netRevenue: 'Net revenue',
     sellPrice: 'Price / item',
+    priceSource: 'Price source',
     transport: 'Transport',
     volume: 'Volume',
     confidence: 'confidence',
@@ -152,6 +158,7 @@ export default function SellScreen() {
   const styles = useMemo(() => createStyles(themeColors), [themeColors]);
 
   const [fromCity, setFromCity] = useState<CityName>('Bridgewatch');
+  const [includeBlackMarket, setIncludeBlackMarket] = useState<boolean>(true);
   const [drafts, setDrafts] = useState<DraftItem[]>([firstDraft()]);
   const [data, setData] = useState<SellResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -249,6 +256,7 @@ export default function SellScreen() {
       const result = await fetchSellRecommendations({
         from_city: fromCity,
         history_days: 7,
+        include_black_market: includeBlackMarket,
         items: validItems,
       });
       setData(result);
@@ -272,6 +280,24 @@ export default function SellScreen() {
 
         <Text style={styles.label}>{copy.from}</Text>
         <FilterChips items={CITY_FILTERS} active={fromCity} onChange={setFromCity} activeTone="arcane" />
+
+        <Pressable
+          onPress={() => setIncludeBlackMarket((value) => !value)}
+          style={({ pressed }) => [
+            styles.blackMarketToggle,
+            includeBlackMarket && styles.blackMarketToggleOn,
+            pressed && styles.pressed,
+          ]}
+        >
+          <Ionicons
+            name={includeBlackMarket ? 'checkbox' : 'square-outline'}
+            size={18}
+            color={includeBlackMarket ? themeColors.arcane : themeColors.textMuted}
+          />
+          <Text style={[styles.blackMarketToggleText, includeBlackMarket && styles.blackMarketToggleTextOn]}>
+            {copy.includeBlackMarket}
+          </Text>
+        </Pressable>
 
         <View style={styles.draftList}>
           {drafts.map((draft, index) => (
@@ -420,6 +446,7 @@ function SellResultCard({
           </View>
           <View style={styles.kpiGrid}>
             <Kpi label={copy.sellPrice} value={formatSilver(best.sell_min)} styles={styles} />
+            <Kpi label={copy.priceSource} value={priceSourceLabel(best.price_source)} styles={styles} />
             <Kpi label={copy.transport} value={formatSilver(best.transport_fee)} styles={styles} />
             <Kpi label={copy.volume} value={`${best.avg_daily_volume}/den`} styles={styles} />
             <Kpi label={copy.confidence} value={`${best.confidence_score}%`} styles={styles} />
@@ -561,6 +588,11 @@ function Kpi({ label, value, styles }: { label: string; value: string; styles: R
   );
 }
 
+function priceSourceLabel(source: string | undefined): string {
+  if (source === 'black_market_buy_max') return 'BM buy order';
+  return 'sell min';
+}
+
 function ErrorBlock({
   error,
   copy,
@@ -597,6 +629,25 @@ function createStyles(colors: AppColors) {
       marginTop: spacing.lg,
       marginBottom: spacing.xs,
     },
+    blackMarketToggle: {
+      alignSelf: 'flex-start',
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: spacing.xs,
+      marginTop: spacing.sm,
+      paddingHorizontal: spacing.sm,
+      paddingVertical: spacing.xs,
+      borderRadius: radius.pill,
+      borderWidth: 1,
+      borderColor: colors.line,
+      backgroundColor: colors.tagBg,
+    },
+    blackMarketToggleOn: {
+      borderColor: colors.arcaneGlow,
+      backgroundColor: colors.arcaneSoft,
+    },
+    blackMarketToggleText: { ...typography.captionStrong, color: colors.textSecondary },
+    blackMarketToggleTextOn: { color: colors.arcane },
     draftList: { gap: spacing.md, marginTop: spacing.lg },
     draftCard: { gap: spacing.sm },
     draftHeader: {

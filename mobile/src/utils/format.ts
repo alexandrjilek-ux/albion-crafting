@@ -50,6 +50,7 @@ const CITY_SHORT: Record<string, string> = {
   Thetford: 'TF',
   'Fort Sterling': 'FS',
   Caerleon: 'CA',
+  'Black Market': 'BM',
 };
 
 export function shortCity(name: string | undefined | null): string {

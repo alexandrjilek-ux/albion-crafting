@@ -52,6 +52,10 @@ class SellRequest(BaseModel):
         le=30,
         description="Days of AODP history used for volume and confidence.",
     )
+    include_black_market: bool = Field(
+        default=True,
+        description="When true, include Caerleon's Black Market buy orders as a sell destination.",
+    )
     items: List[SellItemInput] = Field(
         ...,
         min_length=1,
@@ -63,8 +67,12 @@ class SellRequest(BaseModel):
 class SellCityOption(BaseModel):
     """One possible sell city for one inventory item."""
 
-    city: str
-    sell_min: int = Field(..., description="Lowest sell order in the city.")
+    city: str = Field(..., description="Displayed sell destination.")
+    sell_min: int = Field(..., description="Price per item used for this destination.")
+    price_source: str = Field(
+        default="sell_min",
+        description="AODP field used for the price, e.g. sell_min or black_market_buy_max.",
+    )
     gross_revenue: int = Field(..., description="sell_min * quantity before tax.")
     market_tax: int = Field(..., description="Market tax paid on sale.")
     transport_fee: int = Field(..., description="Fast-travel fee for this stack.")
@@ -99,4 +107,5 @@ class SellResponse(BaseModel):
     rows: List[SellItemResult]
     count: int
     from_city: str
+    include_black_market: bool = Field(..., description="Whether Black Market was included.")
     generated_at: str = Field(..., description="ISO-8601 timestamp.")

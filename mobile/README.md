@@ -83,6 +83,97 @@ simulátor, `a` pro Android emulator.
 > Wi-Fi tunnel, (b) Android Studio emulator pro Android, (c) **EAS Build →
 > TestFlight** pro reálný iOS test bez Macu.
 
+## Web preview pro guild testery
+
+Frontend už umí statický Expo Router web export (`app.json` → `expo.web.output:
+"static"`). Pro veřejné testování potřebuješ dvě URL:
+
+1. **Backend URL** — veřejně dostupný FastAPI backend, např. Railway/Render/Fly/VPS.
+2. **Web URL** — Expo/EAS Hosting preview URL, kterou pošleš guildě.
+
+### 1) Deploy backend
+
+Repo má `../render.yaml`, takže nejrychlejší cesta je Render Blueprint:
+
+1. Pushni repo na GitHub.
+2. Render → New → Blueprint → vyber repo `albion-crafting`.
+3. Render použije `backend/Dockerfile` a endpoint `/healthz`.
+4. Po deployi zkopíruj backend URL, např. `https://albion-crafting-api.onrender.com`.
+
+Minimální produkční env:
+
+```bash
+ALBION_CORS_ORIGINS=https://tvoje-preview.expo.app,https://tvoje-prod.expo.app
+```
+
+Pro první guild test může zůstat `*`, ale pro veřejný deploy je lepší po
+vygenerování finální web URL nastavit konkrétní origin.
+
+Po deployi ověř:
+
+```bash
+curl https://api.tvoje-domain.tld/healthz
+```
+
+### 2) Nastav web build na veřejný backend
+
+```bash
+cd mobile
+cp .env.production.example .env.local
+# uprav:
+# EXPO_PUBLIC_API_URL=https://api.tvoje-domain.tld
+```
+
+`EXPO_PUBLIC_*` hodnoty se zapékají do web bundlu při exportu, takže po změně
+backend URL vždy znovu spusť export a deploy.
+
+### 3) Exportuj a lokálně ověř web
+
+```bash
+npm run web:export
+npm run web:serve
+```
+
+Pak otevři `http://127.0.0.1:8082`. Tenhle lokální preview už používá stejnou
+backend URL, která bude v deploynutém webu.
+
+### 4) Deployni na Vercel
+
+Repo má `mobile/vercel.json`, takže Vercel projekt nastav takto:
+
+- Framework preset: Other
+- Root directory: `mobile`
+- Install command: `npm install`
+- Build command: `npm run web:export`
+- Output directory: `dist`
+
+Vercel env var:
+
+```bash
+EXPO_PUBLIC_API_URL=https://tvoje-render-backend-url
+```
+
+Po deployi pošli guildě výslednou Vercel URL. Pokud potom zamkneš CORS, přidej
+tu samou Vercel URL do `ALBION_CORS_ORIGINS` v Renderu.
+
+### Alternativa: EAS Hosting
+
+```bash
+npx eas-cli@latest login
+npx eas-cli@latest init       # jen poprvé, pokud projectId ještě není nastavený
+npm run web:export
+npx eas-cli@latest deploy     # preview URL pro guild testery
+```
+
+Produkční alias:
+
+```bash
+npm run web:deploy:prod
+```
+
+Oficiální flow je `npx expo export --platform web` a potom `eas deploy`; EAS
+CLI po deployi vypíše preview URL.
+
 ## EAS Build (z Windows)
 
 Pro reálné iOS / Android buildy (a App Store submit):
@@ -100,6 +191,24 @@ eas build --profile production --platform ios      # App Store submit
 > První build bere ~15–25 min na EAS cloud queue. iOS production build
 > potřebuje **Apple Developer account ($99/rok)** a Apple ID/Team ID
 > v `eas.json` `submit.production.ios`.
+
+## Premium / lifetime unlock
+
+Business model je **7 dní zdarma → lifetime full access** přes Apple
+non-consumable In-App Purchase.
+
+- Trial start se ukládá přes `expo-secure-store`.
+- Nákup a restore běží přes `expo-iap`.
+- Product id se bere z `EXPO_PUBLIC_IAP_LIFETIME_PRODUCT_ID`, fallback je
+  `lifetime_full_access`.
+- Stejný product id založ v App Store Connect jako **Non-Consumable**.
+- Reálné IAP nákupy nejdou otestovat v čistém Expo Go; použij EAS development
+  build nebo TestFlight sandbox.
+
+```bash
+EXPO_PUBLIC_IAP_LIFETIME_PRODUCT_ID=lifetime_full_access
+eas build --profile development --platform ios
+```
 
 ## API endpointy (FastAPI)
 

@@ -47,7 +47,9 @@
           "backgroundColor": "#0A0820",
           "resizeMode": "contain"
         }
-      ]
+      ],
+      "expo-secure-store",
+      "expo-iap"
     ],
     "experiments": {
       "typedRoutes": true

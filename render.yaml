@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: albion-crafting-api
+    runtime: docker
+    rootDir: backend
+    plan: free
+    healthCheckPath: /healthz
+    envVars:
+      - key: ALBION_CORS_ORIGINS
+        value: "*"

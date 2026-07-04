@@ -10,6 +10,8 @@ from app.schemas.common import CityName
 
 RefiningMaterial = Literal["METALBAR", "PLANKS", "LEATHER", "CLOTH", "STONEBLOCK"]
 CityOrAuto = CityName | Literal["auto"]
+RefiningPriceMode = Literal["current", "average"]
+RefiningReturnRatePreset = Literal["bonus_city", "royal_city", "royal_island", "royal_island_bonus", "custom"]
 
 
 class RefiningRequest(BaseModel):
@@ -45,13 +47,49 @@ class RefiningRequest(BaseModel):
     )
     sell_city: CityOrAuto = Field(
         default="auto",
-        description="Output sale city. Use auto to compare all royal cities.",
+        description="Output sale city. Use auto to sell locally in each selected refining city.",
     )
     history_days: int = Field(
         default=7,
         ge=1,
         le=30,
         description="Number of recent daily history points to use for conservative prices and volume.",
+    )
+    price_mode: RefiningPriceMode = Field(
+        default="current",
+        description="Price mode. current uses latest AODP sell_min; average uses recent history average over history_days.",
+    )
+    usage_fee_pct: float = Field(
+        default=1.5,
+        ge=0,
+        le=100,
+        description="Refining station usage fee as percent of input value.",
+    )
+    market_tax_pct: float = Field(
+        default=4.0,
+        ge=0,
+        le=100,
+        description="Market sale tax percentage deducted from output sale revenue.",
+    )
+    return_rate_preset: RefiningReturnRatePreset = Field(
+        default="bonus_city",
+        description="Return-rate preset to apply. bonus_city uses the matching royal city bonus when present.",
+    )
+    custom_return_rate_pct: float | None = Field(
+        default=None,
+        ge=0,
+        le=95,
+        description="Custom return rate percentage, used only when return_rate_preset is custom.",
+    )
+    profitable_only: bool = Field(
+        default=False,
+        description="When true, keep only rows with positive budget profit.",
+    )
+    max_stale_hours: int = Field(
+        default=0,
+        ge=0,
+        le=720,
+        description="Maximum age for all input and output prices. 0 disables stale filtering.",
     )
     min_volume: int = Field(
         default=0,
@@ -95,8 +133,14 @@ class RefiningResponse(BaseModel):
     material: str | None = Field(..., description="Material filter used for this analysis, null if all.")
     buy_city: str = Field(..., description="Input purchase city filter used for this analysis.")
     refine_city: str = Field(..., description="Refining city filter used for this analysis.")
-    sell_city: str = Field(..., description="Output sale city filter used for this analysis.")
+    sell_city: str = Field(..., description="Output sale city filter used; auto means local sale in the refining city.")
     bonus_only: bool = Field(..., description="Whether only dedicated refining-bonus city rows are included.")
+    price_mode: str = Field(..., description="Price mode used for the analysis.")
+    usage_fee_pct: float = Field(..., description="Station usage fee percentage used for the analysis.")
+    market_tax_pct: float = Field(..., description="Market tax percentage used for the analysis.")
+    return_rate_preset: str = Field(..., description="Return-rate preset used for the analysis.")
+    profitable_only: bool = Field(..., description="Whether non-profitable rows were filtered out.")
+    max_stale_hours: int = Field(..., description="Maximum allowed price age in hours; 0 means disabled.")
     activity_bonus_categories: List[str] = Field(
         ..., description="Activity bonus category codes used for this analysis."
     )

@@ -256,6 +256,13 @@ export interface RefiningRequest {
   refine_city?: CityOrAuto;
   sell_city?: CityOrAuto;
   history_days?: number;
+  price_mode?: 'current' | 'average';
+  usage_fee_pct?: number;
+  market_tax_pct?: number;
+  return_rate_preset?: 'bonus_city' | 'royal_city' | 'royal_island' | 'royal_island_bonus' | 'custom';
+  custom_return_rate_pct?: number | null;
+  profitable_only?: boolean;
+  max_stale_hours?: number;
   min_volume?: number;
   bonus_only?: boolean;
   activity_bonus_categories?: string[];
@@ -286,6 +293,12 @@ export interface RefiningRow {
   total_cost_conservative?: number;
   sell_price?: number;
   sell_price_conservative?: number;
+  sell_updated?: string;
+  usage_fee_pct?: number;
+  market_tax_pct?: number;
+  price_mode?: string;
+  return_rate_preset?: string;
+  max_buy_price_raw_break_even?: number;
   net_revenue?: number;
   net_revenue_conservative?: number;
   profit?: number;
@@ -297,6 +310,8 @@ export interface RefiningRow {
   margin_pct?: number;
   margin_pct_conservative?: number;
   transport_fee?: number;
+  input_weight_kg?: number;
+  output_weight_kg?: number;
   input_transport_fee?: number;
   output_transport_fee?: number;
   transport_label?: string;
@@ -313,12 +328,25 @@ export interface RefiningRow {
   profit_per_run_conservative?: number;
   profit_for_focus_budget?: number;
   profit_for_investment_budget?: number;
+  purchase_cost_conservative?: number;
   investment_required?: number;
   net_revenue_for_budget?: number;
   roi_pct?: number;
   raw_daily_profit?: number;
   risk_adjusted_daily_profit?: number;
+  input_breakdown?: RefiningInputBreakdown[];
   [extra: string]: unknown;
+}
+
+export interface RefiningInputBreakdown {
+  item_id?: string;
+  qty?: number;
+  buy_city?: string;
+  price?: number;
+  price_conservative?: number;
+  subtotal?: number;
+  subtotal_conservative?: number;
+  updated?: string;
 }
 
 export interface RefiningResponse {
@@ -332,6 +360,12 @@ export interface RefiningResponse {
   refine_city: string;
   sell_city: string;
   bonus_only: boolean;
+  price_mode: string;
+  usage_fee_pct: number;
+  market_tax_pct: number;
+  return_rate_preset: string;
+  profitable_only: boolean;
+  max_stale_hours: number;
   activity_bonus_categories: string[];
   generated_at: string;
 }
@@ -420,12 +454,14 @@ export interface SellItemInput {
 export interface SellRequest {
   from_city?: string;
   history_days?: number;
+  include_black_market?: boolean;
   items: SellItemInput[];
 }
 
 export interface SellCityOption {
   city: string;
   sell_min: number;
+  price_source?: 'sell_min' | 'black_market_buy_max' | string;
   gross_revenue: number;
   market_tax: number;
   transport_fee: number;
@@ -454,6 +490,7 @@ export interface SellResponse {
   rows: SellItemResult[];
   count: number;
   from_city: string;
+  include_black_market: boolean;
   generated_at: string;
 }
 

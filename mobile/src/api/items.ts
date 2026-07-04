@@ -7,6 +7,10 @@ import type {
   TopItemsResponse,
 } from './types';
 
+const START_TIMEOUT_MS = 60_000;
+const POLL_TIMEOUT_MS = 60_000;
+const DEFAULT_JOB_MAX_WAIT_MS = 300_000;
+
 // POST /items/top — equipment / food top profitable items.
 // Synchronní varianta — blokuje ~30 s pro auto mode. Necháno pro testy / cURL.
 // Mobile UI volá místo toho `fetchTopItemsWithProgress` (async + per-city
@@ -32,14 +36,14 @@ function startTopItemsJob(req: TopItemsRequest): Promise<JobStartResponse> {
   return apiFetch<JobStartResponse>('/items/top/start', {
     method: 'POST',
     body: req,
-    timeoutMs: 30_000,
+    timeoutMs: START_TIMEOUT_MS,
   });
 }
 
 function pollTopItemsJob(jobId: string): Promise<JobProgressResponse> {
   return apiFetch<JobProgressResponse>(`/items/top/progress/${encodeURIComponent(jobId)}`, {
     method: 'GET',
-    timeoutMs: 15_000,
+    timeoutMs: POLL_TIMEOUT_MS,
   });
 }
 
@@ -52,7 +56,7 @@ export interface ProgressEvent {
 interface ProgressOptions {
   onProgress?: (ev: ProgressEvent) => void;
   pollIntervalMs?: number; // default 500
-  maxWaitMs?: number;      // safety net — default 180 s
+  maxWaitMs?: number;      // safety net — default 300 s
   signal?: AbortSignal;    // cancel z volajícího (např. cleanup hooku)
 }
 
@@ -72,7 +76,12 @@ export async function fetchTopItemsWithProgress(
   req: TopItemsRequest,
   opts: ProgressOptions = {},
 ): Promise<TopItemsResponse> {
-  const { onProgress, pollIntervalMs = 500, maxWaitMs = 180_000, signal } = opts;
+  const {
+    onProgress,
+    pollIntervalMs = 500,
+    maxWaitMs = DEFAULT_JOB_MAX_WAIT_MS,
+    signal,
+  } = opts;
 
   const start = await startTopItemsJob(req);
   const deadline = Date.now() + maxWaitMs;
@@ -85,7 +94,21 @@ export async function fetchTopItemsWithProgress(
       throw new ApiError(0, `Job timed out after ${maxWaitMs} ms`);
     }
 
-    const status = await pollTopItemsJob(start.job_id);
+    let status: JobProgressResponse;
+    try {
+      status = await pollTopItemsJob(start.job_id);
+    } catch (err) {
+      if (isTransientPollingError(err) && Date.now() <= deadline) {
+        onProgress?.({
+          label: 'Čekám na odpověď backendu…',
+          step: 0,
+          total: 0,
+        });
+        await sleep(Math.min(pollIntervalMs * 2, 2_000));
+        continue;
+      }
+      throw err;
+    }
 
     if (status.status === 'running') {
       onProgress?.({
@@ -116,4 +139,9 @@ export async function fetchTopItemsWithProgress(
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function isTransientPollingError(err: unknown): boolean {
+  if (!(err instanceof ApiError) || err.status !== 0) return false;
+  return /timed out|network request failed|failed to fetch/i.test(err.detail);
 }

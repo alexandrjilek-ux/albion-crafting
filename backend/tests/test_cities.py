@@ -29,5 +29,5 @@ def test_cities_bonus_payload_structure():
     # Food crafting bonus drzi Caerleon; Martlock zustava equipment bonus.
     assert "SHIELD" in martlock["equipment_categories"]
     assert "PIE" in caerleon["food_categories"]
-    assert lymhurst["refining_material"] == "METALBAR"
-    assert fort_sterling["refining_material"] == "CLOTH"
+    assert lymhurst["refining_material"] == "CLOTH"
+    assert fort_sterling["refining_material"] == "PLANKS"

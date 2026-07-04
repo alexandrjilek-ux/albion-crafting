@@ -22,6 +22,7 @@ def sell(req: SellRequest) -> SellResponse:
             from_city=req.from_city,
             items=req.items,
             history_days=req.history_days,
+            include_black_market=req.include_black_market,
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc

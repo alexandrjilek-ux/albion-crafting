@@ -16,6 +16,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { API_BASE_URL } from '../../src/api/client';
 import { FilterChips, GlowCard, SectionHeader, StatBadge, ThemeToggle } from '../../src/components';
 import { useLanguage, type LanguageCode } from '../../src/i18n/LanguageProvider';
+import { PREMIUM_TRIAL_DAYS, usePremium } from '../../src/premium';
 import { colors, type AppColors } from '../../src/theme/colors';
 import { useTheme } from '../../src/theme/ThemeProvider';
 import { radius, spacing } from '../../src/theme/spacing';
@@ -80,6 +81,19 @@ const COPY: Record<LanguageCode, {
   defaultServer: string;
   priceDataset: string;
   app: string;
+  premium: string;
+  premiumLifetime: string;
+  premiumTrial: string;
+  premiumExpired: string;
+  premiumDaysLeft: (days: number) => string;
+  premiumTrialLength: (days: number) => string;
+  premiumStarted: string;
+  premiumEnds: string;
+  premiumProduct: string;
+  premiumBuy: string;
+  premiumBuying: string;
+  premiumRestore: string;
+  premiumRestoring: string;
   appearance: string;
   themeToggle: string;
   marketAlerts: string;
@@ -97,6 +111,19 @@ const COPY: Record<LanguageCode, {
     defaultServer: 'Výchozí server',
     priceDataset: 'Cenová data',
     app: 'Aplikace',
+    premium: 'Premium',
+    premiumLifetime: 'Lifetime full verze aktivní',
+    premiumTrial: 'Trial aktivní',
+    premiumExpired: 'Trial skončil',
+    premiumDaysLeft: (days) => `${days} ${days === 1 ? 'den' : days >= 2 && days <= 4 ? 'dny' : 'dní'} zbývá`,
+    premiumTrialLength: (days) => `${days} dní zdarma`,
+    premiumStarted: 'Začátek trialu',
+    premiumEnds: 'Konec trialu',
+    premiumProduct: 'Produkt',
+    premiumBuy: 'Koupit lifetime',
+    premiumBuying: 'Otevírám App Store...',
+    premiumRestore: 'Obnovit nákup',
+    premiumRestoring: 'Obnovuji...',
     appearance: 'Vzhled',
     themeToggle: 'Tmavý / světlý režim',
     marketAlerts: 'Market alerty',
@@ -114,6 +141,19 @@ const COPY: Record<LanguageCode, {
     defaultServer: 'Default server',
     priceDataset: 'Price dataset',
     app: 'App',
+    premium: 'Premium',
+    premiumLifetime: 'Lifetime full access active',
+    premiumTrial: 'Trial active',
+    premiumExpired: 'Trial ended',
+    premiumDaysLeft: (days) => `${days} ${days === 1 ? 'day' : 'days'} left`,
+    premiumTrialLength: (days) => `${days} days free`,
+    premiumStarted: 'Trial started',
+    premiumEnds: 'Trial ends',
+    premiumProduct: 'Product',
+    premiumBuy: 'Buy lifetime',
+    premiumBuying: 'Opening App Store...',
+    premiumRestore: 'Restore purchase',
+    premiumRestoring: 'Restoring...',
     appearance: 'Appearance',
     themeToggle: 'Top-right toggle',
     marketAlerts: 'Market alerts',
@@ -128,6 +168,7 @@ const COPY: Record<LanguageCode, {
 export default function SettingsScreen() {
   const { colors: themeColors, scheme, setScheme } = useTheme();
   const { language, setLanguage } = useLanguage();
+  const premium = usePremium();
   const styles = useMemo(() => createStyles(themeColors), [themeColors]);
   const copy = COPY[language];
 
@@ -188,6 +229,73 @@ export default function SettingsScreen() {
               scrollable={false}
             />
           </SettingBlock>
+        </GlowCard>
+
+        <SectionHeader title={copy.premium} />
+        <GlowCard padded={false}>
+          <View style={[styles.row, styles.rowDivider]}>
+            <View style={styles.rowIcon}>
+              <Ionicons name="sparkles" size={16} color={themeColors.arcane} />
+            </View>
+            <View style={styles.rowBody}>
+              <Text style={styles.rowTitle}>
+                {premium.source === 'lifetime'
+                  ? copy.premiumLifetime
+                  : premium.source === 'trial'
+                    ? copy.premiumTrial
+                    : copy.premiumExpired}
+              </Text>
+              <Text style={styles.rowHint}>
+                {premium.source === 'trial'
+                  ? `${copy.premiumDaysLeft(premium.daysLeft)} · ${copy.premiumTrialLength(PREMIUM_TRIAL_DAYS)}`
+                  : premium.lifetimePrice ?? premium.lifetimeProductId}
+              </Text>
+            </View>
+          </View>
+          <SettingsRow
+            icon="calendar"
+            title={copy.premiumStarted}
+            value={formatPremiumDate(premium.trialStartedAt)}
+          />
+          <SettingsRow
+            icon="timer"
+            title={copy.premiumEnds}
+            value={formatPremiumDate(premium.trialEndsAt)}
+          />
+          <SettingsRow
+            icon="pricetag"
+            title={copy.premiumProduct}
+            value={premium.lifetimeProductId}
+          />
+          <View style={styles.premiumActions}>
+            <Pressable
+              onPress={premium.purchaseLifetimeAccess}
+              disabled={premium.purchaseInProgress}
+              style={({ pressed }) => [
+                styles.premiumAction,
+                styles.premiumActionPrimary,
+                pressed && styles.pressed,
+              ]}
+            >
+              <Ionicons name="lock-open" size={16} color={themeColors.bgCanvas} />
+              <Text style={styles.premiumActionPrimaryText}>
+                {premium.purchaseInProgress
+                  ? copy.premiumBuying
+                  : `${copy.premiumBuy}${premium.lifetimePrice ? ` · ${premium.lifetimePrice}` : ''}`}
+              </Text>
+            </Pressable>
+            <Pressable
+              onPress={premium.restorePurchases}
+              disabled={premium.restoreInProgress}
+              style={({ pressed }) => [styles.premiumAction, pressed && styles.pressed]}
+            >
+              <Ionicons name="refresh" size={16} color={themeColors.frost} />
+              <Text style={styles.premiumActionText}>
+                {premium.restoreInProgress ? copy.premiumRestoring : copy.premiumRestore}
+              </Text>
+            </Pressable>
+            {premium.error ? <Text style={styles.premiumError}>{premium.error}</Text> : null}
+          </View>
         </GlowCard>
 
         <SectionHeader title={copy.app} />
@@ -252,6 +360,15 @@ export default function SettingsScreen() {
       </ScrollView>
     </SafeAreaView>
   );
+}
+
+function formatPremiumDate(date: Date | null): string {
+  if (!date) return '-';
+  return date.toLocaleDateString(undefined, {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
 }
 
 function SettingBlock({
@@ -457,6 +574,41 @@ function createStyles(colors: AppColors) {
       gap: spacing.xs,
       marginTop: spacing.base,
       paddingHorizontal: spacing.xs,
+    },
+    premiumActions: {
+      gap: spacing.sm,
+      padding: spacing.base,
+    },
+    premiumAction: {
+      minHeight: 44,
+      borderRadius: radius.sm,
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'row',
+      gap: spacing.sm,
+      borderWidth: 1,
+      borderColor: colors.frostGlow,
+      backgroundColor: colors.frostSoft,
+      paddingHorizontal: spacing.base,
+    },
+    premiumActionPrimary: {
+      borderColor: colors.arcaneGlow,
+      backgroundColor: colors.arcane,
+    },
+    premiumActionText: {
+      ...typography.bodyStrong,
+      color: colors.frost,
+      textAlign: 'center',
+    },
+    premiumActionPrimaryText: {
+      ...typography.bodyStrong,
+      color: colors.bgCanvas,
+      textAlign: 'center',
+    },
+    premiumError: {
+      ...typography.caption,
+      color: colors.crimson,
+      textAlign: 'center',
     },
     timeline: { gap: spacing.sm },
     updateRow: { flexDirection: 'row', gap: spacing.sm },

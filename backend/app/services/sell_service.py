@@ -10,6 +10,8 @@ from app.core.transport import calculate_transport
 from app.schemas.sell import SellItemInput
 
 ROYAL_CITIES = list(CITY_BONUSES.keys())
+BLACK_MARKET_CITY = "Black Market"
+BLACK_MARKET_TRANSPORT_CITY = "Caerleon"
 
 
 def _parse_ts(ts: str):
@@ -55,13 +57,18 @@ def _confidence(*, avg_daily_volume: int, sell_updated: str, from_city: str, sel
             score -= 10
             flags.append("older_price")
 
-    if from_city != sell_city:
+    effective_sell_city = BLACK_MARKET_TRANSPORT_CITY if sell_city == BLACK_MARKET_CITY else sell_city
+    if from_city != effective_sell_city:
         score -= 6
         flags.append("transport_needed")
 
     if sell_city == "Caerleon":
         # Fast travel do Caerleonu je bezpečný, ale market tam bývá specifičtější.
         flags.append("caerleon_market")
+    if sell_city == BLACK_MARKET_CITY:
+        # Black Market je fyzicky v Caerleonu a AODP pro něj vrací buy order,
+        # ne sell listing. Proto ho v UI jasně značíme jako zvláštní destinaci.
+        flags.append("black_market_buy_order")
 
     score = max(0, min(100, score))
     label = "low" if score >= 75 else "medium" if score >= 50 else "high"
@@ -73,40 +80,49 @@ def get_sell_recommendations(
     from_city: str,
     items: List[SellItemInput],
     history_days: int,
+    include_black_market: bool = True,
 ) -> Dict[str, Any]:
     """Rank royal cities by net sell revenue after tax and transport fee."""
     if from_city not in ROYAL_CITIES:
         raise ValueError(f"Unknown from_city '{from_city}'. Valid: {ROYAL_CITIES}")
 
     unique_ids = sorted({item.unique_name for item in items})
-    prices = fetch_prices(unique_ids, ROYAL_CITIES, quality=1)
-    history = fetch_history(unique_ids, ROYAL_CITIES, days=history_days, quality=1)
+    sell_destinations = [*ROYAL_CITIES, *([BLACK_MARKET_CITY] if include_black_market else [])]
+    prices = fetch_prices(unique_ids, sell_destinations, quality=1)
+    history = fetch_history(unique_ids, sell_destinations, days=history_days, quality=1)
 
     rows = []
     for item in items:
         options = []
         tier = item.tier or _tier_from_unique_name(item.unique_name) or 4
-        for city in ROYAL_CITIES:
+        for city in sell_destinations:
             price = prices.get((item.unique_name, city), {})
-            sell_min = int(price.get("sell_min", 0) or 0)
-            if sell_min <= 0:
+            is_black_market = city == BLACK_MARKET_CITY
+            unit_price = int(
+                price.get("buy_max" if is_black_market else "sell_min", 0) or 0
+            )
+            if unit_price <= 0:
                 continue
 
-            gross = sell_min * item.quantity
+            gross = unit_price * item.quantity
             tax = round(gross * MARKET_TAX)
+            transport_city = BLACK_MARKET_TRANSPORT_CITY if is_black_market else city
             transport = calculate_transport(
                 from_city,
-                city,
+                transport_city,
                 item.category,
                 tier,
                 item.quantity,
-                item_value=sell_min,
+                item_value=unit_price,
             )
             transport_fee = int(transport.get("total_cost", 0) or 0)
             avg_vol = _avg_daily_volume(history.get((item.unique_name, city), []))
+            updated = str(
+                price.get("buy_updated" if is_black_market else "sell_updated", "") or ""
+            )
             score, flags, risk_label = _confidence(
                 avg_daily_volume=avg_vol,
-                sell_updated=price.get("sell_updated", "") or "",
+                sell_updated=updated,
                 from_city=from_city,
                 sell_city=city,
             )
@@ -114,14 +130,15 @@ def get_sell_recommendations(
             options.append(
                 {
                     "city": city,
-                    "sell_min": sell_min,
+                    "sell_min": unit_price,
+                    "price_source": "black_market_buy_max" if is_black_market else "sell_min",
                     "gross_revenue": gross,
                     "market_tax": tax,
                     "transport_fee": transport_fee,
                     "net_revenue": gross - tax - transport_fee,
                     "fee_per_item": int(transport.get("fee_per_item", 0) or 0),
                     "avg_daily_volume": avg_vol,
-                    "sell_updated": price.get("sell_updated", "") or "",
+                    "sell_updated": updated,
                     "confidence_score": score,
                     "risk_label": risk_label,
                     "risk_flags": flags,
@@ -148,6 +165,7 @@ def get_sell_recommendations(
         "rows": rows,
         "count": len(rows),
         "from_city": from_city,
+        "include_black_market": include_black_market,
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }
 

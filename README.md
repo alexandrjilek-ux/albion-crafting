@@ -52,6 +52,47 @@ npx expo start --tunnel
 Sken QR kódu z **Expo Go** appky na telefonu. Detaily, EAS Build, App Store submit:
 [`mobile/README.md`](mobile/README.md).
 
+### 3. Web preview pro guildu
+
+Frontend jde exportovat jako statický Expo Router web:
+
+```bash
+cd mobile
+cp .env.production.example .env.local   # nastav EXPO_PUBLIC_API_URL na veřejný backend
+npm run web:export
+npm run web:serve
+```
+
+Pro sdílenou URL použij EAS Hosting:
+
+```bash
+npx eas-cli@latest login
+npm run web:export
+npx eas-cli@latest deploy
+```
+
+Backend pro web musí běžet veřejně přes HTTPS. Repo má připravené:
+
+- `render.yaml` — Render blueprint pro FastAPI backend z `backend/Dockerfile`
+- `mobile/vercel.json` — Vercel config pro statický Expo web z `mobile/dist`
+
+Nejrychlejší guild deploy:
+
+1. Pushni repo na GitHub.
+2. V Renderu založ Blueprint z repo `albion-crafting`; vznikne backend URL,
+   typicky `https://albion-crafting-api.onrender.com`.
+3. Ve Vercelu založ nový projekt s root directory `mobile`.
+4. Ve Vercelu nastav env var:
+
+```bash
+EXPO_PUBLIC_API_URL=https://tvoje-render-backend-url
+```
+
+5. Deployni Vercel projekt. Výslednou Vercel URL pošli guildě.
+
+Pro první test je `ALBION_CORS_ORIGINS=*`. Až bude finální web URL známá,
+nastav v Renderu konkrétní origin, např. `https://albion-crafting.vercel.app`.
+
 ---
 
 ## Featury (current)

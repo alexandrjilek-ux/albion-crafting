@@ -7,9 +7,12 @@ import type { ErrorResponse } from './types';
 
 const DEFAULT_BASE_URL = 'http://localhost:8000';
 
-export const API_BASE_URL: string =
+const RAW_API_BASE_URL =
   (process.env.EXPO_PUBLIC_API_URL as string | undefined)?.replace(/\/+$/, '') ??
   DEFAULT_BASE_URL;
+
+export const API_BASE_URL: string =
+  resolveApiBaseUrl(RAW_API_BASE_URL);
 
 export class ApiError extends Error {
   status: number;
@@ -95,4 +98,35 @@ export async function apiFetch<T>(path: string, opts: FetchOptions = {}): Promis
   } finally {
     clearTimeout(timer);
   }
+}
+
+function resolveApiBaseUrl(rawUrl: string): string {
+  const webHost = getWebHost();
+  if (!webHost || !isLocalWebHost(webHost)) return rawUrl;
+
+  try {
+    const apiUrl = new URL(rawUrl);
+    if (!isPrivateLanHost(apiUrl.hostname)) return rawUrl;
+    const port = apiUrl.port || '8000';
+    return `${apiUrl.protocol}//${webHost}:${port}`;
+  } catch {
+    return rawUrl;
+  }
+}
+
+function getWebHost(): string | null {
+  if (typeof window === 'undefined') return null;
+  return window.location.hostname || null;
+}
+
+function isLocalWebHost(host: string): boolean {
+  return host === 'localhost' || host === '127.0.0.1' || host === '::1';
+}
+
+function isPrivateLanHost(host: string): boolean {
+  return (
+    /^10\./.test(host) ||
+    /^192\.168\./.test(host) ||
+    /^172\.(1[6-9]|2\d|3[0-1])\./.test(host)
+  );
 }

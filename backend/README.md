@@ -42,6 +42,33 @@ Then open:
 - **ReDoc** — http://localhost:8000/redoc
 - **OpenAPI JSON** — http://localhost:8000/openapi.json
 
+## Deploy pro web preview
+
+Frontend web build potřebuje veřejnou HTTPS adresu backendu. Backend lze
+nasadit jako Docker web service přes `backend/Dockerfile` na Railway, Render,
+Fly.io nebo vlastní VPS.
+
+Minimální produkční env:
+
+```bash
+ALBION_CORS_ORIGINS=https://tvoje-preview.expo.app,https://tvoje-prod.expo.app
+```
+
+Pokud zatím chceš rychlý neveřejný test, nech `ALBION_CORS_ORIGINS=*`. Jakmile
+URL pošleš guildě, nastav konkrétní EAS Hosting originy.
+
+Docker command providerům stačí default z Dockerfile:
+
+```bash
+uvicorn app.main:app --host 0.0.0.0 --port $PORT
+```
+
+Smoke test po deployi:
+
+```bash
+curl https://api.tvoje-domain.tld/healthz
+```
+
 ## Endpoints
 
 | Method | Path                | Purpose                                                              |

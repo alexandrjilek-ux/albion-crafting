@@ -40,12 +40,12 @@ ALL_CITIES = ["Fort Sterling", "Bridgewatch", "Lymhurst", "Martlock", "Thetford"
 #   Crafting bonus Bridgewatch = plate armor, crossbow...
 #   Refining bonus Bridgewatch = stone
 REFINE_BONUSES = {
-    "Lymhurst":      "METALBAR",   # Ore → Metal Bar
-    "Thetford":      "PLANKS",     # Wood → Planks
-    "Caerleon":      "LEATHER",    # Hide → Leather
-    "Fort Sterling": "CLOTH",      # Fiber → Cloth
+    "Thetford":      "METALBAR",   # Ore → Metal Bar
+    "Fort Sterling": "PLANKS",     # Wood → Planks
+    "Martlock":      "LEATHER",    # Hide → Leather
+    "Lymhurst":      "CLOTH",      # Fiber → Cloth
     "Bridgewatch":   "STONEBLOCK", # Rock → Stone Blocks
-    "Martlock":      None,
+    "Caerleon":      None,
 }
 
 # Metadata pro každý typ materiálu
@@ -57,12 +57,12 @@ REFINE_MATERIALS = {
     "STONEBLOCK": {"raw": "ROCK", "label": "Stone Blocks", "emoji": "◇", "color": "#8792a0"},
 }
 
-# Return rate při refiningu
-# Stejná logika jako při craftingu — viz albion_crafting.py
-RR_FOCUS_BASE  = 0.479   # s focusem, bez city bonusu
-RR_FOCUS_BONUS = 0.629   # s focusem + city bonus
+# Return rate při refiningu podle veřejných Albion refining kalkulaček.
+# Focus v mobilním flow zatím neposíláme, ale konstanty držíme správně kvůli API.
+RR_FOCUS_BASE  = 0.435   # s focusem, bez city bonusu
+RR_FOCUS_BONUS = 0.539   # s focusem + city bonus
 RR_NO_FOCUS_BASE  = 0.152
-RR_NO_FOCUS_BONUS = 0.362
+RR_NO_FOCUS_BONUS = 0.367
 
 MARKET_TAX = 0.04        # 4% market tax s premium
 REFINE_STATION_FEE_RATE = 0.015
@@ -92,13 +92,15 @@ def _activity_bonus_applies_to_refining(mat_type: str, activity_bonus_categories
         or REFINE_ACTIVITY_TO_MATERIAL.get(raw_type) in active
     )
 
-# Recepty pro refining (pevné — nemění se s patchem)
-# T2: jen 2x raw → 1x refined  (žádná lower tier složka)
-# T3+: 2x Tn_raw + 1x T(n-1)_refined → 1x Tn_refined
+REFINE_RAW_MULTIPLIERS = {2: 1, 3: 2, 4: 2, 5: 3, 6: 4, 7: 5, 8: 5}
+
+# Recepty pro refining:
+# T2: jen raw → refined. T3+ přidává 1x předchozí refined materiál.
+# Raw multipliery rostou podle tieru, jinak T5+ zásadně podstřelí nákupní plán.
 def build_refine_recipe(mat_type: str, tier: int):
     """Vrátí list inputů pro refining. Každý input = (item_id, quantity)."""
     raw_id = f"T{tier}_{REFINE_MATERIALS[mat_type]['raw']}"
-    inputs = [(raw_id, 2)]
+    inputs = [(raw_id, REFINE_RAW_MULTIPLIERS.get(tier, 5))]
     if tier >= 3:
         lower_refined_id = f"T{tier - 1}_{mat_type}"
         inputs.append((lower_refined_id, 1))
@@ -255,6 +257,13 @@ def _median_price(hist_data: list) -> int:
     return round(prices[mid])
 
 
+def _average_price(hist_data: list) -> int:
+    prices = [p.get("avg_price", 0) for p in hist_data if p.get("avg_price", 0) > 0]
+    if not prices:
+        return 0
+    return round(sum(prices) / len(prices))
+
+
 def _avg_daily_volume(hist_data: list) -> int:
     if not hist_data:
         return 0
@@ -276,6 +285,49 @@ def _transport_fee_for_weight(from_city: str, to_city: str, weight_kg: float) ->
 
 def _item_weight_kg(item_id: str) -> float:
     return REFINED_WEIGHT_KG if any(item_id.endswith(suffix) for suffix in REFINE_MATERIALS) else RAW_WEIGHT_KG
+
+
+def _return_rate_for_preset(
+    *,
+    preset: str,
+    custom_return_rate_pct: float | None,
+    has_bonus: bool,
+    use_focus: bool,
+) -> float:
+    if preset == "custom":
+        return _clamp_return_rate((custom_return_rate_pct or 0.0) / 100)
+    if preset == "royal_island":
+        return 0.371 if use_focus else 0.0
+    if preset == "royal_island_bonus":
+        return 0.497 if use_focus else 0.285
+    if preset == "royal_city":
+        return RR_FOCUS_BASE if use_focus else RR_NO_FOCUS_BASE
+    if use_focus:
+        return RR_FOCUS_BONUS if has_bonus else RR_FOCUS_BASE
+    return RR_NO_FOCUS_BONUS if has_bonus else RR_NO_FOCUS_BASE
+
+
+def _break_even_raw_price(row: dict, rr: float, station_fee_rate: float) -> int:
+    inputs = row.get("input_breakdown", []) or []
+    if not inputs:
+        return 0
+    raw = inputs[0]
+    raw_qty = raw.get("qty", 0) or 0
+    if raw_qty <= 0:
+        return 0
+    other_inputs = sum(
+        (inp.get("price_conservative", inp.get("price", 0)) or 0) * (inp.get("qty", 0) or 0)
+        for inp in inputs[1:]
+    )
+    price_factor = 1 - rr + station_fee_rate
+    if price_factor <= 0:
+        return 0
+    max_raw = (
+        row.get("net_revenue_conservative", 0)
+        - row.get("transport_fee", 0)
+        - other_inputs * price_factor
+    ) / (raw_qty * price_factor)
+    return max(0, round(max_raw))
 
 
 def _risk_adjusted(row: dict, focus_budget: int, investment_budget: int) -> dict:
@@ -313,9 +365,14 @@ def _risk_adjusted(row: dict, focus_budget: int, investment_budget: int) -> dict
 
     confidence = max(0, min(100, confidence))
     focus_crafts = focus_budget // row["focus_cost"] if row["use_focus"] and row["focus_cost"] > 0 else 0
+    purchase_cost_conservative = (
+        row["nominal_cost_conservative"]
+        + row["station_fee_conservative"]
+        + row["transport_fee"]
+    )
     silver_crafts = (
-        investment_budget // row["total_cost_conservative"]
-        if investment_budget > 0 and row["total_cost_conservative"] > 0
+        investment_budget // purchase_cost_conservative
+        if investment_budget > 0 and purchase_cost_conservative > 0
         else 1
     )
     sellable = row["avg_daily_vol"] if row["avg_daily_vol"] > 0 else 0
@@ -338,7 +395,8 @@ def _risk_adjusted(row: dict, focus_budget: int, investment_budget: int) -> dict
     row["profit_per_run_conservative"] = row["profit_conservative"]
     row["profit_for_focus_budget"] = row["profit_conservative"] * focus_crafts if row["use_focus"] else 0
     row["profit_for_investment_budget"] = row["profit_conservative"] * budget_crafts
-    row["investment_required"] = row["total_cost_conservative"] * budget_crafts
+    row["purchase_cost_conservative"] = purchase_cost_conservative
+    row["investment_required"] = purchase_cost_conservative * budget_crafts
     row["net_revenue_for_budget"] = row["net_revenue_conservative"] * budget_crafts
     row["roi_pct"] = (
         round(row["profit_for_investment_budget"] / row["investment_required"] * 100, 1)
@@ -421,6 +479,11 @@ def analyze_refining(
     buy_city: str = "auto",
     refine_city: str = "auto",
     sell_city: str = "auto",
+    price_mode: str = "current",
+    usage_fee_pct: float = 1.5,
+    market_tax_pct: float = 4.0,
+    return_rate_preset: str = "bonus_city",
+    custom_return_rate_pct: float | None = None,
 ):
     """
     Pro každý (materiál × tier × refine_city × sell_city) spočítá profit.
@@ -459,6 +522,8 @@ def analyze_refining(
 
     print("[3/3] Počítám marže...")
     results = []
+    station_fee_rate = max(0.0, usage_fee_pct) / 100
+    market_tax_rate = max(0.0, market_tax_pct) / 100
 
     for mat_type in material_types:
         mat_info = REFINE_MATERIALS[mat_type]
@@ -487,8 +552,10 @@ def analyze_refining(
                         if key not in prices or prices[key]["sell_min"] == 0:
                             has_inputs = False
                             break
-                        unit_price = prices[key]["sell_min"]
-                        hist_unit = _median_price(history.get(key, []))
+                        hist_data = history.get(key, [])
+                        hist_unit = _median_price(hist_data)
+                        avg_unit = _average_price(hist_data)
+                        unit_price = avg_unit if price_mode == "average" and avg_unit > 0 else prices[key]["sell_min"]
                         conservative_unit = max(unit_price, hist_unit) if hist_unit > 0 else unit_price
                         subtotal   = unit_price * qty
                         subtotal_conservative = conservative_unit * qty
@@ -518,15 +585,17 @@ def analyze_refining(
                         ACTIVITY_RETURN_RATE_BONUS if has_activity_bonus else 0.0
                     )
                     use_focus = focus_budget > 0
-                    if use_focus:
-                        rr = RR_FOCUS_BONUS if has_bonus else RR_FOCUS_BASE
-                    else:
-                        rr = RR_NO_FOCUS_BONUS if has_bonus else RR_NO_FOCUS_BASE
+                    rr = _return_rate_for_preset(
+                        preset=return_rate_preset,
+                        custom_return_rate_pct=custom_return_rate_pct,
+                        has_bonus=has_bonus,
+                        use_focus=use_focus,
+                    )
                     rr = _clamp_return_rate(rr + activity_rr_bonus)
                     eff_cost = round(nominal_cost * (1 - rr))
                     eff_cost_conservative = round(nominal_cost_conservative * (1 - rr))
-                    station_fee = round(nominal_cost * REFINE_STATION_FEE_RATE)
-                    station_fee_conservative = round(nominal_cost_conservative * REFINE_STATION_FEE_RATE)
+                    station_fee = round(nominal_cost * station_fee_rate)
+                    station_fee_conservative = round(nominal_cost_conservative * station_fee_rate)
                     input_transport_fee = _transport_fee_for_weight(
                         current_buy_city,
                         current_refine_city,
@@ -546,7 +615,10 @@ def analyze_refining(
                         hist_key  = (refined_id, current_sell_city)
                         hist_data = history.get(hist_key, [])
                         hist_median = _median_price(hist_data)
-                        if hist_data:
+                        if price_mode == "average" and hist_data:
+                            sell_price = _average_price(hist_data)
+                            price_source = f"average{history_days}d"
+                        elif hist_data:
                             daily_prices = sorted(p["avg_price"] for p in hist_data if p["avg_price"] > 0)
                             if daily_prices:
                                 mid = len(daily_prices) // 2
@@ -564,8 +636,8 @@ def analyze_refining(
                             price_source = "sell_min"
 
                         sell_price_conservative = min(sell_min, hist_median) if hist_median > 0 else sell_min
-                        net_revenue = round(sell_price * (1 - MARKET_TAX))
-                        net_revenue_conservative = round(sell_price_conservative * (1 - MARKET_TAX))
+                        net_revenue = round(sell_price * (1 - market_tax_rate))
+                        net_revenue_conservative = round(sell_price_conservative * (1 - market_tax_rate))
 
                         output_transport_fee = _transport_fee_for_weight(
                             current_refine_city,
@@ -635,12 +707,23 @@ def analyze_refining(
                         "input_transport_fee": input_transport_fee,
                         "output_transport_fee": output_transport_fee,
                         "transport_fee":  transport_fee,
+                        "input_weight_kg": round(input_weight_kg, 2),
+                        "output_weight_kg": REFINED_WEIGHT_KG,
                         "transport_label": transport_label,
+                        "usage_fee_pct": usage_fee_pct,
+                        "market_tax_pct": market_tax_pct,
+                        "price_mode": price_mode,
+                        "return_rate_preset": return_rate_preset,
                         "avg_daily_vol":  avg_vol,
                         "history":        hist_data,
                         "input_breakdown": input_breakdown,
                         "sell_updated":   prices.get((refined_id, current_sell_city), {}).get("updated", ""),
                     })
+                        results[-1]["max_buy_price_raw_break_even"] = _break_even_raw_price(
+                            results[-1],
+                            rr,
+                            station_fee_rate,
+                        )
                         results[-1] = _risk_adjusted(results[-1], focus_budget, investment_budget)
 
     results.sort(
