@@ -78,7 +78,14 @@ GATHERING_FALLBACK = [
 
 def get_bonus_calendar() -> dict[str, Any]:
     """Fetch public bonus data and return a normalized payload."""
-    html = _fetch_source_html()
+    try:
+        html = _fetch_source_html()
+        source_available = True
+    except Exception:
+        # Calendar tab je hlavně ruční picker pro bonusy ve hře. Když veřejný
+        # zdroj nebo DNS zrovna nejede, nesmí kvůli tomu spadnout celý tab.
+        html = ""
+        source_available = False
     daily = _extract_entries(html, DAILY_FALLBACK) or _entries(DAILY_FALLBACK)
     activities = _extract_entries(html, ACTIVITY_FALLBACK, duration=(2, 3)) or _entries(
         ACTIVITY_FALLBACK,
@@ -94,11 +101,13 @@ def get_bonus_calendar() -> dict[str, Any]:
         "rotating_activities": activities,
         "rotating_gathering": gathering,
         "source_url": SOURCE_URL,
-        "source_updated_label": _extract_source_updated_label(html),
+        "source_updated_label": _extract_source_updated_label(html) if source_available else None,
         "exact_week_schedule_available": False,
         "note": (
             "Public source exposes the current bonus pools and rotation rules, "
             "but not an exact upcoming day-by-day weekly schedule."
+            if source_available
+            else "Public source was unavailable, so this response uses the bundled fallback bonus list."
         ),
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }
