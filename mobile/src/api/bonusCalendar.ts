@@ -70,7 +70,7 @@ export async function fetchBonusCalendar(): Promise<BonusCalendarResponse> {
   try {
     return await apiFetch<BonusCalendarResponse>('/bonus-calendar', {
       method: 'GET',
-      timeoutMs: 30_000,
+      timeoutMs: 5_000,
     });
   } catch {
     return fallbackBonusCalendar();
