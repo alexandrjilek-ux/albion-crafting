@@ -1,6 +1,6 @@
 """Equipment / food top-items endpoint schemas."""
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
@@ -58,6 +58,16 @@ class TopItemsRequest(BaseModel):
     )
     bonus_only: bool = Field(default=False)
     no_caerleon: bool = Field(default=False)
+    market_mode: Optional[
+        Literal["all", "royal_no_caerleon", "black_market_only"]
+    ] = Field(
+        default=None,
+        description=(
+            "Optional web pilot sell target preset. black_market_only uses "
+            "Black Market buy orders as the Forge sell destination. None keeps "
+            "the legacy local-craft behavior used by mobile."
+        ),
+    )
     activity_bonus_categories: List[str] = Field(
         default_factory=list,
         description=(
@@ -116,6 +126,7 @@ class TopItemsResponse(BaseModel):
     use_focus: bool
     focus_budget: int
     tiers: List[int]
+    market_mode: Optional[str] = Field(default=None, description="Sell target preset used for the analysis.")
     generated_at: str = Field(..., description="ISO-8601 UTC timestamp")
     warning: Optional[str] = Field(
         default=None,

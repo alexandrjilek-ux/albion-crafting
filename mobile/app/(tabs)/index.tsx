@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   Image,
   Modal,
+  Platform,
   Pressable,
   RefreshControl,
   ScrollView,
@@ -38,6 +39,7 @@ import {
   type HistoryPoint,
   type ResourceBreakdownRow,
   type SortKey,
+  type MarketMode,
   type TopItemsRequest,
   type TopItemRow,
 } from '../../src/api/types';
@@ -104,6 +106,9 @@ const COPY: Record<LanguageCode, {
   sellCity: string;
   noCaerleon: string;
   includeCaerleon: string;
+  normalMarket: string;
+  blackMarketOnly: string;
+  blackMarketOnlyHint: string;
   todaysForge: string;
   updated: string;
   items: string;
@@ -161,6 +166,9 @@ const COPY: Record<LanguageCode, {
     sellCity: 'Sell city',
     noCaerleon: 'Bez Caerleonu',
     includeCaerleon: 'Vcetne Caerleonu',
+    normalMarket: 'Normalni mesta',
+    blackMarketOnly: 'Jen Black Market',
+    blackMarketOnlyHint: 'Pouzije Caerleon Black Market buy ordery jako prodejni cenu.',
     todaysForge: "Today's Forge",
     updated: 'Aktualizovano',
     items: 'polozek',
@@ -218,6 +226,9 @@ const COPY: Record<LanguageCode, {
     sellCity: 'Sell city',
     noCaerleon: 'No Caerleon',
     includeCaerleon: 'Include Caerleon',
+    normalMarket: 'Normal cities',
+    blackMarketOnly: 'Black Market only',
+    blackMarketOnlyHint: 'Uses Caerleon Black Market buy orders as the sell price.',
     todaysForge: "Today's Forge",
     updated: 'Updated',
     items: 'items',
@@ -275,6 +286,7 @@ export default function TopItemsScreen() {
   const copy = COPY[language];
   styles = makeTopItemsStyles(themeColors);
   const { width } = useWindowDimensions();
+  const isWeb = Platform.OS === 'web';
   const isTablet = width >= breakpoints.tablet;
 
   // City selector byl odstraněn — vždy běží auto mode (best craft city per
@@ -297,6 +309,7 @@ export default function TopItemsScreen() {
   // ale dostat tam item znamená PvP). Uživatel si ho může zapnout v
   // pokročilých filtrech když ví, co dělá.
   const [noCaerleon, setNoCaerleon] = useState<boolean>(true);
+  const [marketMode, setMarketMode] = useState<MarketMode>('royal_no_caerleon');
   const [filtersOpen, setFiltersOpen] = useState<boolean>(false);
   const [submittedReq, setSubmittedReq] = useState<TopItemsRequest | null>(null);
 
@@ -346,10 +359,11 @@ export default function TopItemsScreen() {
         sort_by: sortBy,
         min_volume: effectiveMinVolume,
         no_caerleon: noCaerleon,
+        ...(isWeb && marketMode === 'black_market_only' ? { market_mode: marketMode } : {}),
         activity_bonus_categories: selectedCategories,
       };
     },
-    [city, mode, tiers, enchants, useFocus, focusBudget, effectiveMinVolume, noCaerleon, selectedCategories],
+    [city, mode, tiers, enchants, useFocus, focusBudget, effectiveMinVolume, noCaerleon, isWeb, marketMode, selectedCategories],
   );
 
   const toggleTier = (t: number) => {
@@ -505,6 +519,12 @@ export default function TopItemsScreen() {
                 </Text>
               </Pressable>
             </View>
+            {isWeb ? (
+              <MarketModeSwitch
+                value={marketMode}
+                onChange={setMarketMode}
+              />
+            ) : null}
             <SearchButton
               loading={loading}
               dirty={reqDirty}
@@ -725,6 +745,12 @@ export default function TopItemsScreen() {
                 </Text>
               </Pressable>
             </View>
+            {isWeb ? (
+              <MarketModeSwitch
+                value={marketMode}
+                onChange={setMarketMode}
+              />
+            ) : null}
           </GlowCard>
         ) : null}
 
@@ -891,6 +917,59 @@ function SearchButton({
   );
 }
 
+function MarketModeSwitch({
+  value,
+  onChange,
+}: {
+  value: MarketMode;
+  onChange: (value: MarketMode) => void;
+}) {
+  const { language } = useLanguage();
+  const copy = COPY[language];
+  const isBlackMarket = value === 'black_market_only';
+
+  return (
+    <View style={styles.marketModeBox}>
+      <View style={styles.marketModeRow}>
+        <Pressable
+          onPress={() => onChange('royal_no_caerleon')}
+          hitSlop={8}
+          style={({ pressed }) => [
+            styles.marketModeChip,
+            !isBlackMarket && styles.marketModeChipActive,
+            pressed && { opacity: 0.7 },
+          ]}
+        >
+          <Text style={[styles.marketModeText, !isBlackMarket && styles.marketModeTextActive]}>
+            {copy.normalMarket}
+          </Text>
+        </Pressable>
+        <Pressable
+          onPress={() => onChange('black_market_only')}
+          hitSlop={8}
+          style={({ pressed }) => [
+            styles.marketModeChip,
+            isBlackMarket && styles.marketModeChipActive,
+            pressed && { opacity: 0.7 },
+          ]}
+        >
+          <Ionicons
+            name="skull-outline"
+            size={14}
+            color={isBlackMarket ? colors.frost : colors.textMuted}
+          />
+          <Text style={[styles.marketModeText, isBlackMarket && styles.marketModeTextActive]}>
+            {copy.blackMarketOnly}
+          </Text>
+        </Pressable>
+      </View>
+      {isBlackMarket ? (
+        <Text style={styles.marketModeHint}>{copy.blackMarketOnlyHint}</Text>
+      ) : null}
+    </View>
+  );
+}
+
 function SearchIdle() {
   const { language } = useLanguage();
   const copy = COPY[language];
@@ -957,6 +1036,7 @@ function DetailPanel({ item }: { item: TopItemRow | null }) {
   const focusCost = item.focus_cost as number | undefined;
   const margin = item['margin_focus_%'] as number | undefined;
   const sellPrice = item.sell_price_conservative ?? item.sell_price;
+  const isBlackMarket = item.sell_price_source === 'black_market_buy_max' || item.sell_city === 'Black Market';
   const costNoFocus = item.eff_cost_no_focus ?? item.nominal_cost;
   const costFocus = item.eff_cost_focus;
   const netRevenue = item.net_revenue_conservative ?? item.net_revenue;
@@ -998,6 +1078,7 @@ function DetailPanel({ item }: { item: TopItemRow | null }) {
             {item.enchant ? <StatBadge label={`.${item.enchant}`} tone="rose" /> : null}
             {item.category ? <StatBadge label={item.category.toLowerCase().replace(/_/g, ' ')} tone="default" /> : null}
             {margin !== undefined ? <StatBadge label={formatPercent(margin)} tone="frost" /> : null}
+            {isBlackMarket ? <StatBadge label="BM buy order" tone="rose" /> : null}
           </View>
         </View>
       </View>
@@ -1042,7 +1123,7 @@ function DetailPanel({ item }: { item: TopItemRow | null }) {
           <Text style={styles.kpiValue}>{formatSilver(costFocus)}</Text>
         </View>
         <View style={styles.kpiCell}>
-          <Text style={styles.kpiLabel}>{copy.sellPrice}</Text>
+          <Text style={styles.kpiLabel}>{isBlackMarket ? 'BM buy order' : copy.sellPrice}</Text>
           <Text style={styles.kpiValue}>{formatSilver(sellPrice)}</Text>
         </View>
         <View style={styles.kpiCell}>
@@ -1664,6 +1745,45 @@ function makeTopItemsStyles(colors: AppColors) {
   },
   focusSwitchTextOn: {
     color: colors.frost,
+  },
+  marketModeBox: {
+    marginTop: spacing.xs,
+    gap: spacing.xs,
+  },
+  marketModeRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.xs,
+  },
+  marketModeChip: {
+    minHeight: 34,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.xs,
+    borderRadius: radius.pill,
+    borderWidth: 1,
+    borderColor: colors.line,
+    backgroundColor: colors.surface2,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.xs,
+  },
+  marketModeChipActive: {
+    borderColor: 'rgba(103,232,249,0.38)',
+    backgroundColor: 'rgba(103,232,249,0.10)',
+  },
+  marketModeText: {
+    ...typography.captionStrong,
+    color: colors.textSecondary,
+    fontSize: 11,
+  },
+  marketModeTextActive: {
+    color: colors.frost,
+  },
+  marketModeHint: {
+    ...typography.caption,
+    color: colors.textMuted,
+    lineHeight: 17,
   },
   focusCustomRow: {
     flexDirection: 'row',

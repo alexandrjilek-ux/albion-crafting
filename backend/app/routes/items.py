@@ -69,6 +69,7 @@ def top_items(req: TopItemsRequest) -> TopItemsResponse:
             station_fee=req.station_fee,
             bonus_only=req.bonus_only,
             no_caerleon=req.no_caerleon,
+            market_mode=req.market_mode,
             activity_bonus_categories=req.activity_bonus_categories,
         )
     except ValueError as exc:
@@ -148,6 +149,7 @@ def _run_job(job_id: str, req: TopItemsRequest) -> None:
             station_fee=req.station_fee,
             bonus_only=req.bonus_only,
             no_caerleon=req.no_caerleon,
+            market_mode=req.market_mode,
             activity_bonus_categories=req.activity_bonus_categories,
             progress_callback=on_progress,
         )

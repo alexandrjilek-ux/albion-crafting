@@ -39,6 +39,7 @@ def _run_auto(
     station_fee: float,
     mode: str,
     use_focus: bool,
+    market_mode: str | None,
     activity_bonus_categories: List[str],
     progress_callback: ProgressCb = None,
 ) -> Tuple[List[Dict[str, Any]], Optional[str]]:
@@ -85,6 +86,7 @@ def _run_auto(
                 progress_callback=None,
                 mode=mode,
                 use_focus=use_focus,
+                market_mode=market_mode,
                 history_candidate_limit=FAST_HISTORY_CANDIDATE_LIMIT,
                 activity_bonus_categories=activity_bonus_categories,
             )
@@ -135,6 +137,7 @@ def _run_auto(
                     progress_callback=None,
                     mode=mode,
                     use_focus=use_focus,
+                    market_mode=market_mode,
                     history_candidate_limit=FAST_HISTORY_CANDIDATE_LIMIT,
                     activity_bonus_categories=activity_bonus_categories,
                 )
@@ -201,6 +204,7 @@ def get_top_items(
     station_fee: float,
     bonus_only: bool,
     no_caerleon: bool,
+    market_mode: str | None = None,
     activity_bonus_categories: List[str],
     progress_callback: ProgressCb = None,
 ) -> Dict[str, Any]:
@@ -236,6 +240,7 @@ def get_top_items(
             station_fee=station_fee,
             mode=mode,
             use_focus=use_focus,
+            market_mode=market_mode,
             activity_bonus_categories=activity_bonus_categories,
             progress_callback=progress_callback,
         )
@@ -262,6 +267,7 @@ def get_top_items(
             progress_callback=None,
             mode=mode,
             use_focus=use_focus,
+            market_mode=market_mode,
             history_candidate_limit=max(top * 3, FAST_HISTORY_CANDIDATE_LIMIT),
             activity_bonus_categories=activity_bonus_categories,
         )
@@ -276,6 +282,7 @@ def get_top_items(
         "use_focus": use_focus,
         "focus_budget": focus_budget,
         "tiers": tiers,
+        "market_mode": market_mode,
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "warning": warning,
     }

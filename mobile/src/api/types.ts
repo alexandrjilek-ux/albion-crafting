@@ -32,6 +32,7 @@ export type SortKey =
   | 'margin_focus_%';
 
 export type AnalysisMode = 'equipment' | 'food';
+export type MarketMode = 'all' | 'royal_no_caerleon' | 'black_market_only';
 
 export interface ErrorResponse {
   detail: string;
@@ -54,6 +55,7 @@ export interface TopItemsRequest {
   station_fee?: number;
   bonus_only?: boolean;
   no_caerleon?: boolean;
+  market_mode?: MarketMode;
   activity_bonus_categories?: string[];
 }
 
@@ -91,6 +93,7 @@ export interface TopItemRow {
   risk_label?: 'high' | 'medium' | 'low' | string;
   risk_flags?: string[];
   sell_price_conservative?: number;
+  sell_price_source?: string;
   sellable_crafts_estimate?: number;
   sell_price?: number;
   net_revenue?: number;
@@ -132,6 +135,7 @@ export interface TopItemsResponse {
   use_focus: boolean;
   focus_budget: number;
   tiers: number[];
+  market_mode?: MarketMode | string | null;
   generated_at: string; // ISO-8601 UTC
   warning?: string | null;
 }

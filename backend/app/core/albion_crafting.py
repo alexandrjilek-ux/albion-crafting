@@ -73,6 +73,8 @@ ACTIVITY_RETURN_RATE_BONUS = 0.10
 
 # Market tax (prodej přes sell order s premium = 4%, bez premium = 8%)
 MARKET_TAX = 0.04               # předpokládáme premium
+BLACK_MARKET_CITY = "Black Market"
+BLACK_MARKET_TRANSPORT_CITY = "Caerleon"
 
 # Station fee — průměrný poplatek za craftovací stanici v Royal City
 # Typicky 1-3% z nominal cost surovin, default 1.5%
@@ -854,8 +856,15 @@ def apply_risk_adjustment(row, *, focus_budget, min_volume, use_focus):
         flags.append("stale_resource_price")
         confidence -= 0.12
 
+    if row.get("sell_price_source") == "black_market_buy_max":
+        flags.append("black_market_buy_order")
+        confidence -= 0.05
+
     if row.get("sell_city") == "Caerleon":
         flags.append("caerleon_market")
+        confidence -= 0.10
+    elif row.get("sell_city") == BLACK_MARKET_CITY:
+        flags.append("caerleon_black_market")
         confidence -= 0.10
 
     confidence = max(0.20, min(1.0, confidence))
@@ -1080,15 +1089,19 @@ def analyze_item(item, prices, craft_city, sell_cities, has_city_bonus,
     # Zkusíme prodat ve všech městech a vybereme nejlepší
     for sell_city in sell_cities:
         sell_key = (item["item_id"], sell_city)
-        if sell_key not in prices or prices[sell_key]["sell_min"] == 0:
+        is_black_market = sell_city == BLACK_MARKET_CITY
+        price_field = "buy_max" if is_black_market else "sell_min"
+        updated_field = "buy_updated" if is_black_market else "sell_updated"
+        if sell_key not in prices or prices[sell_key][price_field] == 0:
             continue
 
-        sell_price = prices[sell_key]["sell_min"]
+        sell_price = prices[sell_key][price_field]
         net_revenue = sell_price * (1 - MARKET_TAX)
+        transport_sell_city = BLACK_MARKET_TRANSPORT_CITY if is_black_market else sell_city
 
         # Transport fee pro celou dávku (batch_size kusů, minimálně 1 v no-focus módu)
         transport = calculate_transport(
-            craft_city, sell_city, item["category"], item["tier"],
+            craft_city, transport_sell_city, item["category"], item["tier"],
             num_items=transport_batch_size, item_value=sell_price
         )
 
@@ -1153,7 +1166,7 @@ def analyze_item(item, prices, craft_city, sell_cities, has_city_bonus,
             "eff_cost_no_focus": round(cost_no_focus),
             "eff_cost_focus": round(cost_focus),
             "sell_price": sell_price,
-            "sell_price_source": "sell_min",
+            "sell_price_source": "black_market_buy_max" if is_black_market else "sell_min",
             "net_revenue": round(net_revenue),
             "profit_no_focus": round(profit_no_focus),
             "profit_focus": round(profit_focus),
@@ -1165,10 +1178,11 @@ def analyze_item(item, prices, craft_city, sell_cities, has_city_bonus,
             "focus_cost": focus_cost,
             "crafts_with_focus": batch_size,
             "silver_per_focus": round(silver_per_focus, 1),
-            "data_age_sell": prices[sell_key]["sell_updated"],
+            "data_age_sell": prices[sell_key][updated_field],
             # Transport info (zjednodušeno - fast travel + Caerleon portál)
             "batch_size": batch_size,
             "transport_method_label": transport["method_label"],
+            "transport_sell_city": transport_sell_city,
             "transport_weight_per_item": transport["weight_per_item"],
             "transport_total_weight": transport["total_weight_kg"],
             "transport_total_fee": transport["total_fee"],
@@ -1205,7 +1219,7 @@ def run_analysis(city, tiers, top=30, sort_by="silver_per_focus", focus_budget=1
                  bonus_only=False, min_volume=10, history_days=7, enchants=None,
                  no_caerleon=False, spec_level=4, station_fee=1.5,
                  out_dir=None, progress_callback=None, mode="equipment",
-                 use_focus=True, history_candidate_limit=None,
+                 use_focus=True, market_mode=None, history_candidate_limit=None,
                  activity_bonus_categories=None):
     """
     Spustí kompletní analýzu a vrátí (html_string, top_rows).
@@ -1243,11 +1257,14 @@ def run_analysis(city, tiers, top=30, sort_by="silver_per_focus", focus_budget=1
         active_city_bonuses = CITY_BONUSES
 
     craft_city = city
-    # Forge doporučení je záměrně local-only: koupit suroviny, craftit a prodat
-    # ve stejném městě. Cross-city převoz patří do Transport/Materials workflowu,
-    # jinak hlavní žebříček míchá profit s logistickým rizikem a fee.
-    sell_cities = [craft_city]
-    price_locations = [craft_city]
+    # Forge je defaultně local-only kvůli mobilu. Web pilot umí přepnout na
+    # Black Market, kde cena není sell_min listing, ale reálný buy_max order.
+    if market_mode == "black_market_only":
+        sell_cities = [BLACK_MARKET_CITY]
+        price_locations = [craft_city, BLACK_MARKET_CITY]
+    else:
+        sell_cities = [craft_city]
+        price_locations = [craft_city]
 
     spec_rr_bonus = spec_level * RR_SPEC_BONUS_PER_LEVEL
     station_fee_rate = station_fee / 100.0
