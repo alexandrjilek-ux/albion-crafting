@@ -8,3 +8,15 @@ services:
     envVars:
       - key: ALBION_CORS_ORIGINS
         value: "*"
+  - type: web
+    name: albion-crafting-web
+    runtime: static
+    buildCommand: cd mobile && npm install && npm run web:export
+    staticPublishPath: mobile/dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: EXPO_PUBLIC_API_URL
+        value: https://albion-crafting-api.onrender.com
