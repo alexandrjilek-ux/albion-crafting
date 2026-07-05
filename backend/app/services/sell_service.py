@@ -12,6 +12,9 @@ from app.schemas.sell import SellItemInput
 ROYAL_CITIES = list(CITY_BONUSES.keys())
 BLACK_MARKET_CITY = "Black Market"
 BLACK_MARKET_TRANSPORT_CITY = "Caerleon"
+SELL_MARKET_MODE_ALL = "all"
+SELL_MARKET_MODE_ROYAL_NO_CAERLEON = "royal_no_caerleon"
+SELL_MARKET_MODE_BLACK_MARKET_ONLY = "black_market_only"
 
 
 def _parse_ts(ts: str):
@@ -81,13 +84,17 @@ def get_sell_recommendations(
     items: List[SellItemInput],
     history_days: int,
     include_black_market: bool = True,
+    market_mode: str | None = None,
 ) -> Dict[str, Any]:
     """Rank royal cities by net sell revenue after tax and transport fee."""
     if from_city not in ROYAL_CITIES:
         raise ValueError(f"Unknown from_city '{from_city}'. Valid: {ROYAL_CITIES}")
 
     unique_ids = sorted({item.unique_name for item in items})
-    sell_destinations = [*ROYAL_CITIES, *([BLACK_MARKET_CITY] if include_black_market else [])]
+    sell_destinations, resolved_market_mode = _sell_destinations(
+        include_black_market=include_black_market,
+        market_mode=market_mode,
+    )
     prices = fetch_prices(unique_ids, sell_destinations, quality=1)
     history = fetch_history(unique_ids, sell_destinations, days=history_days, quality=1)
 
@@ -165,9 +172,28 @@ def get_sell_recommendations(
         "rows": rows,
         "count": len(rows),
         "from_city": from_city,
-        "include_black_market": include_black_market,
+        "include_black_market": BLACK_MARKET_CITY in sell_destinations,
+        "market_mode": resolved_market_mode,
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }
+
+
+def _sell_destinations(
+    *, include_black_market: bool, market_mode: str | None
+) -> Tuple[List[str], str]:
+    if market_mode == SELL_MARKET_MODE_BLACK_MARKET_ONLY:
+        return [BLACK_MARKET_CITY], SELL_MARKET_MODE_BLACK_MARKET_ONLY
+    if market_mode == SELL_MARKET_MODE_ROYAL_NO_CAERLEON:
+        return [
+            city for city in ROYAL_CITIES if city != BLACK_MARKET_TRANSPORT_CITY
+        ], SELL_MARKET_MODE_ROYAL_NO_CAERLEON
+    if market_mode == SELL_MARKET_MODE_ALL:
+        return [*ROYAL_CITIES, BLACK_MARKET_CITY], SELL_MARKET_MODE_ALL
+
+    destinations = [*ROYAL_CITIES]
+    if include_black_market:
+        destinations.append(BLACK_MARKET_CITY)
+    return destinations, SELL_MARKET_MODE_ALL if include_black_market else "royal"
 
 
 def _tier_from_unique_name(unique_name: str) -> int | None:

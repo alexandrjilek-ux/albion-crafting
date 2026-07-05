@@ -455,6 +455,7 @@ export interface SellRequest {
   from_city?: string;
   history_days?: number;
   include_black_market?: boolean;
+  market_mode?: 'all' | 'royal_no_caerleon' | 'black_market_only';
   items: SellItemInput[];
 }
 
@@ -491,6 +492,7 @@ export interface SellResponse {
   count: number;
   from_city: string;
   include_black_market: boolean;
+  market_mode?: string;
   generated_at: string;
 }
 

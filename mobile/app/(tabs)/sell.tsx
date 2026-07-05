@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
   Image,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -57,6 +58,8 @@ const TIER_FILTERS: ReadonlyArray<{ value: string; label: string }> = [1, 2, 3, 
   label: `T${tier}`,
 }));
 
+type SellMarketMode = 'royal_no_caerleon' | 'black_market_only' | 'all';
+
 const COPY: Record<LanguageCode, {
   title: string;
   subtitle: string;
@@ -67,6 +70,13 @@ const COPY: Record<LanguageCode, {
   blackMarketOn: string;
   blackMarketOff: string;
   blackMarketRoute: string;
+  analyzeTarget: string;
+  normalCities: string;
+  normalCitiesHint: string;
+  blackMarketOnly: string;
+  blackMarketOnlyHint: string;
+  compareAll: string;
+  compareAllHint: string;
   itemName: string;
   quantity: string;
   category: string;
@@ -99,6 +109,13 @@ const COPY: Record<LanguageCode, {
     blackMarketOn: 'Zapnuto',
     blackMarketOff: 'Vypnuto',
     blackMarketRoute: 'Prodat přes Caerleon',
+    analyzeTarget: 'Analyze target',
+    normalCities: 'Města bez Caerleonu',
+    normalCitiesHint: 'Bridgewatch, Martlock, Lymhurst, Thetford, Fort Sterling',
+    blackMarketOnly: 'Jen Black Market',
+    blackMarketOnlyHint: 'Pouze buy ordery v Caerleonu',
+    compareAll: 'Porovnat vše',
+    compareAllHint: 'Royal cities + Caerleon + Black Market',
     itemName: 'Co máš v batohu',
     quantity: 'Kusy',
     category: 'Kategorie',
@@ -131,6 +148,13 @@ const COPY: Record<LanguageCode, {
     blackMarketOn: 'Enabled',
     blackMarketOff: 'Disabled',
     blackMarketRoute: 'Sell via Caerleon',
+    analyzeTarget: 'Analyze target',
+    normalCities: 'Cities no Caerleon',
+    normalCitiesHint: 'Bridgewatch, Martlock, Lymhurst, Thetford, Fort Sterling',
+    blackMarketOnly: 'Black Market only',
+    blackMarketOnlyHint: 'Only Caerleon Black Market buy orders',
+    compareAll: 'Compare all',
+    compareAllHint: 'Royal cities + Caerleon + Black Market',
     itemName: 'What is in your inventory',
     quantity: 'Qty',
     category: 'Category',
@@ -179,10 +203,12 @@ export default function SellScreen() {
   const { width } = useWindowDimensions();
   const copy = COPY[language];
   const styles = useMemo(() => createStyles(themeColors), [themeColors]);
-  const isWide = width >= breakpoints.tablet;
+  const isWeb = Platform.OS === 'web';
+  const isWide = isWeb && width >= breakpoints.tablet;
 
   const [fromCity, setFromCity] = useState<CityName>('Bridgewatch');
   const [includeBlackMarket, setIncludeBlackMarket] = useState<boolean>(true);
+  const [marketMode, setMarketMode] = useState<SellMarketMode>('royal_no_caerleon');
   const [drafts, setDrafts] = useState<DraftItem[]>([firstDraft()]);
   const [data, setData] = useState<SellResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -280,7 +306,8 @@ export default function SellScreen() {
       const result = await fetchSellRecommendations({
         from_city: fromCity,
         history_days: 7,
-        include_black_market: includeBlackMarket,
+        include_black_market: isWeb ? marketMode !== 'royal_no_caerleon' : includeBlackMarket,
+        ...(isWeb ? { market_mode: marketMode } : {}),
         items: validItems,
       });
       setData(result);
@@ -307,12 +334,37 @@ export default function SellScreen() {
             <Text style={styles.label}>{copy.from}</Text>
             <FilterChips items={CITY_FILTERS} active={fromCity} onChange={setFromCity} activeTone="arcane" />
 
-            <BlackMarketPanel
-              copy={copy}
-              enabled={includeBlackMarket}
-              onToggle={() => setIncludeBlackMarket((value) => !value)}
-              styles={styles}
-            />
+            {isWeb ? (
+              <BlackMarketPanel
+                copy={copy}
+                enabled={marketMode !== 'royal_no_caerleon'}
+                marketMode={marketMode}
+                styles={styles}
+              />
+            ) : (
+              <Pressable
+                onPress={() => setIncludeBlackMarket((value) => !value)}
+                style={({ pressed }) => [
+                  styles.legacyBlackMarketToggle,
+                  includeBlackMarket && styles.legacyBlackMarketToggleOn,
+                  pressed && styles.pressed,
+                ]}
+              >
+                <Ionicons
+                  name={includeBlackMarket ? 'checkbox' : 'square-outline'}
+                  size={18}
+                  color={includeBlackMarket ? themeColors.arcane : themeColors.textMuted}
+                />
+                <Text
+                  style={[
+                    styles.legacyBlackMarketToggleText,
+                    includeBlackMarket && styles.legacyBlackMarketToggleTextOn,
+                  ]}
+                >
+                  {copy.includeBlackMarket}
+                </Text>
+              </Pressable>
+            )}
 
             <View style={styles.draftList}>
               {drafts.map((draft, index) => (
@@ -396,6 +448,14 @@ export default function SellScreen() {
             </View>
 
             <View style={styles.actions}>
+              {isWeb ? (
+                <MarketModeControl
+                  copy={copy}
+                  onChange={setMarketMode}
+                  styles={styles}
+                  value={marketMode}
+                />
+              ) : null}
               <Pressable onPress={addDraft} style={({ pressed }) => [styles.secondaryButton, pressed && styles.pressed]}>
                 <Ionicons name="add" size={17} color={themeColors.frost} />
                 <Text style={styles.secondaryButtonText}>{copy.addItem}</Text>
@@ -423,7 +483,7 @@ export default function SellScreen() {
                   <SellResultCard key={row.unique_name} row={row} copy={copy} styles={styles} />
                 ))}
               </View>
-            ) : !error ? (
+            ) : !error && isWeb ? (
               <EmptyResultsCard copy={copy} styles={styles} />
             ) : null}
           </View>
@@ -436,23 +496,23 @@ export default function SellScreen() {
 function BlackMarketPanel({
   copy,
   enabled,
-  onToggle,
+  marketMode,
   styles,
 }: {
   copy: (typeof COPY)[LanguageCode];
   enabled: boolean;
-  onToggle: () => void;
+  marketMode: SellMarketMode;
   styles: ReturnType<typeof createStyles>;
 }) {
+  const modeLabel =
+    marketMode === 'black_market_only'
+      ? copy.blackMarketOnly
+      : marketMode === 'all'
+        ? copy.compareAll
+        : copy.normalCities;
+
   return (
-    <Pressable
-      onPress={onToggle}
-      style={({ pressed }) => [
-        styles.blackMarketPanel,
-        enabled && styles.blackMarketPanelOn,
-        pressed && styles.pressed,
-      ]}
-    >
+    <View style={[styles.blackMarketPanel, enabled && styles.blackMarketPanelOn]}>
       <View style={styles.blackMarketIcon}>
         <Ionicons name="skull-outline" size={22} color={styles.activeIconColor.color} />
       </View>
@@ -466,7 +526,7 @@ function BlackMarketPanel({
               color={enabled ? styles.activeIconColor.color : styles.mutedIconColor.color}
             />
             <Text style={[styles.blackMarketStatusText, enabled && styles.blackMarketStatusTextOn]}>
-              {enabled ? copy.blackMarketOn : copy.blackMarketOff}
+              {modeLabel}
             </Text>
           </View>
         </View>
@@ -477,7 +537,51 @@ function BlackMarketPanel({
           <Text style={styles.blackMarketRoute}>Black Market</Text>
         </View>
       </View>
-    </Pressable>
+    </View>
+  );
+}
+
+function MarketModeControl({
+  copy,
+  onChange,
+  styles,
+  value,
+}: {
+  copy: (typeof COPY)[LanguageCode];
+  onChange: (value: SellMarketMode) => void;
+  styles: ReturnType<typeof createStyles>;
+  value: SellMarketMode;
+}) {
+  const modes: ReadonlyArray<{ value: SellMarketMode; label: string; hint: string }> = [
+    { value: 'royal_no_caerleon', label: copy.normalCities, hint: copy.normalCitiesHint },
+    { value: 'black_market_only', label: copy.blackMarketOnly, hint: copy.blackMarketOnlyHint },
+    { value: 'all', label: copy.compareAll, hint: copy.compareAllHint },
+  ];
+  return (
+    <View style={styles.marketModePanel}>
+      <Text style={styles.marketModeTitle}>{copy.analyzeTarget}</Text>
+      <View style={styles.marketModeGrid}>
+        {modes.map((mode) => {
+          const active = mode.value === value;
+          return (
+            <Pressable
+              key={mode.value}
+              onPress={() => onChange(mode.value)}
+              style={({ pressed }) => [
+                styles.marketModeOption,
+                active && styles.marketModeOptionActive,
+                pressed && styles.pressed,
+              ]}
+            >
+              <Text style={[styles.marketModeOptionLabel, active && styles.marketModeOptionLabelActive]}>
+                {mode.label}
+              </Text>
+              <Text style={styles.marketModeOptionHint}>{mode.hint}</Text>
+            </Pressable>
+          );
+        })}
+      </View>
+    </View>
   );
 }
 
@@ -803,6 +907,25 @@ function createStyles(colors: AppColors) {
       marginTop: spacing.xs,
     },
     blackMarketRoute: { ...typography.captionStrong, color: colors.arcane },
+    legacyBlackMarketToggle: {
+      alignSelf: 'flex-start',
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: spacing.xs,
+      marginTop: spacing.sm,
+      paddingHorizontal: spacing.sm,
+      paddingVertical: spacing.xs,
+      borderRadius: radius.pill,
+      borderWidth: 1,
+      borderColor: colors.line,
+      backgroundColor: colors.tagBg,
+    },
+    legacyBlackMarketToggleOn: {
+      borderColor: colors.arcaneGlow,
+      backgroundColor: colors.arcaneSoft,
+    },
+    legacyBlackMarketToggleText: { ...typography.captionStrong, color: colors.textSecondary },
+    legacyBlackMarketToggleTextOn: { color: colors.arcane },
     draftList: { gap: spacing.md, marginTop: spacing.lg },
     draftCard: { gap: spacing.sm },
     draftHeader: {
@@ -915,7 +1038,37 @@ function createStyles(colors: AppColors) {
     tierOptionActive: { backgroundColor: colors.frostSoft },
     tierOptionText: { ...typography.bodyStrong, color: colors.textSecondary },
     tierOptionTextActive: { color: colors.frost },
-    actions: { flexDirection: 'row', gap: spacing.sm, marginTop: spacing.lg },
+    actions: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm, marginTop: spacing.lg },
+    marketModePanel: {
+      flexBasis: '100%',
+      gap: spacing.sm,
+      padding: spacing.md,
+      borderRadius: radius.lg,
+      borderWidth: 1,
+      borderColor: colors.lineStrong,
+      backgroundColor: colors.surface1,
+    },
+    marketModeTitle: { ...typography.captionStrong, color: colors.textMuted },
+    marketModeGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
+    marketModeOption: {
+      flex: 1,
+      minWidth: 150,
+      minHeight: 72,
+      justifyContent: 'center',
+      gap: spacing.xs,
+      padding: spacing.sm,
+      borderRadius: radius.base,
+      borderWidth: 1,
+      borderColor: colors.line,
+      backgroundColor: colors.surface2,
+    },
+    marketModeOptionActive: {
+      borderColor: colors.frostGlow,
+      backgroundColor: colors.frostSoft,
+    },
+    marketModeOptionLabel: { ...typography.captionStrong, color: colors.textPrimary },
+    marketModeOptionLabelActive: { color: colors.frost },
+    marketModeOptionHint: { ...typography.caption, color: colors.textSecondary, lineHeight: 16 },
     secondaryButton: {
       flex: 1,
       minHeight: 46,

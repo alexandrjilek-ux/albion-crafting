@@ -96,6 +96,52 @@ def test_sell_recommendation_uses_black_market_buy_orders(monkeypatch):
     assert "transport_needed" not in row["options"][0]["risk_flags"]
 
 
+def test_sell_market_mode_filters_destinations(monkeypatch):
+    seen_locations = []
+
+    def fake_fetch_prices(item_ids, locations, quality=1):
+        seen_locations.append(list(locations))
+        return {
+            ("T4_BAG", location): {
+                "sell_min": 1000,
+                "buy_max": 2000,
+                "sell_updated": "2026-07-04T10:00:00Z",
+                "buy_updated": "2026-07-04T10:00:00Z",
+            }
+            for location in locations
+        }
+
+    def fake_fetch_history(item_ids, locations, days=7, quality=1):
+        return {("T4_BAG", location): [{"item_count": 10}] for location in locations}
+
+    monkeypatch.setattr(sell_service, "fetch_prices", fake_fetch_prices)
+    monkeypatch.setattr(sell_service, "fetch_history", fake_fetch_history)
+
+    item = SellItemInput(unique_name="T4_BAG", quantity=1, category="BAG", tier=4)
+
+    royal = sell_service.get_sell_recommendations(
+        from_city="Bridgewatch",
+        history_days=7,
+        market_mode="royal_no_caerleon",
+        items=[item],
+    )
+    black_market = sell_service.get_sell_recommendations(
+        from_city="Caerleon",
+        history_days=7,
+        market_mode="black_market_only",
+        items=[item],
+    )
+
+    assert "Caerleon" not in seen_locations[0]
+    assert "Black Market" not in seen_locations[0]
+    assert seen_locations[1] == ["Black Market"]
+    assert royal["market_mode"] == "royal_no_caerleon"
+    assert royal["include_black_market"] is False
+    assert black_market["market_mode"] == "black_market_only"
+    assert black_market["include_black_market"] is True
+    assert black_market["rows"][0]["best_city"] == "Black Market"
+
+
 def test_sell_request_normalizes_ids_and_category():
     item = SellItemInput(unique_name=" t4_bag ", quantity=2, category=" bag ")
     assert item.unique_name == "T4_BAG"

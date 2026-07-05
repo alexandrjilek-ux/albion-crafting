@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Literal, List, Optional
 
 from pydantic import BaseModel, Field, field_validator
 
@@ -56,6 +56,16 @@ class SellRequest(BaseModel):
         default=True,
         description="When true, include Caerleon's Black Market buy orders as a sell destination.",
     )
+    market_mode: Optional[
+        Literal["all", "royal_no_caerleon", "black_market_only"]
+    ] = Field(
+        default=None,
+        description=(
+            "Optional web pilot destination preset. all = royal cities plus Black Market; "
+            "royal_no_caerleon = royal cities excluding Caerleon and Black Market; "
+            "black_market_only = only Black Market buy orders. None preserves legacy include_black_market behavior."
+        ),
+    )
     items: List[SellItemInput] = Field(
         ...,
         min_length=1,
@@ -108,4 +118,5 @@ class SellResponse(BaseModel):
     count: int
     from_city: str
     include_black_market: bool = Field(..., description="Whether Black Market was included.")
+    market_mode: str = Field(..., description="Destination preset used for the analysis.")
     generated_at: str = Field(..., description="ISO-8601 timestamp.")
